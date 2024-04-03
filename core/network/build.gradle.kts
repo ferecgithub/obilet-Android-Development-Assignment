@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.ferechamitebeyli.core"
+    namespace = "com.ferechamitebeyli.network"
     compileSdk = 34
 
     defaultConfig {
@@ -42,4 +42,5 @@ dependencies {
     implementation(libs.coroutinesAndroid)
     implementation(libs.coroutinesCore)
 
+    implementation(libs.androidx.junit.ktx)
 }

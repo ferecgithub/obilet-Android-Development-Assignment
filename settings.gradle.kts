@@ -23,3 +23,5 @@ rootProject.name = "ObiletAndroidAssignment"
 include(":app")
 include(":core")
 include(":feature:journey")
+include(":core:caching")
+include(":core:network")

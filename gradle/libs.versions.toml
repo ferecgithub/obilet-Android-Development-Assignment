@@ -1,5 +1,6 @@
 [versions]
 agp = "8.3.1"
+datastorePreferences = "1.0.0"
 hiltAndroidGradlePlugin = "2.51.1"
 hiltAndroidVersion = "2.51.1"
 kotlin = "1.9.21"
@@ -14,9 +15,11 @@ constraintlayout = "2.1.4"
 retrofit2Version = "2.11.0"
 moshiVersion = "2.11.0"
 coroutinesVersion = "1.8.1-Beta"
+junitKtx = "1.1.5"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hiltAndroidGradlePlugin" }
 hiltAndroid = { group = "com.google.dagger", name = "hilt-android", version.ref = "hiltAndroidVersion" }
 hiltKapt = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hiltAndroidVersion" }
@@ -31,6 +34,7 @@ retrofit2 = { group = "com.squareup.retrofit2", name = "retrofit", version.ref =
 moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "moshiVersion" }
 coroutinesCore = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutinesVersion" }
 coroutinesAndroid = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutinesVersion" }
+androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

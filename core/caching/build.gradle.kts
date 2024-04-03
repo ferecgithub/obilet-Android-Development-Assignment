@@ -1,21 +1,17 @@
 plugins {
-    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    kotlin("kapt") version "1.9.23"
 }
 
 android {
-    namespace = "com.ferechamitebeyli.obiletandroidassignment"
+    namespace = "com.ferechamitebeyli.caching"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.ferechamitebeyli.obiletandroidassignment"
         minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -37,15 +33,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:caching"))
-    implementation(project(":core:network"))
-    implementation(project(":feature:journey"))
 
-    implementation(libs.hiltAndroid)
-    kapt(libs.hiltKapt)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
 
-
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.junit.ktx)
 }

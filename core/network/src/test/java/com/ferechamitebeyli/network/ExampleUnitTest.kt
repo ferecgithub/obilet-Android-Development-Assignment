@@ -1,4 +1,4 @@
-package com.ferechamitebeyli.core
+package com.ferechamitebeyli.network
 
 import org.junit.Test
 
