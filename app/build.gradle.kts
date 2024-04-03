@@ -41,6 +41,12 @@ dependencies {
     implementation(project(":core:network"))
     implementation(project(":feature:journey"))
 
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.constraintlayout)
+
     implementation(libs.hiltAndroid)
     kapt(libs.hiltKapt)
 
