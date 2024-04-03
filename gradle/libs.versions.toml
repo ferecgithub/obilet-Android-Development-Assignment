@@ -16,6 +16,7 @@ retrofit2Version = "2.11.0"
 moshiVersion = "2.11.0"
 coroutinesVersion = "1.8.1-Beta"
 junitKtx = "1.1.5"
+navigationVersion = "2.7.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -34,6 +35,9 @@ retrofit2 = { group = "com.squareup.retrofit2", name = "retrofit", version.ref =
 moshi = { group = "com.squareup.retrofit2", name = "converter-moshi", version.ref = "moshiVersion" }
 coroutinesCore = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutinesVersion" }
 coroutinesAndroid = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutinesVersion" }
+navigationFragment = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationVersion" }
+navigationUi = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationVersion" }
+navigationSafeArgs = { group = "androidx.navigation", name = "navigation-safe-args-gradle-plugin", version.ref = "navigationVersion" }
 androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 
 [plugins]

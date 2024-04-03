@@ -34,11 +34,16 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
     implementation(project(":core:caching"))
     implementation(project(":core:network"))
+    implementation(project(":core:navigation"))
     implementation(project(":feature:journey"))
 
     implementation(libs.androidx.core.ktx)

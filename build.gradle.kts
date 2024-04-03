@@ -15,6 +15,7 @@ buildscript {
     dependencies {
         // other plugins...
         classpath(libs.hilt.android.gradle.plugin)
+        classpath(libs.navigationSafeArgs)
         classpath(kotlin("gradle-plugin", version = "1.9.21"))
     }
 }
