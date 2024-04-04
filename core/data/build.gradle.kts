@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.ferechamitebeyli.caching"
+    namespace = "com.ferechamitebeyli.data"
     compileSdk = 34
 
     defaultConfig {
@@ -39,13 +39,17 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:caching"))
+    implementation(project(":core:network"))
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
+    implementation(libs.coroutinesAndroid)
+    implementation(libs.coroutinesCore)
 
     implementation(libs.hiltAndroid)
     kapt(libs.hiltKapt)
 
-    implementation(libs.androidx.datastore.preferences)
-    implementation(libs.androidx.junit.ktx)
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 }
