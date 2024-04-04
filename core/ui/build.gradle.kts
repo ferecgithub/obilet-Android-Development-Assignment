@@ -36,9 +36,11 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-
+    api(libs.material)
+    api(libs.viewpager2)
     api(libs.coil)
+    implementation(libs.navigationFragment)
+    implementation(libs.navigationUi)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
