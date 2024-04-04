@@ -12,6 +12,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        buildConfigField(String(), "BASE_URL", "https://v2-api.obilet.com/api/")
     }
 
     buildTypes {
