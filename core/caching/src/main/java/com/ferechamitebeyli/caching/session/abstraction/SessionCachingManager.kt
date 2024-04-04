@@ -6,4 +6,5 @@ package com.ferechamitebeyli.caching.session.abstraction
 
 interface SessionCachingManager {
     suspend fun cacheLastQueries(origin: String, destination: String, departureDate: String)
+    suspend fun clearCache()
 }

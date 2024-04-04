@@ -46,7 +46,7 @@ class SessionCachingManagerImpl @Inject constructor(
         }
     }
 
-    suspend fun clearCache() {
+    override suspend fun clearCache() {
         oBiletDataStore.edit {
             it[lastQueriedOrigin] = ""
             it[lastQueriedDestination] = ""
