@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_primary">#2F4EB4</color>
+    <color name="color_priceTag">#D23B38</color>
+    <color name="color_passiveText">#5D686E</color>
+</resources>
