@@ -1,11 +1,19 @@
 package com.ferechamitebeyli.network.dto.journey.getbusjourneys.response
 
+import com.squareup.moshi.Json
+
 data class Policy(
-    val gov-id: Boolean,
+    @Json(name = "gov-id")
+    val govId: Boolean,
     val lht: Boolean,
-    val max-seats: Any,
-    val max-single: Any,
-    val max-single-females: Any,
-    val max-single-males: Any,
-    val mixed-genders: Boolean
+    @Json(name = "max-seats")
+    val maxSeats: Int?,
+    @Json(name = "max-single")
+    val maxSingle: Int?,
+    @Json(name = "max-single-females")
+    val maxSingleFemales: Int?,
+    @Json(name = "max-single-males")
+    val maxSingleMales: Int?,
+    @Json(name = "mixed-genders")
+    val mixedGenders: Boolean
 )

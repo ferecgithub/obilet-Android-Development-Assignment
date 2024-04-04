@@ -4,6 +4,6 @@ object JourneyEndpoints {
 
     private const val JOURNEY_PATH = "journey/"
 
-    const val GET_BUS_LOCATIONS_ENDPOINT = JOURNEY_PATH + "getbusjourneys"
+    const val GET_BUS_JOURNEYS_ENDPOINT = JOURNEY_PATH + "getbusjourneys"
 
 }

@@ -3,14 +3,14 @@ package com.ferechamitebeyli.network.dto.client.getsession.response
 import com.squareup.moshi.Json
 
 data class Data(
-    val affiliate: Any,
-    val device: Any,
+    val affiliate: Any?,
+    val device: Any?,
     @Json(name = "device-id")
-    val deviceId: String,
+    val deviceId: String?,
     @Json(name = "device-type")
-    val deviceType: Int,
+    val deviceType: Int?,
     @Json(name = "ip-country")
-    val ipCountry: String,
+    val ipCountry: String?,
     @Json(name = "session-id")
-    val sessionId: String
+    val sessionId: String?
 )

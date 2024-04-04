@@ -1,14 +1,21 @@
 package com.ferechamitebeyli.network.dto.location.getbuslocations.response
 
+import com.squareup.moshi.Json
+
 data class GetBusLocationsResponseModel(
-    val api-request-id: Any,
-    val client-request-id: Any,
+    @Json(name = "api-request-id")
+    val apiRequestId: Any?,
+    @Json(name = "client-request-id")
+    val clientRequestId: Any?,
     val controller: String,
-    val correlation-id: String,
+    @Json(name = "correlation-id")
+    val correlationId: String,
     val `data`: List<Data>,
-    val message: Any,
-    val parameters: Any,
+    val message: Any?,
+    val parameters: Any?,
     val status: String,
-    val user-message: Any,
-    val web-correlation-id: Any
+    @Json(name = "user-message")
+    val userMessage: Any?,
+    @Json(name = "web-correlation-id")
+    val webCorrelationId: Any?
 )

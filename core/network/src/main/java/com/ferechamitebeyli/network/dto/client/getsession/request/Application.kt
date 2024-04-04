@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 
 data class Application(
     @Json(name = "equipment-id")
-    val equipmentId: String,
+    val equipmentId: String?,
     @Json(name = "version")
-    val version: String
+    val version: String?
 )

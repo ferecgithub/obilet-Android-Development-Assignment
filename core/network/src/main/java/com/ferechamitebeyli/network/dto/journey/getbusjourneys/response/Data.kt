@@ -1,24 +1,43 @@
 package com.ferechamitebeyli.network.dto.journey.getbusjourneys.response
 
+import com.squareup.moshi.Json
+
 data class Data(
-    val available-seats: Int,
-    val bus-type: String,
-    val cancellation-offset: Int,
-    val destination-location: String,
-    val destination-location-id: Int,
-    val disable-sales-without-gov-id: Boolean,
-    val display-offset: Any,
+    @Json(name = "available-seats")
+    val availableSeats: Int,
+    @Json(name = "bus-type")
+    val busType: String,
+    @Json(name = "cancellation-offset")
+    val cancellationOffset: Int,
+    @Json(name = "destination-location")
+    val destinationLocation: String,
+    @Json(name = "destination-location-id")
+    val destinationLocationId: Int,
+    @Json(name = "disable-sales-without-gov-id")
+    val disableSalesWithoutGovId: Boolean,
+    @Json(name = "display-offset")
+    val displayOffset: Any,
     val features: List<Feature>,
-    val has-bus-shuttle: Boolean,
+    @Json(name = "has-bus-shuttle")
+    val hasBusShuttle: Boolean,
     val id: Int,
-    val is-active: Boolean,
-    val is-promoted: Boolean,
+    @Json(name = "is-active")
+    val isActive: Boolean,
+    @Json(name = "is-promoted")
+    val isPromoted: Boolean,
     val journey: Journey,
-    val origin-location: String,
-    val origin-location-id: Int,
-    val partner-id: Int,
-    val partner-name: String,
-    val partner-rating: Double,
-    val route-id: Int,
-    val total-seats: Int
+    @Json(name = "origin-location")
+    val originLocation: String,
+    @Json(name = "origin-location-id")
+    val originLocationId: Int,
+    @Json(name = "partner-id")
+    val partnerId: Int,
+    @Json(name = "partner-name")
+    val partnerName: String,
+    @Json(name = "partner-rating")
+    val partnerRating: Double,
+    @Json(name = "route-id")
+    val routeId: Int,
+    @Json(name = "total-seats")
+    val totalSeats: Int
 )

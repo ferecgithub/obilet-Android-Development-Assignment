@@ -1,26 +1,42 @@
 package com.ferechamitebeyli.network.dto.location.getbuslocations.response
 
+import com.squareup.moshi.Json
+
 data class Data(
-    val area-code: Any,
-    val city-id: Int,
-    val city-name: String,
-    val code: Any,
-    val country-id: Int,
-    val country-name: String,
-    val geo-location: GeoLocation,
+    @Json(name = "area-code")
+    val areaCode: Any?,
+    @Json(name = "city-id")
+    val cityId: Int?,
+    @Json(name = "city-name")
+    val cityName: String?,
+    val code: Any?,
+    @Json(name = "country-id")
+    val countryId: Int,
+    @Json(name = "country-name")
+    val countryName: String,
+    @Json(name = "geo-location")
+    val geoLocation: GeoLocation,
     val id: Int,
-    val is-city-center: Boolean,
+    @Json(name = "is-city-center")
+    val isCityCenter: Boolean,
     val keywords: String,
-    val languages: Any,
-    val long-name: String,
+    val languages: Any?,
+    @Json(name = "long-name")
+    val longName: String,
     val name: String,
-    val parent-id: Int,
-    val rank: Int,
-    val reference-code: String,
-    val reference-country: Any,
-    val show-country: Boolean,
+    @Json(name = "parent-id")
+    val parentId: Int?,
+    val rank: Int?,
+    @Json(name = "reference-code")
+    val referenceCode: String,
+    @Json(name = "reference-country")
+    val referenceCountry: String?,
+    @Json(name = "show-country")
+    val showCountry: Boolean,
     val type: String,
-    val tz-code: String,
-    val weather-code: Any,
+    @Json(name = "tz-code")
+    val tzCode: String,
+    @Json(name = "weather-code")
+    val weatherCode: String,
     val zoom: Int
 )

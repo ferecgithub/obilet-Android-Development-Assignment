@@ -1,10 +1,14 @@
 package com.ferechamitebeyli.network.dto.journey.getbusjourneys.response
 
+import com.squareup.moshi.Json
+
 data class GetBusJourneysResponseModel(
-    val api-request-id: Any,
+    @Json(name = "api-request-id")
+    val apiRequestId: Any?,
     val controller: String,
     val `data`: List<Data>,
-    val message: Any,
+    val message: Any?,
     val status: String,
-    val user-message: Any
+    @Json(name = "user-message")
+    val userMessage: Any?
 )

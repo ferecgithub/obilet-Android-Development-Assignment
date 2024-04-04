@@ -4,12 +4,12 @@ import com.squareup.moshi.Json
 
 data class GetSessionResponseModel(
     @Json(name = "api-request-id")
-    val apiRequestId: Any,
+    val apiRequestId: Any?,
     @Json(name = "client-request-id")
-    val clientRequestId: Any,
-    val controller: String,
+    val clientRequestId: Any?,
+    val controller: String?,
     @Json(name = "correlation-id")
-    val correlationId: String,
+    val correlationId: String?,
     val `data`: Data,
     val message: Any,
     val parameters: Any,

@@ -4,5 +4,5 @@ import com.squareup.moshi.Json
 
 data class Connection(
     @Json(name = "ip-address")
-    val ipAddress: String
+    val ipAddress: String?
 )
