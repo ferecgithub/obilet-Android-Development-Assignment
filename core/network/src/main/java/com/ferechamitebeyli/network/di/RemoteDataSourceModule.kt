@@ -19,12 +19,12 @@ import dagger.hilt.components.SingletonComponent
 interface RemoteDataSourceModule {
 
     @get:Binds
-    var ClientRemoteDataSourceImpl.clientRemoteDataSource: ClientRemoteDataSource
+    val ClientRemoteDataSourceImpl.clientRemoteDataSource: ClientRemoteDataSource
 
     @get:Binds
-    var LocationRemoteDataSourceImpl.locationRemoteDataSource: LocationRemoteDataSource
+    val LocationRemoteDataSourceImpl.locationRemoteDataSource: LocationRemoteDataSource
 
     @get:Binds
-    var JourneyRemoteDataSourceImpl.journeyRemoteDataSource: JourneyRemoteDataSource
+    val JourneyRemoteDataSourceImpl.journeyRemoteDataSource: JourneyRemoteDataSource
 
 }
