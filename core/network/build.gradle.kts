@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    kotlin("kapt") version "1.9.23"
 }
 
 android {
@@ -32,6 +33,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    kapt {
+        correctErrorTypes = true
+    }
 }
 
 dependencies {
@@ -41,8 +46,12 @@ dependencies {
 
     implementation(libs.retrofit2)
     implementation(libs.moshi)
+    implementation(libs.loggingInterceptor)
     implementation(libs.coroutinesAndroid)
     implementation(libs.coroutinesCore)
+
+    implementation(libs.hiltAndroid)
+    kapt(libs.hiltKapt)
 
     implementation(libs.androidx.junit.ktx)
 }
