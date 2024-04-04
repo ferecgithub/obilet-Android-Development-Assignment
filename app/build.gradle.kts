@@ -44,6 +44,7 @@ dependencies {
     implementation(project(":core:caching"))
     implementation(project(":core:network"))
     implementation(project(":core:navigation"))
+    implementation(project(":core:ui"))
     implementation(project(":feature:journey"))
 
     implementation(libs.androidx.core.ktx)
