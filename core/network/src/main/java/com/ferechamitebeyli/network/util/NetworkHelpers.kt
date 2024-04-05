@@ -24,7 +24,7 @@ import java.io.IOException
  * @param apiCall is service function that will fetch the data from oBilet Mobile api.
  */
 suspend fun <ResponseType, MappedResponseType> safeApiCall(
-    mapFromModel: ((List<ResponseType>) -> MappedResponseType)? = null,
+    mapFromModel: ((List<ResponseType>) -> MappedResponseType),
     dispatcher: CoroutineDispatcher = Dispatchers.IO,
     apiCall: suspend () -> Response<GenericResponseModel<ResponseType>>
 ): Flow<Resource<MappedResponseType>> {
@@ -42,8 +42,8 @@ suspend fun <ResponseType, MappedResponseType> safeApiCall(
                  */
                 response.body()?.let { model ->
                     if (model.status == ResponseStatusEnum.SUCCESS.status) {
-                        model.data?.let {
-                            emit(Resource.Success(mapFromModel?.invoke(it)))
+                        model.data?.let { list ->
+                            emit(Resource.Success(mapFromModel.invoke(list)))
                         }
                     } else {
                         emit(
