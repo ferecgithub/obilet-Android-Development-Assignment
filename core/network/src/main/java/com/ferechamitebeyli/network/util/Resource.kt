@@ -12,6 +12,6 @@ sealed class Resource<T>(
 
     class Error<T>(data: T? = null, text: UiText) : Resource<T>(data = data, error = text)
 
-    class Loading<T>(data: T? = null) : Resource<T>(data)
+    class Loading<T> : Resource<T>()
 
 }

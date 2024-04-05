@@ -1,7 +1,6 @@
 package com.ferechamitebeyli.data.repository.client.implementation
 
 import com.ferechamitebeyli.caching.session.abstraction.SessionCachingManager
-import com.ferechamitebeyli.data.R
 import com.ferechamitebeyli.data.model.common.LastQueryUiModel
 import com.ferechamitebeyli.data.repository.client.abstraction.ClientRepository
 import com.ferechamitebeyli.network.util.Resource
@@ -14,11 +13,8 @@ import com.ferechamitebeyli.network.util.UiText
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.forEach
-import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.withContext
 import java.io.IOException
@@ -48,6 +44,7 @@ class ClientRepositoryImpl @Inject constructor(
                     response.body()?.let { model ->
                         if (model.status == ResponseStatusEnum.SUCCESS.status) {
                             model.data?.let {
+                                // Caching the device session
                                 cachingDataSource.cacheDeviceSession(
                                     model.data?.deviceId ?: "",
                                     model.data?.sessionId ?: ""
