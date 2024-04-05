@@ -6,10 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ferechamitebeyli.journey.R
+import com.ferechamitebeyli.journey.databinding.FragmentBusJourneyIndexBinding
+import com.ferechamitebeyli.journey.databinding.FragmentFlightQueryBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FlightQueryFragment : Fragment() {
+    private var _binding: FragmentFlightQueryBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,9 +23,15 @@ class FlightQueryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_flight_query, container, false)
+    ): View {
+        _binding = FragmentFlightQueryBinding.inflate(inflater, container, false)
+
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

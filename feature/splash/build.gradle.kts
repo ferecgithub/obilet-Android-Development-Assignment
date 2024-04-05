@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.ferechamitebeyli.journey"
+    namespace = "com.ferechamitebeyli.splash"
     compileSdk = 34
 
     defaultConfig {
