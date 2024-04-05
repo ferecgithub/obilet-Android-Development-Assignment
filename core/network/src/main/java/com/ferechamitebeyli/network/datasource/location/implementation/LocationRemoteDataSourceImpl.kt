@@ -1,8 +1,9 @@
 package com.ferechamitebeyli.network.datasource.location.implementation
 
 import com.ferechamitebeyli.network.datasource.location.abstraction.LocationRemoteDataSource
-import com.ferechamitebeyli.network.dto.location.getbuslocations.request.GetBusLocationsRequestModel
-import com.ferechamitebeyli.network.dto.location.getbuslocations.response.GetBusLocationsResponseModel
+import com.ferechamitebeyli.network.dto.common.request.GenericRequestModel
+import com.ferechamitebeyli.network.dto.common.response.GenericResponseModel
+import com.ferechamitebeyli.network.dto.location.getbuslocations.response.Data
 import com.ferechamitebeyli.network.service.location.LocationService
 import retrofit2.Response
 import javax.inject.Inject
@@ -14,7 +15,7 @@ import javax.inject.Inject
 class LocationRemoteDataSourceImpl @Inject constructor(
     private val service: LocationService
 ) : LocationRemoteDataSource {
-    override suspend fun getBusLocations(body: GetBusLocationsRequestModel): Response<GetBusLocationsResponseModel> {
+    override suspend fun getBusLocations(body: GenericRequestModel<String>): Response<GenericResponseModel<Data>> {
         return service.getBusLocations(body)
     }
 }

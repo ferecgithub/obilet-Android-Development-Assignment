@@ -1,7 +1,8 @@
 package com.ferechamitebeyli.network.datasource.journey.abstraction
 
-import com.ferechamitebeyli.network.dto.journey.getbusjourneys.request.GetBusJourneysRequestModel
-import com.ferechamitebeyli.network.dto.journey.getbusjourneys.response.GetBusJourneysResponseModel
+import com.ferechamitebeyli.network.dto.common.request.GenericRequestModel
+import com.ferechamitebeyli.network.dto.common.response.GenericResponseModel
+import com.ferechamitebeyli.network.dto.journey.getbusjourneys.response.Data
 import retrofit2.Response
 
 /**
@@ -9,5 +10,5 @@ import retrofit2.Response
  */
 
 interface JourneyRemoteDataSource {
-    suspend fun getBusJourneys(body: GetBusJourneysRequestModel): Response<GetBusJourneysResponseModel>
+    suspend fun getBusJourneys(body: GenericRequestModel<com.ferechamitebeyli.network.dto.journey.getbusjourneys.request.Data>): Response<GenericResponseModel<Data>>
 }

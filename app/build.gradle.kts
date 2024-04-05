@@ -58,6 +58,7 @@ dependencies {
     implementation(project(":core:caching"))
     implementation(project(":core:network"))
     implementation(project(":core:navigation"))
+    implementation(project(":core:data"))
     implementation(project(":core:ui"))
     implementation(project(":feature:journey"))
 

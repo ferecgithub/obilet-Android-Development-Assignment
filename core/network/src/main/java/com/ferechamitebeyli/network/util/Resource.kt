@@ -1,4 +1,4 @@
-package com.ferechamitebeyli.data.util
+package com.ferechamitebeyli.network.util
 
 /**
  * Created by Ferec Hamitbeyli on 5.04.2024.

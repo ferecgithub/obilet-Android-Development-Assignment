@@ -1,4 +1,4 @@
-package com.ferechamitebeyli.network.dto.journey.getbusjourneys.request
+package com.ferechamitebeyli.network.dto.common.request
 
 import com.squareup.moshi.Json
 

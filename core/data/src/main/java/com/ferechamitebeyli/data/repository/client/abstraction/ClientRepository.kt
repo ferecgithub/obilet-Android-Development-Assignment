@@ -1,6 +1,6 @@
 package com.ferechamitebeyli.data.repository.client.abstraction
 
-import com.ferechamitebeyli.data.util.Resource
+import com.ferechamitebeyli.network.util.Resource
 import com.ferechamitebeyli.network.dto.client.getsession.request.GetSessionRequestModel
 import com.ferechamitebeyli.network.dto.client.getsession.response.GetSessionResponseModel
 import kotlinx.coroutines.flow.Flow

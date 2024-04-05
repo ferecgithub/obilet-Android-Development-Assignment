@@ -1,7 +1,8 @@
 package com.ferechamitebeyli.network.datasource.location.abstraction
 
-import com.ferechamitebeyli.network.dto.location.getbuslocations.request.GetBusLocationsRequestModel
-import com.ferechamitebeyli.network.dto.location.getbuslocations.response.GetBusLocationsResponseModel
+import com.ferechamitebeyli.network.dto.common.request.GenericRequestModel
+import com.ferechamitebeyli.network.dto.common.response.GenericResponseModel
+import com.ferechamitebeyli.network.dto.location.getbuslocations.response.Data
 import retrofit2.Response
 
 /**
@@ -9,5 +10,5 @@ import retrofit2.Response
  */
 
 interface LocationRemoteDataSource {
-    suspend fun getBusLocations(body: GetBusLocationsRequestModel): Response<GetBusLocationsResponseModel>
+    suspend fun getBusLocations(body: GenericRequestModel<String>): Response<GenericResponseModel<Data>>
 }
