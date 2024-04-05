@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/travelQueryFragment"
-        android:name="com.ferechamitebeyli.journey.presentation.fragment.TravelQueryFragment"
+        android:name="com.ferechamitebeyli.journey.presentation.fragment.query.TravelQueryFragment"
         android:label="fragment_travel_query"
         tools:layout="@layout/fragment_travel_query" >
         <action

@@ -1,4 +1,4 @@
-package com.ferechamitebeyli.journey.presentation.fragment
+package com.ferechamitebeyli.journey.presentation.fragment.query
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,7 +9,7 @@ import com.ferechamitebeyli.journey.R
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TravelQueryFragment : Fragment() {
+class FlightQueryFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +21,7 @@ class TravelQueryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_travel_query, container, false)
+        return inflater.inflate(R.layout.fragment_flight_query, container, false)
     }
 
 }
