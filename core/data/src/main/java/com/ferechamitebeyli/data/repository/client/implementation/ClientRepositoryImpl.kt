@@ -121,4 +121,24 @@ class ClientRepositoryImpl @Inject constructor(
             )
         }
     }
+
+    override suspend fun cacheLastQueries(
+        origin: String,
+        destination: String,
+        departureDate: String
+    ) {
+        cachingDataSource.cacheLastQueries(
+            origin, destination, departureDate
+        )
+    }
+
+    override suspend fun cacheDeviceSession(deviceId: String, sessionId: String) {
+        cachingDataSource.cacheDeviceSession(
+            deviceId, sessionId
+        )
+    }
+
+    override suspend fun clearCache() {
+        cachingDataSource.clearCache()
+    }
 }

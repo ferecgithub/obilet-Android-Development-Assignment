@@ -13,7 +13,11 @@ import kotlinx.coroutines.flow.Flow
 
 interface ClientRepository {
     suspend fun getSession(body: GetSessionRequestModel): Flow<Resource<GetSessionResponseModel>>
-
     fun getCachedDeviceSession(): Flow<DeviceSession>
     fun getCachedLastQueriedInformation(): Flow<LastQueryUiModel>
+
+    suspend fun cacheLastQueries(origin: String, destination: String, departureDate: String)
+    suspend fun cacheDeviceSession(deviceId: String, sessionId: String)
+
+    suspend fun clearCache()
 }
