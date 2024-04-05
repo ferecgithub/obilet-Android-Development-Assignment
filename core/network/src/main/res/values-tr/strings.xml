@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="message_safeApiCall_noResult">Sonuç bulunamadı.</string>
+    <string name="message_safeApiCall_timeoutError">İşlem zaman aşımına uğradı. Lütfen internet bağlantınızı kontrol edin ve daha sonra tekrar deneyin.</string>
+    <string name="message_safeApiCall_operationFailed">İşlem başarısız oldu. Lütfen bağlantınızı kontrol edin ve tekrar deneyin.</string>
+    <string name="message_safeApiCall_unknownError">Bilinmeyen bir hata oluştu. Lütfen bağlantınızı kontrol edin ve tekrar deneyin.</string>
 </resources>

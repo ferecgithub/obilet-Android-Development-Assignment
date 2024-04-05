@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="message_safeApiCall_noResult">No results found.</string>
+    <string name="message_safeApiCall_timeoutError">Operation timed out. Please check your internet connection and try again later.</string>
+    <string name="message_safeApiCall_operationFailed">Operation failed. Please check your connection and try again.</string>
+    <string name="message_safeApiCall_unknownError">An unknown error occurred. Please check your connection and try again.</string>
 </resources>

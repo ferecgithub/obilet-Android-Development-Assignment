@@ -9,9 +9,12 @@ import androidx.datastore.preferences.preferencesDataStore
 import com.ferechamitebeyli.caching.session.abstraction.SessionCachingManager
 import com.ferechamitebeyli.caching.util.CachingConstants.CACHE_KEY_FOR_DEPARTURE_DATE
 import com.ferechamitebeyli.caching.util.CachingConstants.CACHE_KEY_FOR_DESTINATION
+import com.ferechamitebeyli.caching.util.CachingConstants.CACHE_KEY_FOR_DEVICE_ID
 import com.ferechamitebeyli.caching.util.CachingConstants.CACHE_KEY_FOR_ORIGIN
+import com.ferechamitebeyli.caching.util.CachingConstants.CACHE_KEY_FOR_SESSION_ID
 import com.ferechamitebeyli.caching.util.CachingConstants.OBILET_CACHE_NAME
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -32,6 +35,8 @@ class SessionCachingManagerImpl @Inject constructor(
         val lastQueriedOrigin = stringPreferencesKey(CACHE_KEY_FOR_ORIGIN)
         val lastQueriedDestination = stringPreferencesKey(CACHE_KEY_FOR_DESTINATION)
         val lastQueriedDepartureDate = stringPreferencesKey(CACHE_KEY_FOR_DEPARTURE_DATE)
+        val cachedDeviceId = stringPreferencesKey(CACHE_KEY_FOR_DEVICE_ID)
+        val cachedSessionId = stringPreferencesKey(CACHE_KEY_FOR_SESSION_ID)
     }
 
     override suspend fun cacheLastQueries(
@@ -46,11 +51,40 @@ class SessionCachingManagerImpl @Inject constructor(
         }
     }
 
+    override suspend fun cacheDeviceSession(deviceId: String, sessionId: String) {
+        oBiletDataStore.edit {
+            it[cachedDeviceId] = deviceId
+            it[cachedSessionId] = sessionId
+        }
+    }
+
+    override fun getLastQueriedOrigin() = oBiletDataStore.data.map {
+        it[lastQueriedOrigin] ?: ""
+    }
+
+    override fun getLastQueriedDestination() = oBiletDataStore.data.map {
+        it[lastQueriedDestination] ?: ""
+    }
+
+    override fun getLastQueriedDepartureDate() = oBiletDataStore.data.map {
+        it[lastQueriedDepartureDate] ?: ""
+    }
+
+    override fun getCachedDeviceId() = oBiletDataStore.data.map {
+        it[cachedDeviceId] ?: ""
+    }
+
+    override fun getCachedSessionId() = oBiletDataStore.data.map {
+        it[cachedSessionId] ?: ""
+    }
+
     override suspend fun clearCache() {
         oBiletDataStore.edit {
             it[lastQueriedOrigin] = ""
             it[lastQueriedDestination] = ""
             it[lastQueriedDepartureDate] = ""
+            it[cachedDeviceId] = ""
+            it[cachedSessionId] = ""
         }
     }
 }
