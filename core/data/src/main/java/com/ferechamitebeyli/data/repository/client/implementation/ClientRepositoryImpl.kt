@@ -2,6 +2,7 @@ package com.ferechamitebeyli.data.repository.client.implementation
 
 import com.ferechamitebeyli.caching.session.abstraction.SessionCachingManager
 import com.ferechamitebeyli.data.R
+import com.ferechamitebeyli.data.model.common.LastQueryUiModel
 import com.ferechamitebeyli.data.repository.client.abstraction.ClientRepository
 import com.ferechamitebeyli.network.util.Resource
 import com.ferechamitebeyli.network.datasource.client.abstraction.ClientRemoteDataSource
@@ -105,5 +106,19 @@ class ClientRepositoryImpl @Inject constructor(
                     sessionId = sessionId
                 )
             }
+    }
+
+    override fun getCachedLastQueriedInformation(): Flow<LastQueryUiModel> {
+        return combine(
+            cachingDataSource.getLastQueriedOrigin(),
+            cachingDataSource.getLastQueriedDestination(),
+            cachingDataSource.getLastQueriedDepartureDate()
+        ) { origin, destination, departureDate ->
+            LastQueryUiModel(
+                origin = origin,
+                destination = destination,
+                departureDate = departureDate
+            )
+        }
     }
 }

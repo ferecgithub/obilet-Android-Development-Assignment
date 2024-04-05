@@ -39,6 +39,7 @@ dependencies {
     api(libs.material)
     api(libs.viewpager2)
     api(libs.coil)
+    api(libs.threetenabp)
     implementation(libs.navigationFragment)
     implementation(libs.navigationUi)
 
