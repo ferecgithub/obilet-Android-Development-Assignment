@@ -4,40 +4,40 @@ import com.squareup.moshi.Json
 
 data class Data(
     @Json(name = "available-seats")
-    val availableSeats: Int,
+    val availableSeats: Int?,
     @Json(name = "bus-type")
-    val busType: String,
+    val busType: String?,
     @Json(name = "cancellation-offset")
-    val cancellationOffset: Int,
+    val cancellationOffset: Int?,
     @Json(name = "destination-location")
-    val destinationLocation: String,
+    val destinationLocation: String?,
     @Json(name = "destination-location-id")
-    val destinationLocationId: Int,
+    val destinationLocationId: Int?,
     @Json(name = "disable-sales-without-gov-id")
-    val disableSalesWithoutGovId: Boolean,
+    val disableSalesWithoutGovId: Boolean?,
     @Json(name = "display-offset")
-    val displayOffset: Any,
-    val features: List<Feature>,
+    val displayOffset: Any?,
+    val features: List<Feature>?,
     @Json(name = "has-bus-shuttle")
-    val hasBusShuttle: Boolean,
-    val id: Int,
+    val hasBusShuttle: Boolean?,
+    val id: Int?,
     @Json(name = "is-active")
-    val isActive: Boolean,
+    val isActive: Boolean?,
     @Json(name = "is-promoted")
-    val isPromoted: Boolean,
-    val journey: Journey,
+    val isPromoted: Boolean?,
+    val journey: Journey?,
     @Json(name = "origin-location")
-    val originLocation: String,
+    val originLocation: String?,
     @Json(name = "origin-location-id")
-    val originLocationId: Int,
+    val originLocationId: Int?,
     @Json(name = "partner-id")
-    val partnerId: Int,
+    val partnerId: Int?,
     @Json(name = "partner-name")
-    val partnerName: String,
+    val partnerName: String?,
     @Json(name = "partner-rating")
-    val partnerRating: Double,
+    val partnerRating: Double?,
     @Json(name = "route-id")
-    val routeId: Int,
+    val routeId: Int?,
     @Json(name = "total-seats")
-    val totalSeats: Int
+    val totalSeats: Int?
 )

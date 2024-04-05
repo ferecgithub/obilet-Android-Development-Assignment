@@ -8,9 +8,9 @@ data class Feature(
     val description: String?,
     @Json(name = "fore-color")
     val foreColor: Any?,
-    val id: Int,
+    val id: Int?,
     @Json(name = "is-promoted")
-    val isPromoted: Boolean,
-    val name: String,
-    val priority: Int
+    val isPromoted: Boolean?,
+    val name: String?,
+    val priority: Int?
 )

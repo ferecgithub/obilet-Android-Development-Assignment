@@ -4,8 +4,8 @@ import com.squareup.moshi.Json
 
 data class Policy(
     @Json(name = "gov-id")
-    val govId: Boolean,
-    val lht: Boolean,
+    val govId: Boolean?,
+    val lht: Boolean?,
     @Json(name = "max-seats")
     val maxSeats: Int?,
     @Json(name = "max-single")
@@ -15,5 +15,5 @@ data class Policy(
     @Json(name = "max-single-males")
     val maxSingleMales: Int?,
     @Json(name = "mixed-genders")
-    val mixedGenders: Boolean
+    val mixedGenders: Boolean?
 )

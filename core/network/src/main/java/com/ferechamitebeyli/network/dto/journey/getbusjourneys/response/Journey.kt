@@ -3,24 +3,24 @@ package com.ferechamitebeyli.network.dto.journey.getbusjourneys.response
 import com.squareup.moshi.Json
 
 data class Journey(
-    val arrival: String,
+    val arrival: String?,
     val available: Any?,
     val booking: Any?,
     @Json(name = "bus-name")
-    val busName: String,
-    val code: String,
-    val currency: String,
-    val departure: String,
+    val busName: String?,
+    val code: String?,
+    val currency: String?,
+    val departure: String?,
     val description: String?,
-    val destination: String,
-    val duration: String,
-    val features: List<String>,
+    val destination: String?,
+    val duration: String?,
+    val features: List<String>?,
     @Json(name = "internet-price")
-    val internetPrice: Int,
-    val kind: String,
-    val origin: String,
+    val internetPrice: Int?,
+    val kind: String?,
+    val origin: String?,
     @Json(name = "original-price")
-    val originalPrice: Int,
-    val policy: Policy,
-    val stops: List<Stop>
+    val originalPrice: Int?,
+    val policy: Policy?,
+    val stops: List<Stop>?
 )
