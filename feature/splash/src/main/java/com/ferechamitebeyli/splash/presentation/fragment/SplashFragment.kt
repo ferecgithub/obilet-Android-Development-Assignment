@@ -1,13 +1,17 @@
 package com.ferechamitebeyli.splash.presentation.fragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.provider.Settings
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.ferechamitebeyli.splash.R
 import com.ferechamitebeyli.splash.databinding.FragmentSplashBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SplashFragment : Fragment() {
     private var _binding: FragmentSplashBinding? = null
     private val binding get() = _binding!!
@@ -26,6 +30,11 @@ class SplashFragment : Fragment() {
         _binding = FragmentSplashBinding.inflate(inflater, container, false)
 
         return binding.root
+    }
+
+    @SuppressLint("HardwareIds")
+    private fun getUniqueDeviceIdentifier(): String {
+        return Settings.Secure.getString(requireContext().contentResolver, Settings.Secure.ANDROID_ID)
     }
 
     override fun onDestroyView() {
