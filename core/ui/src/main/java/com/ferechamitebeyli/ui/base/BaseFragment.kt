@@ -1,5 +1,6 @@
 package com.ferechamitebeyli.ui.base
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +23,7 @@ abstract class BaseFragment<VB : ViewBinding>(
     val binding: VB get() = _binding!!
 
     lateinit var progressBar: ProgressBar
+    private lateinit var errorDialog: AlertDialog.Builder
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,6 +33,7 @@ abstract class BaseFragment<VB : ViewBinding>(
         _binding = inflate.invoke(inflater, container, false)
 
         setUpUi()
+        setUpErrorDialog()
         setOnClickListeners()
         observeFlows()
 
@@ -47,6 +50,29 @@ abstract class BaseFragment<VB : ViewBinding>(
         if (::progressBar.isInitialized) {
             progressBar.visibility = View.GONE
         }
+    }
+
+    private fun setUpErrorDialog() {
+        errorDialog = AlertDialog.Builder(requireContext())
+        errorDialog.setCancelable(false)
+    }
+
+    override fun showCustomDialog(
+        message: String,
+        cancelCallBack: (() -> Unit)?,
+        okCallBack: (() -> Unit)?
+    ) {
+        errorDialog.setMessage(message)
+
+        errorDialog.setPositiveButton("") {_, _ ->
+            okCallBack?.invoke()
+        }
+
+        errorDialog.setNegativeButton("") {_, _ ->
+            cancelCallBack?.invoke()
+        }
+
+        errorDialog.show()
     }
 
     override fun onDestroyView() {

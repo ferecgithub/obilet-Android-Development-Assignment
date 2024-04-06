@@ -17,5 +17,11 @@ interface UiComponents {
     fun showProgressBar()
 
     fun hideProgressBar()
+
+    fun showCustomDialog(
+        message: String,
+        cancelCallBack: (() -> Unit)? = null,
+        okCallBack: (() -> Unit)? = null,
+    )
 }
 
