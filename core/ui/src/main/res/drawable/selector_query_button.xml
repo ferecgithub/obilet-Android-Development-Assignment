@@ -4,27 +4,27 @@
         <shape>
             <solid android:color="@color/color_query_button_focused" />
             <stroke
-                android:width="1dp"
+                android:width="@dimen/button_stroke_width"
                 android:color="@color/color_query_button_default" />
-            <corners android:radius="3dp" />
+            <corners android:radius="@dimen/rounded_corner_radius" />
         </shape>
     </item> <!-- pressed -->
     <item android:state_enabled="true">
         <shape>
             <solid android:color="@color/color_query_button_default" />
             <stroke
-                android:width="1dp"
+                android:width="@dimen/button_stroke_width"
                 android:color="@color/color_query_button_default" />
-            <corners android:radius="3dp" />
+            <corners android:radius="@dimen/rounded_corner_radius" />
         </shape>
     </item> <!-- enabled -->
     <item android:state_enabled="false">
         <shape>
             <solid android:color="@color/color_query_button_passive" />
             <stroke
-                android:width="1dp"
+                android:width="@dimen/button_stroke_width"
                 android:color="@color/color_query_button_default" />
-            <corners android:radius="3dp" />
+            <corners android:radius="@dimen/rounded_corner_radius" />
         </shape>
     </item> <!-- disabled -->
 </selector>

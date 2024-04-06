@@ -2,9 +2,11 @@
 <resources>
     <color name="color_primary">#2F4EB4</color>
     <color name="color_priceTag">#D23B38</color>
+    <color name="color_stressedText">#000000</color>
     <color name="color_passiveText">#5D686E</color>
     <color name="color_white">#FFFFFF</color>
     <color name="color_background">#f8f8f8</color>
+    <color name="color_list_item_border">#d6d6d6</color>
 
     <color name="color_sub_button_focused">#7081B6</color>
     <color name="color_sub_button_default">#2F4EB4</color>
