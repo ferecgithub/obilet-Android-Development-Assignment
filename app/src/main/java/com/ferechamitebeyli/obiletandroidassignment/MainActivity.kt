@@ -1,19 +1,21 @@
 package com.ferechamitebeyli.obiletandroidassignment
 
+import android.net.Uri
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.NavController
+import androidx.navigation.NavDeepLinkRequest
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import com.ferechamitebeyli.navigation.Navigator
 import com.ferechamitebeyli.obiletandroidassignment.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Navigator {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var navController: NavController
+    override lateinit var navHostFragment: NavHostFragment
+    override lateinit var navController:NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,12 +25,34 @@ class MainActivity : AppCompatActivity() {
         setupNavigationComponents()
     }
 
-    private fun setupNavigationComponents() {
-        val navHostFragment: NavHostFragment =
-            supportFragmentManager.findFragmentById(R.id.fragmentContainerView_main) as NavHostFragment
+    override fun navigateTo(destination: Int) {
+        //Using fragmentId
+        navController.navigate(destination)
 
-        navHostFragment.navController.apply {
-            navController = this
-        }
     }
+
+    override fun navigateTo(uri: Uri) {
+        //Using uri directly
+        navController.navigate(uri)
+        //or using NavDeepLinkRequest
+        val request = NavDeepLinkRequest.Builder
+            .fromUri(uri)
+            .build()
+        navController.navigate(request)
+
+    }
+
+    override fun graphSpecificNavigation(graphId: Int) {
+        val myNavHostFragment: NavHostFragment = navHostFragment
+        val inflater = myNavHostFragment.navController.navInflater
+        val graph = inflater.inflate(graphId)
+        navController.graph.addAll(graph)
+    }
+
+
+    private fun setupNavigationComponents() {
+        navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView_main) as NavHostFragment
+        navController = navHostFragment.navController
+    }
+
 }

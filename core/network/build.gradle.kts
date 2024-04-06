@@ -48,10 +48,10 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
 
-    implementation(libs.retrofit2)
-    implementation(libs.moshi)
-    implementation(libs.moshiKotlin)
-    implementation(libs.moshiConverter)
+    api(libs.retrofit2)
+    api(libs.moshi)
+    api(libs.moshiKotlin)
+    api(libs.moshiConverter)
     kapt(libs.moshiKotlinCodegenKapt)
 
     implementation(libs.loggingInterceptor)

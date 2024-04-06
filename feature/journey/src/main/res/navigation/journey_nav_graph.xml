@@ -9,7 +9,7 @@
         android:id="@+id/travelQueryFragment"
         android:name="com.ferechamitebeyli.journey.presentation.fragment.query.TravelQueryFragment"
         android:label="fragment_travel_query"
-        tools:layout="@layout/fragment_travel_query" >
+        tools:layout="@layout/fragment_travel_query">
         <action
             android:id="@+id/action_travelQueryFragment_to_busJourneyIndexFragment"
             app:destination="@id/busJourneyIndexFragment" />

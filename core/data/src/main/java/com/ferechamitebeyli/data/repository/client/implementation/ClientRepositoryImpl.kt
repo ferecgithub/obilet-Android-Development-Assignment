@@ -3,11 +3,11 @@ package com.ferechamitebeyli.data.repository.client.implementation
 import com.ferechamitebeyli.caching.session.abstraction.SessionCachingManager
 import com.ferechamitebeyli.data.model.common.LastQueryUiModel
 import com.ferechamitebeyli.data.repository.client.abstraction.ClientRepository
-import com.ferechamitebeyli.network.util.Resource
 import com.ferechamitebeyli.network.datasource.client.abstraction.ClientRemoteDataSource
 import com.ferechamitebeyli.network.dto.client.getsession.request.GetSessionRequestModel
 import com.ferechamitebeyli.network.dto.client.getsession.response.GetSessionResponseModel
 import com.ferechamitebeyli.network.dto.common.request.DeviceSession
+import com.ferechamitebeyli.network.util.Resource
 import com.ferechamitebeyli.network.util.ResponseStatusEnum
 import com.ferechamitebeyli.network.util.UiText
 import kotlinx.coroutines.Dispatchers

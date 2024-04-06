@@ -22,10 +22,10 @@ dependencyResolutionManagement {
 rootProject.name = "ObiletAndroidAssignment"
 include(":app")
 include(":core")
-include(":feature:journey")
 include(":core:caching")
 include(":core:network")
 include(":core:navigation")
 include(":core:ui")
 include(":core:data")
+include(":feature:journey")
 include(":feature:splash")

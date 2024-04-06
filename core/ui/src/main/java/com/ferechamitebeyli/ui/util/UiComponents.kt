@@ -5,7 +5,17 @@ package com.ferechamitebeyli.ui.util
  */
 
 interface UiComponents {
-    fun setUpUi()
-    fun setOnClickListeners()
-    fun observeFlows()
+    fun setUpUi() { /* OPTIONAL */
+    }
+
+    fun setOnClickListeners() { /* OPTIONAL */
+    }
+
+    fun observeFlows() { /* OPTIONAL */
+    }
+
+    fun showProgressBar()
+
+    fun hideProgressBar()
 }
+

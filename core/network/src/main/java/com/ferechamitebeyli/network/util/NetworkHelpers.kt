@@ -1,5 +1,7 @@
 package com.ferechamitebeyli.network.util
 
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import com.ferechamitebeyli.network.R
 import com.ferechamitebeyli.network.dto.common.response.GenericResponseModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -7,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 import java.io.IOException
