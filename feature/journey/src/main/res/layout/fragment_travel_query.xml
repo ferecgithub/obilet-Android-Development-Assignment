@@ -4,21 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_background"
     tools:context=".presentation.fragment.query.TravelQueryFragment">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_asd"
+    <ImageView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="32dp"
-        android:background="@drawable/selector_query_button"
-        android:gravity="center"
-        android:padding="16dp"
-        android:text="Fiyat Bul"
-        android:textColor="@drawable/selector_query_button_text"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="0dp"
+        android:background="@color/color_primary"
+        app:layout_constraintBottom_toTopOf="@id/guideline_horizontal_15"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_horizontal_15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
