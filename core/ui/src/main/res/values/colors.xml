@@ -3,4 +3,13 @@
     <color name="color_primary">#2F4EB4</color>
     <color name="color_priceTag">#D23B38</color>
     <color name="color_passiveText">#5D686E</color>
+    <color name="color_white">#FFFFFF</color>
+
+    <color name="color_sub_button_focused">#7081B6</color>
+    <color name="color_sub_button_default">#2F4EB4</color>
+    <color name="color_sub_button_passive">#5D686E</color>
+
+    <color name="color_query_button_focused">#34B487</color>
+    <color name="color_query_button_default">#3BD09C</color>
+    <color name="color_query_button_passive">#B7D7D7</color>
 </resources>
