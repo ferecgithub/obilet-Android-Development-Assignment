@@ -5,4 +5,13 @@
     <dimen name="rounded_corner_stroke_width">2dp</dimen>
     <dimen name="item_bus_logo_height">50dp</dimen>
     <dimen name="item_list_margin">8dp</dimen>
+
+    <dimen name="tiny_layout_margin">4dp</dimen>
+    <dimen name="small_layout_margin">8dp</dimen>
+    <dimen name="standard_layout_margin">16dp</dimen>
+    <dimen name="large_layout_margin">32dp</dimen>
+
+    <dimen name="large_text_size">20sp</dimen>
+    <dimen name="medium_text_size">16sp</dimen>
+
 </resources>

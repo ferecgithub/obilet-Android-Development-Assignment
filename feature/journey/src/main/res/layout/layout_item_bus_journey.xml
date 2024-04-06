@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="@dimen/tiny_layout_margin"
     android:background="@drawable/background_journey_item"
-    android:padding="8dp">
+    android:padding="@dimen/standard_layout_margin">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageView_itemBusJourney_partnerLogo"
@@ -53,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/item_list_margin"
         android:textColor="@color/color_stressedText"
-        android:textSize="20sp"
+        android:textSize="@dimen/large_text_size"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@id/guideline_vertical_40"
         app:layout_constraintTop_toTopOf="parent"
@@ -85,7 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/item_list_margin"
         android:textColor="@color/color_stressedText"
-        android:textSize="20sp"
+        android:textSize="@dimen/large_text_size"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -124,7 +125,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/item_list_margin"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/imageView_itemBusJourney_expandArrow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
