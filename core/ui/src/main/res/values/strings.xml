@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="buttonName">Find Ticket</string>
+    <string name="label_priceWithCurrency">%1$s%2$s</string>
+    <string name="label_lastSeatsWarning">%s Seats Available</string>
+    <string name="label_originToDestination">%1$s > %2$s</string>
 </resources>

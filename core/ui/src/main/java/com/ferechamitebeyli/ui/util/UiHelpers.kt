@@ -1,5 +1,6 @@
 package com.ferechamitebeyli.ui.util
 
+import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -15,12 +16,13 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDateTime
+import org.threeten.bp.LocalTime
 import org.threeten.bp.ZoneId
 import org.threeten.bp.format.DateTimeFormatter
 
 object UiHelpers {
 
-    fun ImageView.loadPartnerLogo(partnerId: Int) {
+    fun ImageView.loadPartnerLogo(partnerId: Int?) {
         this.load(" https://s3.eu-central-1.amazonaws.com/static.obilet.com/images/partner/$partnerId-sm.png") {
             crossfade(true)
             placeholder(R.drawable.ic_bus)
@@ -46,6 +48,20 @@ object UiHelpers {
         return dateTime.format(outputFormatter)
     }
 
+    fun formatTime(time: String): String {
+        val localTime = LocalTime.parse(time)
+        val formatter = DateTimeFormatter.ofPattern("H:mm")
+
+        return localTime.format(formatter)
+    }
+
+    fun formatDateToTime(date: String): String {
+        val localDateTime = LocalDateTime.parse(date)
+        val formatter = DateTimeFormatter.ofPattern("HH:mm")
+
+        return localDateTime.format(formatter)
+    }
+
     fun getTomorrowDate(
         dateString: String,
         timezoneIndex: String = "015",
@@ -63,6 +79,10 @@ object UiHelpers {
 
         // Format the LocalDateTime object into the desired format
         return dateTime.format(outputFormatter)
+    }
+
+    fun View.visible(isVisible: Boolean) {
+        visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 
     fun <T> Flow<T>.collectFlowWithFragmentLifecycle(

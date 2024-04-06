@@ -23,5 +23,6 @@ data class JourneyDataUiModel(
     val partnerName: String?,
     val partnerRating: Double?,
     val routeId: Int?,
-    val totalSeats: Int?
+    val totalSeats: Int?,
+    var isExpanded: Boolean = false
 )
