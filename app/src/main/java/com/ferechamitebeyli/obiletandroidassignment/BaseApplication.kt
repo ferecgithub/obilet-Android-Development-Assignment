@@ -1,6 +1,7 @@
 package com.ferechamitebeyli.obiletandroidassignment
 
 import android.app.Application
+import com.jakewharton.threetenabp.AndroidThreeTen
 import dagger.hilt.android.HiltAndroidApp
 
 /**
@@ -8,4 +9,10 @@ import dagger.hilt.android.HiltAndroidApp
  */
 
 @HiltAndroidApp
-class BaseApplication: Application()
+class BaseApplication: Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+        AndroidThreeTen.init(this)
+    }
+}

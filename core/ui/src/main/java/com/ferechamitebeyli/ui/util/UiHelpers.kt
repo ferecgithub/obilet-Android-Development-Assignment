@@ -1,5 +1,6 @@
 package com.ferechamitebeyli.ui.util
 
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
@@ -11,14 +12,17 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import coil.load
 import com.ferechamitebeyli.ui.R
+import com.ferechamitebeyli.ui.model.DateFormatUiModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.LocalTime
 import org.threeten.bp.ZoneId
 import org.threeten.bp.format.DateTimeFormatter
+import java.util.Locale
 
 object UiHelpers {
 
@@ -27,25 +31,6 @@ object UiHelpers {
             crossfade(true)
             placeholder(R.drawable.ic_bus)
         }
-    }
-
-    fun formatDate(
-        dateString: String,
-        timezoneIndex: String = "015",
-        desiredDateFormat: String = "yyyy-MM-dd"
-    ): String {
-        // Microsoft Time Zone Index Value for Turkey Standard Time is "015"
-        // Define the input and output date formats
-        val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
-        val outputFormatter = DateTimeFormatter.ofPattern(desiredDateFormat)
-
-        // Parse the input date string into a LocalDateTime object with the specified timezone
-        val dateTime = LocalDateTime.parse(dateString, inputFormatter)
-            .atZone(ZoneId.of("Windows/$timezoneIndex"))
-            .toLocalDateTime()
-
-        // Format the LocalDateTime object into the desired format
-        return dateTime.format(outputFormatter)
     }
 
     fun formatTime(time: String): String {
@@ -62,23 +47,32 @@ object UiHelpers {
         return localDateTime.format(formatter)
     }
 
-    fun getTomorrowDate(
-        dateString: String,
-        timezoneIndex: String = "015",
-        desiredDateFormat: String = "yyyy-MM-dd"
-    ): String {
-        // Define the input date format
-        val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
-        val outputFormatter = DateTimeFormatter.ofPattern(desiredDateFormat)
+    fun getFormattedDate(dateString: String, locale: Locale = Locale.getDefault()): DateFormatUiModel {
+        val date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))
+        val uiPattern = if (locale.language == "tr") "d MMMM yyyy EEEE" else "EEEE, d MMMM yyyy"
+        val servicePattern = "yyyy-MM-dd"
 
-        // Parse the input date string into a LocalDateTime object with the specified timezone
-        val dateTime = LocalDateTime.parse(dateString, inputFormatter)
-            .plusDays(1) // Add one day to get tomorrow's date
-            .atZone(ZoneId.of("Windows/$timezoneIndex"))
-            .toLocalDateTime()
+        val uiFormatter = DateTimeFormatter.ofPattern(uiPattern, locale)
+        val serviceFormatter = DateTimeFormatter.ofPattern(servicePattern, locale)
 
-        // Format the LocalDateTime object into the desired format
-        return dateTime.format(outputFormatter)
+        val dateForUi = date.format(uiFormatter)
+        val dateForService = date.format(serviceFormatter)
+
+        return DateFormatUiModel(dateForUi, dateForService)
+    }
+
+    fun getFormattedDateForQuickSelection(isTomorrow: Boolean = false, locale: Locale = Locale.getDefault()): DateFormatUiModel {
+        val date = if (isTomorrow) LocalDate.now().plusDays(1) else LocalDate.now()
+        val uiPattern = if (locale.language == "tr") "d MMMM yyyy EEEE" else "EEEE, d MMMM yyyy"
+        val servicePattern = "yyyy-MM-dd"
+
+        val uiFormatter = DateTimeFormatter.ofPattern(uiPattern, locale)
+        val serviceFormatter = DateTimeFormatter.ofPattern(servicePattern, locale)
+
+        val dateForUi = date.format(uiFormatter)
+        val dateForService = date.format(serviceFormatter)
+
+        return DateFormatUiModel(dateForUi, dateForService)
     }
 
     fun View.visible(isVisible: Boolean) {
