@@ -8,4 +8,6 @@
     <string name="label_departureDate">Gidiş Tarihi</string>
     <string name="radioButtonLabel_today">Bugün</string>
     <string name="radioButtonLabel_tomorrow">Yarın</string>
+    <string name="label_originTitle">Nereden</string>
+    <string name="label_destinationTitle">Nereye</string>
 </resources>

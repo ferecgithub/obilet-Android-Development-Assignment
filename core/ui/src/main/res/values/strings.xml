@@ -8,4 +8,6 @@
     <string name="label_departureDate">Departure Date</string>
     <string name="radioButtonLabel_today">Today</string>
     <string name="radioButtonLabel_tomorrow">Tomorrow</string>
+    <string name="label_originTitle">Origin</string>
+    <string name="label_destinationTitle">Destination</string>
 </resources>
