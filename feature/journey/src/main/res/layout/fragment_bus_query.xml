@@ -7,19 +7,131 @@
     android:background="@color/color_background"
     tools:context=".presentation.fragment.query.BusQueryFragment">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button_asd"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="32dp"
+        android:layout_margin="@dimen/standard_layout_margin"
+        android:background="@color/color_white"
+        app:layout_constraintBottom_toTopOf="@id/button_busQuery_findTicket"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView_busQuery_departureDateTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_layout_margin"
+            android:text="@string/label_departureDate"
+            android:textColor="@color/color_primary"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/imageView_busQuery_departureDate"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView_busQuery_departureDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_layout_margin"
+            android:src="@drawable/ic_calendar"
+            android:tint="@color/color_passiveText"
+            app:layout_constraintBottom_toTopOf="@+id/view_busQuery_bottomLine"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView_busQuery_departureDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard_layout_margin"
+            android:layout_marginTop="@dimen/small_layout_margin"
+            android:textColor="@color/color_stressedText"
+            android:textSize="@dimen/medium_text_size"
+            app:layout_constraintStart_toEndOf="@+id/imageView_busQuery_departureDate"
+            app:layout_constraintTop_toBottomOf="@id/textView_busQuery_departureDateTitle"
+            tools:text="07 Nisan Pazar" />
+
+        <View
+            android:id="@+id/view_busQuery_bottomLine"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/standard_layout_margin"
+            android:background="@color/color_passiveText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView_busQuery_departureDate" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup_busQuery_quickDateSelection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_layout_margin"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_busQuery_bottomLine">
+
+            <RadioButton
+                android:id="@+id/radioButton_busQuery_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_quickdateselect_radiobutton"
+                android:button="@android:color/transparent"
+                android:buttonTint="@color/color_primary"
+                android:padding="@dimen/small_layout_margin"
+                android:text="@string/radioButtonLabel_today"
+                android:textColor="@drawable/selector_quickdateselect_radiobutton_text" />
+
+            <RadioButton
+                android:id="@+id/radioButton_busQuery_tomorrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/standard_layout_margin"
+                android:background="@drawable/selector_quickdateselect_radiobutton"
+                android:button="@android:color/transparent"
+                android:buttonTint="@color/color_primary"
+                android:checked="true"
+                android:padding="@dimen/small_layout_margin"
+                android:text="@string/radioButtonLabel_tomorrow"
+                android:textColor="@drawable/selector_quickdateselect_radiobutton_text" />
+
+        </RadioGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_busQuery_findTicket"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/large_layout_margin"
         android:background="@drawable/selector_query_button"
         android:gravity="center"
         android:padding="16dp"
-        android:text="Fiyat Bul"
+        android:text="@string/buttonLabel_findTicket"
         android:textColor="@drawable/selector_query_button_text"
+        android:textSize="@dimen/large_text_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textView_busQuery_bottomText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textView_busQuery_bottomText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/color_white"
+        android:padding="@dimen/standard_layout_margin"
+        android:text="@string/label_dummyText"
+        android:textColor="@color/color_passiveText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/guideline_horizontal_70" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_horizontal_70"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.70" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
