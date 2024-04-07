@@ -15,6 +15,7 @@ class BusJourneyIndexFragment : BaseFragment<FragmentBusJourneyIndexBinding>(
 
     override fun setUpUi() {
         super.setUpUi()
+        progressBar = binding.progressBar
 
         binding.recyclerViewBusJourneyIndex.apply {
             busJourneyAdapter = BusJourneyListAdapter(requireContext())

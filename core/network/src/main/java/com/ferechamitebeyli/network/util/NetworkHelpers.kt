@@ -1,5 +1,6 @@
 package com.ferechamitebeyli.network.util
 
+import android.util.Log
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import com.ferechamitebeyli.network.R
@@ -85,6 +86,7 @@ suspend fun <ResponseType, MappedResponseType> safeApiCall(
                 }
 
                 else -> {
+                    Log.d("NetHELP", exception.javaClass.simpleName)
                     emit(Resource.Error(text = UiText.StringResource(R.string.message_safeApiCall_unknownError)))
                 }
             }

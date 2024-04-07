@@ -16,4 +16,8 @@
     <string name="label_add_passenger">Yolcu Ekle</string>
     <string name="label_busTicket">Otobüs Bileti</string>
     <string name="label_airplaneTicket">Uçak Bileti</string>
+    <string name="message_pleaseEnterAnOrigin">Lütfen nereden bilgisini giriniz.</string>
+    <string name="message_pleaseEnterADestination">Lütfen nereye bilgisini giriniz.</string>
+    <string name="buttonLabel_ok">Tamam</string>
+    <string name="buttonLabel_cancel">İptal</string>
 </resources>

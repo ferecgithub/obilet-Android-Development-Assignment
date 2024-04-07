@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
+import com.ferechamitebeyli.ui.R
 import com.ferechamitebeyli.ui.util.UiComponents
 
 /**
@@ -59,20 +60,25 @@ abstract class BaseFragment<VB : ViewBinding>(
 
     override fun showCustomDialog(
         message: String,
+        isInfoMessage: Boolean,
         cancelCallBack: (() -> Unit)?,
         okCallBack: (() -> Unit)?
     ) {
         errorDialog.setMessage(message)
 
-        errorDialog.setPositiveButton("") {_, _ ->
+        errorDialog.setPositiveButton(getString(R.string.buttonLabel_ok)) { _, _ ->
             okCallBack?.invoke()
         }
 
-        errorDialog.setNegativeButton("") {_, _ ->
-            cancelCallBack?.invoke()
+        if (!isInfoMessage) {
+            errorDialog.setNegativeButton(getString(R.string.buttonLabel_cancel)) {_, _ ->
+                cancelCallBack?.invoke()
+            }
         }
 
         errorDialog.show()
+
+
     }
 
     override fun onDestroyView() {

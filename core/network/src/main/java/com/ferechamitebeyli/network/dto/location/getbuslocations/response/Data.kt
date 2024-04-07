@@ -11,32 +11,32 @@ data class Data(
     val cityName: String?,
     val code: Any?,
     @Json(name = "country-id")
-    val countryId: Int,
+    val countryId: Int?,
     @Json(name = "country-name")
-    val countryName: String,
+    val countryName: String?,
     @Json(name = "geo-location")
-    val geoLocation: GeoLocation,
-    val id: Int,
+    val geoLocation: GeoLocation?,
+    val id: Int?,
     @Json(name = "is-city-center")
-    val isCityCenter: Boolean,
-    val keywords: String,
+    val isCityCenter: Boolean?,
+    val keywords: String?,
     val languages: Any?,
     @Json(name = "long-name")
-    val longName: String,
-    val name: String,
+    val longName: String?,
+    val name: String?,
     @Json(name = "parent-id")
     val parentId: Int?,
     val rank: Int?,
     @Json(name = "reference-code")
-    val referenceCode: String,
+    val referenceCode: String?,
     @Json(name = "reference-country")
     val referenceCountry: String?,
     @Json(name = "show-country")
-    val showCountry: Boolean,
-    val type: String,
+    val showCountry: Boolean?,
+    val type: String?,
     @Json(name = "tz-code")
-    val tzCode: String,
+    val tzCode: String?,
     @Json(name = "weather-code")
-    val weatherCode: String,
-    val zoom: Int
+    val weatherCode: String?,
+    val zoom: Int?
 )

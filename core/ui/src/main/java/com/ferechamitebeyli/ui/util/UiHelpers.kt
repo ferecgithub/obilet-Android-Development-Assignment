@@ -1,7 +1,9 @@
 package com.ferechamitebeyli.ui.util
 
+import android.content.Context
 import android.util.Log
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -48,9 +50,9 @@ object UiHelpers {
     }
 
     fun getFormattedDate(dateString: String, locale: Locale = Locale.getDefault()): DateFormatUiModel {
-        val date = LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))
+        val date = LocalDateTime.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))
         val uiPattern = if (locale.language == "tr") "d MMMM yyyy EEEE" else "EEEE, d MMMM yyyy"
-        val servicePattern = "yyyy-MM-dd"
+        val servicePattern = "yyyy-MM-dd'T'HH:mm:ss"
 
         val uiFormatter = DateTimeFormatter.ofPattern(uiPattern, locale)
         val serviceFormatter = DateTimeFormatter.ofPattern(servicePattern, locale)
@@ -62,9 +64,9 @@ object UiHelpers {
     }
 
     fun getFormattedDateForQuickSelection(isTomorrow: Boolean = false, locale: Locale = Locale.getDefault()): DateFormatUiModel {
-        val date = if (isTomorrow) LocalDate.now().plusDays(1) else LocalDate.now()
+        val date = if (isTomorrow) LocalDateTime.now().plusDays(1) else LocalDateTime.now()
         val uiPattern = if (locale.language == "tr") "d MMMM yyyy EEEE" else "EEEE, d MMMM yyyy"
-        val servicePattern = "yyyy-MM-dd"
+        val servicePattern = "yyyy-MM-dd'T'HH:mm:ss"
 
         val uiFormatter = DateTimeFormatter.ofPattern(uiPattern, locale)
         val serviceFormatter = DateTimeFormatter.ofPattern(servicePattern, locale)
@@ -77,6 +79,12 @@ object UiHelpers {
 
     fun View.visible(isVisible: Boolean) {
         visibility = if (isVisible) View.VISIBLE else View.GONE
+    }
+
+    fun startRotationAnimation(view: View, context: Context) {
+        val imageView = view as ImageView
+        val rotateAnimation = AnimationUtils.loadAnimation(context, R.anim.rotate_180)
+        imageView.startAnimation(rotateAnimation)
     }
 
     fun <T> Flow<T>.collectFlowWithFragmentLifecycle(

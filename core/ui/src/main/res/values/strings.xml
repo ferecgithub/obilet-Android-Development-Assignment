@@ -16,4 +16,8 @@
     <string name="label_add_passenger">Add Passenger</string>
     <string name="label_busTicket">Bus Ticket</string>
     <string name="label_airplaneTicket">Airplane Ticket</string>
+    <string name="message_pleaseEnterAnOrigin">Please enter an origin.</string>
+    <string name="message_pleaseEnterADestination">Please enter a destination.</string>
+    <string name="buttonLabel_ok">Ok</string>
+    <string name="buttonLabel_cancel">Cancel</string>
 </resources>

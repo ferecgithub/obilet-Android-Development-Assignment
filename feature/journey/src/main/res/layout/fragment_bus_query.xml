@@ -11,8 +11,8 @@
         android:id="@+id/constraintLayout_busQuery_originDestination"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/large_layout_margin"
         android:layout_marginStart="@dimen/standard_layout_margin"
+        android:layout_marginTop="@dimen/large_layout_margin"
         android:layout_marginEnd="@dimen/standard_layout_margin"
         android:background="@color/color_white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -57,8 +57,8 @@
             android:id="@+id/view_busQuery_locationSeparator"
             android:layout_width="0dp"
             android:layout_height="1dp"
-            android:layout_marginTop="@dimen/standard_layout_margin"
             android:layout_marginStart="@dimen/standard_layout_margin"
+            android:layout_marginTop="@dimen/standard_layout_margin"
             android:layout_marginEnd="@dimen/standard_layout_margin"
             android:background="@color/color_passiveText"
             app:layout_constraintEnd_toStartOf="@id/imageView_busQuery_swapOriginAndDestination"
@@ -163,8 +163,8 @@
             android:id="@+id/view_busQuery_dateSeparator"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="@dimen/standard_layout_margin"
             android:layout_marginStart="@dimen/standard_layout_margin"
+            android:layout_marginTop="@dimen/standard_layout_margin"
             android:layout_marginEnd="@dimen/standard_layout_margin"
             android:background="@color/color_passiveText"
             app:layout_constraintEnd_toEndOf="parent"
@@ -245,5 +245,19 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.70" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="0dp"
+        android:layout_height="150dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/shape_progress_bar_background"
+        android:indeterminateTint="@color/color_primary"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

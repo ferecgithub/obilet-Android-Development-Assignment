@@ -11,6 +11,7 @@ class FlightQueryFragment : BaseFragment<FragmentFlightQueryBinding>(
 
     override fun setUpUi() {
         super.setUpUi()
+        progressBar = binding.progressBar
 
         // Setting initial passenger value to 0
         binding.textViewFlightQueryPassenger.text =
