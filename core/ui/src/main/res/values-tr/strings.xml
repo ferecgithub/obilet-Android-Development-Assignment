@@ -14,4 +14,6 @@
     <string name="label_passengerWithArgs">%s Yolcu</string>
     <string name="label_notAvailable">N/A</string>
     <string name="label_add_passenger">Yolcu Ekle</string>
+    <string name="label_busTicket">Otobüs Bileti</string>
+    <string name="label_airplaneTicket">Uçak Bileti</string>
 </resources>

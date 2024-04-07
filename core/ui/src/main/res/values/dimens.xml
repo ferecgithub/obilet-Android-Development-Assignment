@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="rounded_tab_indicator_radius">60dp</dimen>
     <dimen name="rounded_corner_radius">6dp</dimen>
     <dimen name="button_stroke_width">2dp</dimen>
     <dimen name="smallButton_stroke_width">1dp</dimen>

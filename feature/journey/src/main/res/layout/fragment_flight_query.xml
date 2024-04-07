@@ -251,11 +251,13 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="0 Passenger" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/radioButton_flightQuery_addPassengers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/standard_layout_margin"
+            android:layout_marginEnd="@dimen/standard_layout_margin"
+            android:layout_marginTop="@dimen/small_layout_margin"
+            android:layout_marginBottom="@dimen/small_layout_margin"
             android:background="@drawable/selector_sub_button"
             android:button="@android:color/transparent"
             android:buttonTint="@color/color_primary"
