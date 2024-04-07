@@ -1,10 +1,311 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_background"
     tools:context=".presentation.fragment.query.FlightQueryFragment">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout_flightQuery_originDestination"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/standard_layout_margin"
+        android:layout_marginTop="@dimen/large_layout_margin"
+        android:layout_marginEnd="@dimen/standard_layout_margin"
+        android:background="@color/color_white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView_flightQuery_originTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_layout_margin"
+            android:text="@string/label_originTitle"
+            android:textColor="@color/color_primary"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/imageView_flightQuery_origin"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView_flightQuery_origin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_layout_margin"
+            android:src="@drawable/ic_location_origin"
+            android:tint="@color/color_passiveText"
+            app:layout_constraintBottom_toTopOf="@+id/view_flightQuery_locationSeparator"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView_flightQuery_origin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard_layout_margin"
+            android:layout_marginTop="@dimen/small_layout_margin"
+            android:textColor="@color/color_stressedText"
+            android:textSize="@dimen/medium_text_size"
+            app:layout_constraintStart_toEndOf="@+id/imageView_flightQuery_origin"
+            app:layout_constraintTop_toBottomOf="@id/textView_flightQuery_originTitle"
+            tools:text="İstanbul Avrupa" />
+
+        <View
+            android:id="@+id/view_flightQuery_locationSeparator"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/standard_layout_margin"
+            android:layout_marginTop="@dimen/standard_layout_margin"
+            android:layout_marginEnd="@dimen/standard_layout_margin"
+            android:background="@color/color_passiveText"
+            app:layout_constraintEnd_toStartOf="@+id/imageView_flightQuery_swapOriginAndDestination"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView_flightQuery_origin" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView_flightQuery_destinationTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_layout_margin"
+            android:text="@string/label_destinationTitle"
+            android:textColor="@color/color_primary"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@+id/imageView_flightQuery_destination"
+            app:layout_constraintTop_toBottomOf="@id/view_flightQuery_locationSeparator" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView_flightQuery_destination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_layout_margin"
+            android:src="@drawable/ic_location_arrival"
+            android:tint="@color/color_passiveText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_flightQuery_locationSeparator" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView_flightQuery_destination"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard_layout_margin"
+            android:layout_marginTop="@dimen/small_layout_margin"
+            android:layout_marginBottom="@dimen/standard_layout_margin"
+            android:textColor="@color/color_stressedText"
+            android:textSize="@dimen/medium_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView_flightQuery_destination"
+            app:layout_constraintTop_toBottomOf="@id/textView_flightQuery_destinationTitle"
+            tools:text="Ankara" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView_flightQuery_swapOriginAndDestination"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="@dimen/standard_layout_margin"
+            android:src="@drawable/ic_swap"
+            android:tint="@color/color_passiveText"
+            app:layout_constraintBottom_toBottomOf="@+id/view_flightQuery_locationSeparator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_flightQuery_locationSeparator" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout_flightQuery_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_layout_margin"
+        android:layout_marginTop="16dp"
+        android:background="@color/color_white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout_flightQuery_originDestination">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView_flightQuery_departureDateTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_layout_margin"
+            android:text="@string/label_departureDate"
+            android:textColor="@color/color_primary"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/view_flightQuery_dateSeparator"
+            app:layout_constraintStart_toEndOf="@+id/imageView_flightQuery_departureDate"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView_flightQuery_departureDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard_layout_margin"
+            android:src="@drawable/ic_calendar"
+            android:tint="@color/color_passiveText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView_flightQuery_departureDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard_layout_margin"
+            android:layout_marginTop="@dimen/small_layout_margin"
+            android:layout_marginEnd="@dimen/standard_layout_margin"
+            android:layout_marginBottom="@dimen/standard_layout_margin"
+            android:textColor="@color/color_stressedText"
+            android:textSize="@dimen/medium_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/view_flightQuery_dateSeparator"
+            app:layout_constraintStart_toEndOf="@+id/imageView_flightQuery_departureDate"
+            app:layout_constraintTop_toBottomOf="@id/textView_flightQuery_departureDateTitle"
+            tools:text="07 Nisan\nPazar" />
+
+        <View
+            android:id="@+id/view_flightQuery_dateSeparator"
+            android:layout_width="1dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/standard_layout_margin"
+            android:background="@color/color_passiveText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView_flightQuery_arrivalDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/standard_layout_margin"
+            android:src="@drawable/ic_arrivaldate"
+            android:tint="@color/color_passiveText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView_flightQuery_arrivalDateTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_layout_margin"
+            android:text="@string/label_arrivalDate"
+            android:textColor="@color/color_primary"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/imageView_flightQuery_arrivalDate"
+            app:layout_constraintStart_toEndOf="@+id/view_flightQuery_dateSeparator"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView_flightQuery_arrivalDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard_layout_margin"
+            android:layout_marginTop="@dimen/small_layout_margin"
+            android:layout_marginEnd="@dimen/standard_layout_margin"
+            android:layout_marginBottom="@dimen/standard_layout_margin"
+            android:textColor="@color/color_stressedText"
+            android:textSize="@dimen/medium_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageView_flightQuery_arrivalDate"
+            app:layout_constraintStart_toEndOf="@+id/view_flightQuery_dateSeparator"
+            app:layout_constraintTop_toBottomOf="@id/textView_flightQuery_arrivalDateTitle"
+            tools:text="10 Nisan\nÇarşamba" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout_flightQuery_passenger"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_layout_margin"
+        android:background="@color/color_white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/constraintLayout_flightQuery_date">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView_flightQuery_passenger"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_layout_margin"
+            android:src="@drawable/ic_passenger"
+            android:tint="@color/color_passiveText"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView_flightQuery_passenger"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/standard_layout_margin"
+            android:text="@string/label_passengerWithArgs"
+            android:textColor="@color/color_passiveText"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView_flightQuery_passenger"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="0 Passenger" />
+
+        <Button
+            android:id="@+id/radioButton_flightQuery_addPassengers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/standard_layout_margin"
+            android:background="@drawable/selector_sub_button"
+            android:button="@android:color/transparent"
+            android:buttonTint="@color/color_primary"
+            android:checked="true"
+            android:padding="@dimen/small_layout_margin"
+            android:textAllCaps="false"
+            android:text="@string/label_add_passenger"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textColor="@drawable/selector_sub_button_text" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button_flightQuery_findTicket"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/large_layout_margin"
+        android:background="@drawable/selector_large_button"
+        android:gravity="center"
+        android:padding="16dp"
+        android:text="@string/buttonLabel_findTicket"
+        android:textColor="@drawable/selector_large_button_text"
+        android:textSize="@dimen/large_text_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout_flightQuery_passenger" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textView_flightQuery_bottomText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/large_layout_margin"
+        android:background="@color/color_white"
+        android:padding="@dimen/standard_layout_margin"
+        android:text="@string/label_dummyText"
+        android:textColor="@color/color_passiveText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_flightQuery_findTicket" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_horizontal_70"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.70" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

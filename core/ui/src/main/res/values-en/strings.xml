@@ -10,4 +10,8 @@
     <string name="radioButtonLabel_tomorrow">Tomorrow</string>
     <string name="label_originTitle">Origin</string>
     <string name="label_destinationTitle">Destination</string>
+    <string name="label_arrivalDate">Arrival Date</string>
+    <string name="label_passengerWithArgs">%s Passenger</string>
+    <string name="label_notAvailable">N/A</string>
+    <string name="label_add_passenger">Add Passenger</string>
 </resources>

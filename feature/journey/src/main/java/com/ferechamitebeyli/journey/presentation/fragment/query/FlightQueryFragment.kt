@@ -9,5 +9,12 @@ class FlightQueryFragment : BaseFragment<FragmentFlightQueryBinding>(
     FragmentFlightQueryBinding::inflate
 ) {
 
+    override fun setUpUi() {
+        super.setUpUi()
+
+        // Setting initial passenger value to 0
+        binding.textViewFlightQueryPassenger.text =
+            getString(com.ferechamitebeyli.ui.R.string.label_passengerWithArgs, "0")
+    }
 
 }

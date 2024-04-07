@@ -10,4 +10,8 @@
     <string name="radioButtonLabel_tomorrow">Yarın</string>
     <string name="label_originTitle">Nereden</string>
     <string name="label_destinationTitle">Nereye</string>
+    <string name="label_arrivalDate">Dönüş Tarihi</string>
+    <string name="label_passengerWithArgs">%s Yolcu</string>
+    <string name="label_notAvailable">N/A</string>
+    <string name="label_add_passenger">Yolcu Ekle</string>
 </resources>

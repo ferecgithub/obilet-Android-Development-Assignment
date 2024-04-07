@@ -8,7 +8,7 @@
     tools:context=".presentation.fragment.query.BusQueryFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
+        android:id="@+id/constraintLayout_busQuery_originDestination"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/large_layout_margin"
@@ -55,11 +55,13 @@
 
         <View
             android:id="@+id/view_busQuery_locationSeparator"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="@dimen/standard_layout_margin"
+            android:layout_marginStart="@dimen/standard_layout_margin"
+            android:layout_marginEnd="@dimen/standard_layout_margin"
             android:background="@color/color_passiveText"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/imageView_busQuery_swapOriginAndDestination"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textView_busQuery_origin" />
 
@@ -104,7 +106,6 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_margin="@dimen/standard_layout_margin"
-            android:background="@color/color_white"
             android:src="@drawable/ic_swap"
             android:tint="@color/color_passiveText"
             app:layout_constraintBottom_toBottomOf="@+id/view_busQuery_locationSeparator"
@@ -114,14 +115,15 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/constraintLayout_busQuery_date"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/standard_layout_margin"
+        android:layout_marginTop="16dp"
         android:background="@color/color_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout_busQuery_originDestination">
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textView_busQuery_departureDateTitle"
@@ -181,25 +183,25 @@
                 android:id="@+id/radioButton_busQuery_today"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/selector_quickdateselect_radiobutton"
+                android:background="@drawable/selector_sub_button"
                 android:button="@android:color/transparent"
                 android:buttonTint="@color/color_primary"
                 android:padding="@dimen/small_layout_margin"
                 android:text="@string/radioButtonLabel_today"
-                android:textColor="@drawable/selector_quickdateselect_radiobutton_text" />
+                android:textColor="@drawable/selector_sub_button_text" />
 
             <RadioButton
                 android:id="@+id/radioButton_busQuery_tomorrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/standard_layout_margin"
-                android:background="@drawable/selector_quickdateselect_radiobutton"
+                android:background="@drawable/selector_sub_button"
                 android:button="@android:color/transparent"
                 android:buttonTint="@color/color_primary"
                 android:checked="true"
                 android:padding="@dimen/small_layout_margin"
                 android:text="@string/radioButtonLabel_tomorrow"
-                android:textColor="@drawable/selector_quickdateselect_radiobutton_text" />
+                android:textColor="@drawable/selector_sub_button_text" />
 
         </RadioGroup>
 
@@ -210,16 +212,16 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/large_layout_margin"
-        android:background="@drawable/selector_query_button"
+        android:background="@drawable/selector_large_button"
         android:gravity="center"
         android:padding="16dp"
         android:text="@string/buttonLabel_findTicket"
-        android:textColor="@drawable/selector_query_button_text"
+        android:textColor="@drawable/selector_large_button_text"
         android:textSize="@dimen/large_text_size"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout_busQuery_date" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textView_busQuery_bottomText"
