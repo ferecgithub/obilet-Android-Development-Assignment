@@ -23,4 +23,6 @@
     <string name="label_pleaseEnterYourQuery">Please enter your query.</string>
     <string name="message_noRecordFound">No record found.</string>
     <string name="label_yearMonthDay">%1$s-%2$s-%3$s</string>
+    <string name="message_allInformationAreValidButNotImplemented">All information are valid. Button is not implemented.</string>
+    <string name="message_invalidInfoWarning">Some information are invalid. Please check again.</string>
 </resources>

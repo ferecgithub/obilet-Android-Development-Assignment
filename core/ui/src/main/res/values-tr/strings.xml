@@ -23,4 +23,6 @@
     <string name="label_pleaseEnterYourQuery">Lütfen sorguyu giriniz.</string>
     <string name="message_noRecordFound">Kayıt bulunamadı.</string>
     <string name="label_yearMonthDay">%1$s-%2$s-%3$s</string>
+    <string name="message_allInformationAreValidButNotImplemented">Tüm bilgiler doğru girilmiş. Ancak Button implement edilmedi.</string>
+    <string name="message_invalidInfoWarning">Bazı bilgiler yanlış. Lütfen yeniden kontrol ediniz.</string>
 </resources>

@@ -27,6 +27,7 @@ import org.threeten.bp.LocalDateTime
 import org.threeten.bp.LocalTime
 import org.threeten.bp.ZoneId
 import org.threeten.bp.format.DateTimeFormatter
+import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
@@ -104,7 +105,12 @@ object UiHelpers {
         imageView.startAnimation(rotateAnimation)
     }
 
-    fun showDatePicker(context: Context, textView: TextView, locale: Locale = Locale.getDefault(), callBack: (DateFormatUiModel) -> Unit) {
+    fun showDatePicker(
+        context: Context,
+        textView: TextView,
+        locale: Locale = Locale.getDefault(),
+        callBack: (DateFormatUiModel) -> Unit
+    ) {
         val calendar = Calendar.getInstance()
         val currentYear = calendar.get(Calendar.YEAR)
         val currentMonth = calendar.get(Calendar.MONTH)
@@ -131,7 +137,12 @@ object UiHelpers {
             callBack.invoke(
                 DateFormatUiModel(
                     dateForUi = formattedDate,
-                    dateForService = context.getString(R.string.label_yearMonthDay, year.toString(), monthString, dayString)
+                    dateForService = context.getString(
+                        R.string.label_yearMonthDay,
+                        year.toString(),
+                        monthString,
+                        dayString
+                    )
                 )
             )
 
@@ -140,6 +151,14 @@ object UiHelpers {
         // Disabled older dates
         datePicker.datePicker.minDate = System.currentTimeMillis() - 1000
         datePicker.show()
+    }
+
+    fun isArrivalDateAfterDeparture(departureDate: String, arrivalDate: String): Boolean {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val departureDateParsed = dateFormat.parse(departureDate)
+        val arrivalDateParsed = dateFormat.parse(arrivalDate)
+
+        return arrivalDateParsed.after(departureDateParsed)
     }
 
     fun <T> Flow<T>.collectFlowWithFragmentLifecycle(

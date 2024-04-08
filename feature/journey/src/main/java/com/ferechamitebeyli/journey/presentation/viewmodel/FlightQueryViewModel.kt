@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ferechamitebeyli.data.model.location.LocationDataUiModel
 import com.ferechamitebeyli.journey.domain.usecase.busquery.GetBusLocationsUseCase
+import com.ferechamitebeyli.journey.domain.usecase.flightquery.ValidateFlightQueryInfoUseCase
 import com.ferechamitebeyli.journey.presentation.state.JourneyResponseState
 import com.ferechamitebeyli.network.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FlightQueryViewModel @Inject constructor(
-    val getBusLocationsUseCase: GetBusLocationsUseCase
+    private val getBusLocationsUseCase: GetBusLocationsUseCase,
+    private val validateFlightQueryInfoUseCase: ValidateFlightQueryInfoUseCase
 ) : ViewModel() {
 
     var departureDateForService: String = ""
@@ -53,6 +55,21 @@ class FlightQueryViewModel @Inject constructor(
                 }
             }
         }
+
+    fun validateFlightQueryInformation(
+        departureModel: LocationDataUiModel? = currentOrigin,
+        destinationModel: LocationDataUiModel? = currentDestination,
+        departureDate: String = departureDateForService,
+        arrivalDate: String = arrivalDateForService
+    ): Boolean {
+        return if (departureModel == null || destinationModel == null) {
+            false
+        } else {
+            validateFlightQueryInfoUseCase.invoke(
+                departureModel, destinationModel, departureDate, arrivalDate
+            )
+        }
+    }
 
 
 }
