@@ -25,4 +25,10 @@
     <string name="label_yearMonthDay">%1$s-%2$s-%3$s</string>
     <string name="message_allInformationAreValidButNotImplemented">Tüm bilgiler doğru girilmiş. Ancak Button implement edilmedi.</string>
     <string name="message_invalidInfoWarning">Bazı bilgiler yanlış. Lütfen yeniden kontrol ediniz.</string>
+    <string name="label_adult">Yetişkin</string>
+    <string name="label_children">Çocuk</string>
+    <string name="label_student">Öğrenci</string>
+    <string name="label_65plus">60 Yaş Üzeri</string>
+    <string name="label_baby">Bebek</string>
+    <string name="label_passenger">Yolcu</string>
 </resources>

@@ -252,7 +252,7 @@
             tools:text="0 Passenger" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/radioButton_flightQuery_addPassengers"
+            android:id="@+id/button_flightQuery_addPassengers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/standard_layout_margin"

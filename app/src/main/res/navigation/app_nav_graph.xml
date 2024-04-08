@@ -3,4 +3,5 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/app_nav_graph">
     <include app:graph="@navigation/main_nav_graph" />
+    <include app:graph="@navigation/journey_nav_graph" />
 </navigation>

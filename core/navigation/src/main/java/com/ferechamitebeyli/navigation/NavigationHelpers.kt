@@ -1,6 +1,5 @@
 package com.ferechamitebeyli.navigation
 
-import android.net.Uri
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 

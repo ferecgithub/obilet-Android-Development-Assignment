@@ -2,6 +2,7 @@ package com.ferechamitebeyli.journey.presentation.fragment.query
 
 import android.util.Log
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.ferechamitebeyli.caching.model.LastQueryUiModel
 import com.ferechamitebeyli.data.model.location.LocationDataUiModel
@@ -10,6 +11,7 @@ import com.ferechamitebeyli.journey.databinding.FragmentBusQueryBinding
 import com.ferechamitebeyli.journey.presentation.argument.JourneyNavArgument
 import com.ferechamitebeyli.journey.presentation.state.JourneyResponseState
 import com.ferechamitebeyli.journey.presentation.util.JourneyHelpers.validateCachedQuery
+import com.ferechamitebeyli.journey.presentation.util.TravelQueryChildFragmentInteractor
 import com.ferechamitebeyli.journey.presentation.viewmodel.BusQueryViewModel
 import com.ferechamitebeyli.navigation.safeNavigate
 import com.ferechamitebeyli.ui.base.BaseFragment
@@ -24,10 +26,13 @@ class BusQueryFragment : BaseFragment<FragmentBusQueryBinding>(
     FragmentBusQueryBinding::inflate
 ) {
     private val viewModel: BusQueryViewModel by viewModels()
+    private lateinit var childFragmentInteractor: TravelQueryChildFragmentInteractor
 
     override fun setUpUi() {
         super.setUpUi()
         progressBar = binding.progressBar
+
+        childFragmentInteractor = requireParentFragment() as TravelQueryChildFragmentInteractor
 
         // Set default date as tomorrow
         setDateForQuickSelection(isTomorrow = true)
@@ -202,30 +207,12 @@ class BusQueryFragment : BaseFragment<FragmentBusQueryBinding>(
     private fun navigateToQueryFragment(isOrigin: Boolean) {
         viewModel.getBusLocationsStateFlow.value.data?.let { list ->
 
-            parentFragmentManager.fragments.forEach {
-                Log.d("BQFR", "${it?.javaClass?.simpleName}")
-            }
-
             val args = JourneyNavArgument(
                 locationModelList = list,
                 isOrigin = isOrigin
             )
 
-            /*
-            val action = TravelQueryFragmentDirections.actionTravelQueryFragmentToQueryFragment(
-                args = args
-            )
-
-             */
-
-            val action = BusQueryFragmentDirections.actionBusQueryFragmentToQueryFragment(
-                args = args
-            )
-
-            //val viewPagerContainerFragment = parentFragmentManager.findFragmentById(R.id.travelQueryFragment)
-
-
-            findNavController().navigate(action)
+            childFragmentInteractor.onBusQueryClick(args)
 
         }
 

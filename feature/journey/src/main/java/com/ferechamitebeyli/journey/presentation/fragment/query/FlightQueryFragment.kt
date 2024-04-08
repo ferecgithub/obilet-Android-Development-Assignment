@@ -1,6 +1,5 @@
 package com.ferechamitebeyli.journey.presentation.fragment.query
 
-import android.util.Log
 import androidx.fragment.app.viewModels
 import com.ferechamitebeyli.data.model.location.LocationDataUiModel
 import com.ferechamitebeyli.journey.databinding.FragmentFlightQueryBinding
@@ -65,6 +64,10 @@ class FlightQueryFragment : BaseFragment<FragmentFlightQueryBinding>(
 
         }
 
+        binding.buttonFlightQueryAddPassengers.setOnClickListener {
+            showBottomSheet()
+        }
+
         binding.textViewFlightQueryDepartureDate.setOnClickListener {
             UiHelpers.showDatePicker(
                 requireContext(),
@@ -125,7 +128,7 @@ class FlightQueryFragment : BaseFragment<FragmentFlightQueryBinding>(
                     hideProgressBar()
 
                     val isThereAnyLastCachedQuery =
-                        JourneyHelpers.validateCachedQuery(viewModel.getCachedLastQueryStateFlow.value)
+                        validateCachedQuery(viewModel.getCachedLastQueryStateFlow.value)
 
                     if (isThereAnyLastCachedQuery) {
                         val originModel = LocationDataUiModel(
@@ -192,10 +195,10 @@ class FlightQueryFragment : BaseFragment<FragmentFlightQueryBinding>(
         destination: LocationDataUiModel?
     ) {
         binding.textViewFlightQueryOrigin.text =
-            origin?.name ?: getString(com.ferechamitebeyli.ui.R.string.message_pleaseEnterAnOrigin)
+            origin?.name ?: getString(R.string.message_pleaseEnterAnOrigin)
         viewModel.currentOrigin = origin
         binding.textViewFlightQueryDestination.text = destination?.name
-            ?: getString(com.ferechamitebeyli.ui.R.string.message_pleaseEnterADestination)
+            ?: getString(R.string.message_pleaseEnterADestination)
         viewModel.currentDestination = destination
     }
 
@@ -211,5 +214,13 @@ class FlightQueryFragment : BaseFragment<FragmentFlightQueryBinding>(
 
         binding.textViewFlightQueryArrivalDate.text = arrivalDate.dateForUi
         viewModel.arrivalDateForService = arrivalDate.dateForService
+    }
+
+    private fun showBottomSheet() {
+        val bottomSheetFragment = PassengerSelectionDialogFragment {
+            binding.textViewFlightQueryPassenger.text = it.toString()
+
+        }
+        bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
     }
 }

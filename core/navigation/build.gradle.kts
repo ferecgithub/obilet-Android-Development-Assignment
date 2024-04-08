@@ -29,6 +29,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
 
     api(libs.navigationFragment)
+    api(libs.navigationRunTime)
     api(libs.navigationUi)
 
     testImplementation(libs.junit)

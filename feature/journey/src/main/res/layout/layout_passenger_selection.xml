@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <View
+        android:id="@+id/view_passengerSelection_topBar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/color_primary"
+        app:layout_constraintBottom_toTopOf="@id/guideline_horizontal_10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_layout_margin"
+        android:text="@string/label_passenger"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/medium_text_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal_10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView_passengerSelection_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_layout_margin"
+        android:src="@drawable/ic_close"
+        android:tint="@color/color_white"
+        app:layout_constraintBottom_toBottomOf="@id/view_passengerSelection_topBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Adult line -->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textView_passengerSelection_adult"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/standard_layout_margin"
+        android:text="@string/label_adult"
+        android:textColor="@color/color_stressedText"
+        android:textSize="@dimen/medium_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_adultMinus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_passengerSelection_topBar" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView_adultMinus"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_margin="@dimen/standard_layout_margin"
+        android:src="@drawable/ic_minus"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/textView_adultAmount"
+        app:layout_constraintTop_toTopOf="@+id/guideline_horizontal_10" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textView_adultAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/standard_layout_margin"
+        android:layout_marginTop="@dimen/standard_layout_margin"
+        android:layout_marginEnd="@dimen/standard_layout_margin"
+        android:gravity="center"
+        android:textSize="@dimen/medium_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_adultPlus"
+        app:layout_constraintEnd_toStartOf="@+id/imageView_adultPlus"
+        app:layout_constraintTop_toBottomOf="@id/view_passengerSelection_topBar"
+        tools:text="1" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView_adultPlus"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_margin="@dimen/standard_layout_margin"
+        android:src="@drawable/ic_plus"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_passengerSelection_topBar" />
+
+    <View
+        android:id="@+id/view_separatorAdult"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/standard_layout_margin"
+        android:background="@color/color_passiveText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView_adultPlus" />
+
+    <!-- Children line -->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textView_passengerSelection_children"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/standard_layout_margin"
+        android:layout_marginTop="@dimen/standard_layout_margin"
+        android:text="@string/label_children"
+        android:textColor="@color/color_stressedText"
+        android:textSize="@dimen/medium_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_separatorAdult" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView_childrenMinus"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_margin="@dimen/standard_layout_margin"
+        android:src="@drawable/ic_minus"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/textView_adultAmount"
+        app:layout_constraintTop_toBottomOf="@id/view_separatorAdult" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textView_childrenAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/standard_layout_margin"
+        android:layout_marginTop="@dimen/standard_layout_margin"
+        android:layout_marginEnd="@dimen/standard_layout_margin"
+        android:gravity="center"
+        android:textSize="@dimen/medium_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_childrenPlus"
+        app:layout_constraintEnd_toStartOf="@+id/imageView_childrenPlus"
+        app:layout_constraintTop_toBottomOf="@id/view_separatorAdult"
+        tools:text="1" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView_childrenPlus"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_margin="@dimen/standard_layout_margin"
+        android:src="@drawable/ic_plus"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_separatorAdult" />
+
+    <View
+        android:id="@+id/view_separatorChildren"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/standard_layout_margin"
+        android:background="@color/color_passiveText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView_childrenPlus" />
+
+    <!-- Student line -->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textView_passengerSelection_student"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/standard_layout_margin"
+        android:layout_marginTop="@dimen/standard_layout_margin"
+        android:text="@string/label_student"
+        android:textColor="@color/color_stressedText"
+        android:textSize="@dimen/medium_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_separatorChildren" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView_studentMinus"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_margin="@dimen/standard_layout_margin"
+        android:src="@drawable/ic_minus"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/textView_childrenAmount"
+        app:layout_constraintTop_toBottomOf="@id/view_separatorChildren" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textView_studentAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/standard_layout_margin"
+        android:layout_marginTop="@dimen/standard_layout_margin"
+        android:layout_marginEnd="@dimen/standard_layout_margin"
+        android:gravity="center"
+        android:textSize="@dimen/medium_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_studentPlus"
+        app:layout_constraintEnd_toStartOf="@+id/imageView_studentPlus"
+        app:layout_constraintTop_toBottomOf="@id/view_separatorChildren"
+        tools:text="1" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView_studentPlus"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_margin="@dimen/standard_layout_margin"
+        android:src="@drawable/ic_plus"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_separatorChildren" />
+
+    <View
+        android:id="@+id/view_separatorStudent"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/standard_layout_margin"
+        android:background="@color/color_passiveText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView_studentPlus" />
+
+    <!-- 65+ line -->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textView_passengerSelection_65plus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/standard_layout_margin"
+        android:layout_marginTop="@dimen/standard_layout_margin"
+        android:text="@string/label_65plus"
+        android:textColor="@color/color_stressedText"
+        android:textSize="@dimen/medium_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_separatorStudent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView_65plusMinus"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_margin="@dimen/standard_layout_margin"
+        android:src="@drawable/ic_minus"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/textView_studentAmount"
+        app:layout_constraintTop_toBottomOf="@id/view_separatorStudent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textView_65plusAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/standard_layout_margin"
+        android:layout_marginTop="@dimen/standard_layout_margin"
+        android:layout_marginEnd="@dimen/standard_layout_margin"
+        android:gravity="center"
+        android:textSize="@dimen/medium_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_65plusPlus"
+        app:layout_constraintEnd_toStartOf="@+id/imageView_65plusPlus"
+        app:layout_constraintTop_toBottomOf="@id/view_separatorStudent"
+        tools:text="1" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView_65plusPlus"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_margin="@dimen/standard_layout_margin"
+        android:src="@drawable/ic_plus"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_separatorStudent" />
+
+    <View
+        android:id="@+id/view_separator65plus"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/standard_layout_margin"
+        android:background="@color/color_passiveText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView_65plusPlus" />
+
+    <!-- Baby line -->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textView_passengerSelection_baby"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/standard_layout_margin"
+        android:layout_marginTop="@dimen/standard_layout_margin"
+        android:text="@string/label_baby"
+        android:textColor="@color/color_stressedText"
+        android:textSize="@dimen/medium_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_separator65plus" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView_babyMinus"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_margin="@dimen/standard_layout_margin"
+        android:src="@drawable/ic_minus"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/textView_65plusAmount"
+        app:layout_constraintTop_toBottomOf="@id/view_separator65plus" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textView_babyAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="@dimen/standard_layout_margin"
+        android:layout_marginTop="@dimen/standard_layout_margin"
+        android:layout_marginEnd="@dimen/standard_layout_margin"
+        android:gravity="center"
+        android:textSize="@dimen/medium_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_babyPlus"
+        app:layout_constraintEnd_toStartOf="@+id/imageView_babyPlus"
+        app:layout_constraintTop_toBottomOf="@id/view_separator65plus"
+        tools:text="1" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView_babyPlus"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_margin="@dimen/standard_layout_margin"
+        android:src="@drawable/ic_plus"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view_separator65plus" />
+
+    <View
+        android:id="@+id/view_separatorBaby"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/standard_layout_margin"
+        android:background="@color/color_passiveText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imageView_babyPlus" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_horizontal_10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.10" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

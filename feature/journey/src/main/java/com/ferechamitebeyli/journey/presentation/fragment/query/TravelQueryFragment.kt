@@ -1,14 +1,14 @@
 package com.ferechamitebeyli.journey.presentation.fragment.query
 
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.ferechamitebeyli.journey.R
 import com.ferechamitebeyli.journey.databinding.FragmentTravelQueryBinding
 import com.ferechamitebeyli.journey.presentation.adapter.TravelQueryPagerAdapter
 import com.ferechamitebeyli.journey.presentation.argument.JourneyNavArgument
+import com.ferechamitebeyli.journey.presentation.util.TravelQueryChildFragmentInteractor
+import com.ferechamitebeyli.navigation.Navigator
 import com.ferechamitebeyli.navigation.safeNavigate
 import com.ferechamitebeyli.ui.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
@@ -19,16 +19,14 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class TravelQueryFragment : BaseFragment<FragmentTravelQueryBinding>(
     FragmentTravelQueryBinding::inflate
-) {
+), TravelQueryChildFragmentInteractor {
     private lateinit var adapter: TravelQueryPagerAdapter
+
+
 
     override fun setUpUi() {
         super.setUpUi()
 
-        Log.d("TRQFR", "Size: ${childFragmentManager.fragments.size}")
-        childFragmentManager.fragments.forEach {
-            Log.d("TRQFR", "${it?.javaClass?.simpleName}")
-        }
 
         val fragmentList = arrayListOf<Fragment>(
             BusQueryFragment(),
@@ -43,8 +41,11 @@ class TravelQueryFragment : BaseFragment<FragmentTravelQueryBinding>(
 
         binding.viewPagerTravelQuery.adapter = adapter
 
-        TabLayoutMediator(binding.tabLayoutTravelQuery, binding.viewPagerTravelQuery) { tab, position ->
-            tab.text = when(position) {
+        TabLayoutMediator(
+            binding.tabLayoutTravelQuery,
+            binding.viewPagerTravelQuery
+        ) { tab, position ->
+            tab.text = when (position) {
                 0 -> getString(com.ferechamitebeyli.ui.R.string.label_busTicket)
                 1 -> getString(com.ferechamitebeyli.ui.R.string.label_airplaneTicket)
                 else -> ""
@@ -69,14 +70,27 @@ class TravelQueryFragment : BaseFragment<FragmentTravelQueryBinding>(
 
         })
 
-        binding.viewPagerTravelQuery.registerOnPageChangeCallback(object: OnPageChangeCallback() {
+        binding.viewPagerTravelQuery.registerOnPageChangeCallback(object : OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                binding.tabLayoutTravelQuery.selectTab(binding.tabLayoutTravelQuery.getTabAt(position))
+                binding.tabLayoutTravelQuery.selectTab(
+                    binding.tabLayoutTravelQuery.getTabAt(
+                        position
+                    )
+                )
             }
         })
     }
 
+    override fun onBusQueryClick(args: JourneyNavArgument) {
+        val action = TravelQueryFragmentDirections.actionTravelQueryFragmentToQueryFragment(args)
+        (requireActivity() as Navigator).graphSpecificNavigation(R.id.journey_nav_graph)
+        (requireActivity() as Navigator).navigateTo(action)
+    }
+
+    override fun onFlightQueryClick(args: JourneyNavArgument) {
+        //
+    }
 
 
 }
