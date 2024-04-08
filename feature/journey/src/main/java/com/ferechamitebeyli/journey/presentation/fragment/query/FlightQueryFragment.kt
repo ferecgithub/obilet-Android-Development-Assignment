@@ -1,9 +1,12 @@
 package com.ferechamitebeyli.journey.presentation.fragment.query
 
+import android.util.Log
 import androidx.fragment.app.viewModels
 import com.ferechamitebeyli.data.model.location.LocationDataUiModel
 import com.ferechamitebeyli.journey.databinding.FragmentFlightQueryBinding
 import com.ferechamitebeyli.journey.presentation.state.JourneyResponseState
+import com.ferechamitebeyli.journey.presentation.util.JourneyHelpers
+import com.ferechamitebeyli.journey.presentation.util.JourneyHelpers.validateCachedQuery
 import com.ferechamitebeyli.journey.presentation.viewmodel.FlightQueryViewModel
 import com.ferechamitebeyli.ui.R
 import com.ferechamitebeyli.ui.base.BaseFragment
@@ -28,6 +31,8 @@ class FlightQueryFragment : BaseFragment<FragmentFlightQueryBinding>(
         binding.textViewFlightQueryPassenger.text =
             getString(com.ferechamitebeyli.ui.R.string.label_passengerWithArgs, "0")
 
+        viewModel.getCachedLastQuery()
+
         viewModel.getBusLocations(
             data = null
         )
@@ -35,6 +40,30 @@ class FlightQueryFragment : BaseFragment<FragmentFlightQueryBinding>(
 
     override fun setOnClickListeners() {
         super.setOnClickListeners()
+
+        binding.buttonFlightQueryFindTicket.setOnClickListener {
+            if (viewModel.validateFlightQueryInformation()) {
+                viewModel.cacheLastQuery(
+                    viewModel.currentOrigin?.name,
+                    viewModel.currentOrigin?.id,
+                    viewModel.currentDestination?.name,
+                    viewModel.currentDestination?.id,
+                    viewModel.departureDateForService,
+                    binding.textViewFlightQueryDepartureDate.text?.trim()?.toString()
+                )
+
+                // BusJourneyIndexFragment' e navigation
+            } else {
+                Snackbar.make(
+                    requireContext(),
+                    binding.root,
+                    getString(R.string.message_invalidInfoWarning),
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
+
+
+        }
 
         binding.textViewFlightQueryDepartureDate.setOnClickListener {
             UiHelpers.showDatePicker(
@@ -51,24 +80,6 @@ class FlightQueryFragment : BaseFragment<FragmentFlightQueryBinding>(
                 binding.textViewFlightQueryArrivalDate
             ) {
                 viewModel.arrivalDateForService = it.dateForService
-            }
-        }
-
-        binding.buttonFlightQueryFindTicket.setOnClickListener {
-            if (viewModel.validateFlightQueryInformation()) {
-                Snackbar.make(
-                    requireContext(),
-                    binding.root,
-                    getString(R.string.message_allInformationAreValidButNotImplemented),
-                    Snackbar.LENGTH_LONG
-                ).show()
-            } else {
-                Snackbar.make(
-                    requireContext(),
-                    binding.root,
-                    getString(R.string.message_invalidInfoWarning),
-                    Snackbar.LENGTH_LONG
-                ).show()
             }
         }
 
@@ -113,10 +124,64 @@ class FlightQueryFragment : BaseFragment<FragmentFlightQueryBinding>(
                 is JourneyResponseState.Success -> {
                     hideProgressBar()
 
-                    populateInitialOriginAndDestination(
-                        state.data?.first(),
-                        state.data?.last(),
+                    val isThereAnyLastCachedQuery =
+                        JourneyHelpers.validateCachedQuery(viewModel.getCachedLastQueryStateFlow.value)
+
+                    if (isThereAnyLastCachedQuery) {
+                        val originModel = LocationDataUiModel(
+                            id = viewModel.getCachedLastQueryStateFlow.value?.originId,
+                            name = viewModel.getCachedLastQueryStateFlow.value?.originName,
+                            parentId = null,
+                            type = null,
+                            cityId = null,
+                            cityName = null
+                        )
+                        val destinationModel = LocationDataUiModel(
+                            id = viewModel.getCachedLastQueryStateFlow.value?.destinationId,
+                            name = viewModel.getCachedLastQueryStateFlow.value?.destinationName,
+                            parentId = null,
+                            type = null,
+                            cityId = null,
+                            cityName = null
+                        )
+                        populateInitialOriginAndDestination(
+                            originModel,
+                            destinationModel,
+                        )
+                    } else {
+                        populateInitialOriginAndDestination(
+                            state.data?.first(),
+                            state.data?.last(),
+                        )
+                    }
+                }
+            }
+        }
+
+        viewModel.getCachedLastQueryStateFlow.collectFlowWithFragmentLifecycle(
+            this@FlightQueryFragment
+        ) { query ->
+            query?.let {
+
+                if (validateCachedQuery(it)) {
+                    val dummyModel = LocationDataUiModel(null, null, null, null, null, null)
+
+                    viewModel.currentOrigin = dummyModel.copy(
+                        id = query.originId,
+                        name = query.originName
                     )
+                    viewModel.currentDestination = dummyModel.copy(
+                        id = query.destinationId,
+                        name = query.destinationName
+                    )
+
+                    binding.textViewFlightQueryOrigin.text = query.originName
+                    binding.textViewFlightQueryDestination.text = query.destinationName
+
+                    binding.textViewFlightQueryDepartureDate.text = query.departureDateForUi
+                    query.departureDateForService?.let {
+                        viewModel.departureDateForService = it
+                    }
                 }
             }
         }

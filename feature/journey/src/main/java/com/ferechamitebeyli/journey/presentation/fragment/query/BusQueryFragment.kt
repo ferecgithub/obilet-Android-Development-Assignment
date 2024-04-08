@@ -3,10 +3,13 @@ package com.ferechamitebeyli.journey.presentation.fragment.query
 import android.util.Log
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.ferechamitebeyli.caching.model.LastQueryUiModel
 import com.ferechamitebeyli.data.model.location.LocationDataUiModel
+import com.ferechamitebeyli.journey.R
 import com.ferechamitebeyli.journey.databinding.FragmentBusQueryBinding
 import com.ferechamitebeyli.journey.presentation.argument.JourneyNavArgument
 import com.ferechamitebeyli.journey.presentation.state.JourneyResponseState
+import com.ferechamitebeyli.journey.presentation.util.JourneyHelpers.validateCachedQuery
 import com.ferechamitebeyli.journey.presentation.viewmodel.BusQueryViewModel
 import com.ferechamitebeyli.navigation.safeNavigate
 import com.ferechamitebeyli.ui.base.BaseFragment
@@ -38,6 +41,8 @@ class BusQueryFragment : BaseFragment<FragmentBusQueryBinding>(
             setDateForQuickSelection(isChecked)
         }
 
+        viewModel.getCachedLastQuery()
+
         viewModel.getBusLocations(
             data = null
         )
@@ -45,6 +50,29 @@ class BusQueryFragment : BaseFragment<FragmentBusQueryBinding>(
 
     override fun setOnClickListeners() {
         super.setOnClickListeners()
+
+        binding.buttonBusQueryFindTicket.setOnClickListener {
+            if (viewModel.validateBusQueryInformation()) {
+
+                viewModel.cacheLastQuery(
+                    viewModel.currentOrigin?.name,
+                    viewModel.currentOrigin?.id,
+                    viewModel.currentDestination?.name,
+                    viewModel.currentDestination?.id,
+                    viewModel.departureDateForService,
+                    binding.textViewBusQueryDepartureDate.text?.trim()?.toString()
+                )
+
+                // BusJourneyIndexFragment' e navigation
+
+            } else {
+                showCustomDialog(
+                    getString(com.ferechamitebeyli.ui.R.string.message_invalidInfoWarning),
+                    isInfoMessage = true
+                )
+            }
+
+        }
 
         binding.textViewBusQueryOrigin.setOnClickListener {
             //displayQueryDialog(isOrigin = true)
@@ -107,10 +135,64 @@ class BusQueryFragment : BaseFragment<FragmentBusQueryBinding>(
                 is JourneyResponseState.Success -> {
                     hideProgressBar()
 
-                    populateInitialOriginAndDestination(
-                        state.data?.first(),
-                        state.data?.last(),
+                    val isThereAnyLastCachedQuery =
+                        validateCachedQuery(viewModel.getCachedLastQueryStateFlow.value)
+
+                    if (isThereAnyLastCachedQuery) {
+                        val originModel = LocationDataUiModel(
+                            id = viewModel.getCachedLastQueryStateFlow.value?.originId,
+                            name = viewModel.getCachedLastQueryStateFlow.value?.originName,
+                            parentId = null,
+                            type = null,
+                            cityId = null,
+                            cityName = null
+                        )
+                        val destinationModel = LocationDataUiModel(
+                            id = viewModel.getCachedLastQueryStateFlow.value?.destinationId,
+                            name = viewModel.getCachedLastQueryStateFlow.value?.destinationName,
+                            parentId = null,
+                            type = null,
+                            cityId = null,
+                            cityName = null
+                        )
+                        populateInitialOriginAndDestination(
+                            originModel,
+                            destinationModel,
+                        )
+                    } else {
+                        populateInitialOriginAndDestination(
+                            state.data?.first(),
+                            state.data?.last(),
+                        )
+                    }
+                }
+            }
+        }
+
+        viewModel.getCachedLastQueryStateFlow.collectFlowWithFragmentLifecycle(
+            this@BusQueryFragment
+        ) { query ->
+            query?.let {
+
+                if (validateCachedQuery(it)) {
+                    val dummyModel = LocationDataUiModel(null, null, null, null, null, null)
+
+                    viewModel.currentOrigin = dummyModel.copy(
+                        id = query.originId,
+                        name = query.originName
                     )
+                    viewModel.currentDestination = dummyModel.copy(
+                        id = query.destinationId,
+                        name = query.destinationName
+                    )
+
+                    binding.textViewBusQueryOrigin.text = query.originName
+                    binding.textViewBusQueryDestination.text = query.destinationName
+
+                    binding.textViewBusQueryDepartureDate.text = query.departureDateForUi
+                    query.departureDateForService?.let {
+                        viewModel.departureDateForService = it
+                    }
                 }
             }
         }
@@ -141,8 +223,6 @@ class BusQueryFragment : BaseFragment<FragmentBusQueryBinding>(
             )
 
             //val viewPagerContainerFragment = parentFragmentManager.findFragmentById(R.id.travelQueryFragment)
-
-
 
 
             findNavController().navigate(action)

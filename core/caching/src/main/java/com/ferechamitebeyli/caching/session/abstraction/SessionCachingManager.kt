@@ -7,12 +7,22 @@ import kotlinx.coroutines.flow.Flow
  */
 
 interface SessionCachingManager {
-    suspend fun cacheLastQueries(origin: String, destination: String, departureDate: String)
-    suspend fun cacheDeviceSession(deviceId: String, sessionId: String)
+    suspend fun cacheLastQueries(
+        originName: String,
+        originId: Int,
+        destinationName: String,
+        destinationId: Int,
+        departureDateForService: String,
+        departureDateForUi: String,
+    )
 
-    fun getLastQueriedOrigin(): Flow<String>
-    fun getLastQueriedDestination(): Flow<String>
-    fun getLastQueriedDepartureDate(): Flow<String>
+    suspend fun cacheDeviceSession(deviceId: String, sessionId: String)
+    fun getLastQueriedOriginName(): Flow<String>
+    fun getLastQueriedOriginId(): Flow<Int>
+    fun getLastQueriedDestinationName(): Flow<String>
+    fun getLastQueriedDestinationId(): Flow<Int>
+    fun getLastQueriedDepartureDateForService(): Flow<String>
+    fun getLastQueriedDepartureDateForUi(): Flow<String>
     fun getCachedDeviceId(): Flow<String>
     fun getCachedSessionId(): Flow<String>
     suspend fun clearCache()

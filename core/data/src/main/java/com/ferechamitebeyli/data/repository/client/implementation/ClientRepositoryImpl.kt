@@ -1,8 +1,9 @@
 package com.ferechamitebeyli.data.repository.client.implementation
 
 import com.ferechamitebeyli.caching.session.abstraction.SessionCachingManager
-import com.ferechamitebeyli.data.model.common.LastQueryUiModel
+import com.ferechamitebeyli.caching.model.LastQueryUiModel
 import com.ferechamitebeyli.data.repository.client.abstraction.ClientRepository
+import com.ferechamitebeyli.data.util.DataUtils.combine
 import com.ferechamitebeyli.network.datasource.client.abstraction.ClientRemoteDataSource
 import com.ferechamitebeyli.network.dto.client.getsession.request.GetSessionRequestModel
 import com.ferechamitebeyli.network.dto.client.getsession.response.GetSessionResponseModel
@@ -13,7 +14,6 @@ import com.ferechamitebeyli.network.util.UiText
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.zip
 import kotlinx.coroutines.withContext
@@ -107,25 +107,39 @@ class ClientRepositoryImpl @Inject constructor(
 
     override fun getCachedLastQueriedInformation(): Flow<LastQueryUiModel> {
         return combine(
-            cachingDataSource.getLastQueriedOrigin(),
-            cachingDataSource.getLastQueriedDestination(),
-            cachingDataSource.getLastQueriedDepartureDate()
-        ) { origin, destination, departureDate ->
+            cachingDataSource.getLastQueriedOriginName(),
+            cachingDataSource.getLastQueriedOriginId(),
+            cachingDataSource.getLastQueriedDestinationName(),
+            cachingDataSource.getLastQueriedDestinationId(),
+            cachingDataSource.getLastQueriedDepartureDateForService(),
+            cachingDataSource.getLastQueriedDepartureDateForUi()
+        ) { originName, originId, destinationName, destinationId, departureDateForService, departureDateForUi ->
             LastQueryUiModel(
-                origin = origin,
-                destination = destination,
-                departureDate = departureDate
+                originName = originName,
+                originId = originId,
+                destinationName = destinationName,
+                destinationId = destinationId,
+                departureDateForService = departureDateForService,
+                departureDateForUi = departureDateForUi
             )
         }
     }
 
-    override suspend fun cacheLastQueries(
-        origin: String,
-        destination: String,
-        departureDate: String
+    override suspend fun cacheLastQuery(
+        originName: String,
+        originId: Int,
+        destinationName: String,
+        destinationId: Int,
+        departureDateForService: String,
+        departureDateForUi: String,
     ) {
         cachingDataSource.cacheLastQueries(
-            origin, destination, departureDate
+            originName,
+            originId,
+            destinationName,
+            destinationId,
+            departureDateForService,
+            departureDateForUi
         )
     }
 
