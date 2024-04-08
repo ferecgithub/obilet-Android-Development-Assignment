@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_margin="@dimen/tiny_layout_margin"
+    android:background="@drawable/background_list_item"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small_layout_margin"
+        android:layout_weight="1"
+        android:src="@drawable/ic_location_arrival" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textView_itemQuery_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/small_layout_margin"
+        android:layout_weight="9"
+        android:textColor="@color/color_stressedText"
+        android:textSize="@dimen/medium_text_size"
+        android:textStyle="bold"
+        tools:text="Ankara" />
+
+</LinearLayout>

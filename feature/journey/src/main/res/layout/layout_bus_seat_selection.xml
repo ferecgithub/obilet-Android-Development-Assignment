@@ -12,7 +12,7 @@
         android:id="@+id/linearLayout_busSeatsContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_journey_item"
+        android:background="@drawable/background_list_item"
         android:orientation="horizontal"
         android:padding="8dp" />
 

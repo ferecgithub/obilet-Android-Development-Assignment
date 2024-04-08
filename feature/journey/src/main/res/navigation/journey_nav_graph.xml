@@ -3,20 +3,64 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/travelQueryFragment">
+    app:startDestination="@id/busQueryFragment">
 
-    <fragment
-        android:id="@+id/travelQueryFragment"
-        android:name="com.ferechamitebeyli.journey.presentation.fragment.query.TravelQueryFragment"
-        android:label="fragment_travel_query"
-        tools:layout="@layout/fragment_travel_query">
-        <action
-            android:id="@+id/action_travelQueryFragment_to_busJourneyIndexFragment"
-            app:destination="@id/busJourneyIndexFragment" />
-    </fragment>
     <fragment
         android:id="@+id/busJourneyIndexFragment"
         android:name="com.ferechamitebeyli.journey.presentation.fragment.BusJourneyIndexFragment"
         android:label="fragment_bus_journey_index"
         tools:layout="@layout/fragment_bus_journey_index" />
+    <fragment
+        android:id="@+id/queryFragment"
+        android:name="com.ferechamitebeyli.journey.presentation.fragment.query.QueryFragment"
+        android:label="fragment_query"
+        tools:layout="@layout/fragment_query" >
+        <argument
+            android:name="args"
+            app:argType="com.ferechamitebeyli.journey.presentation.argument.JourneyNavArgument"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_queryFragment_to_travelQueryFragment"
+            app:destination="@id/travelQueryFragment" />
+        <action
+            android:id="@+id/action_queryFragment_to_busQueryFragment"
+            app:destination="@id/busQueryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/travelQueryFragment"
+        android:name="com.ferechamitebeyli.journey.presentation.fragment.query.TravelQueryFragment"
+        android:label="fragment_travel_query"
+        tools:layout="@layout/fragment_travel_query" >
+        <action
+            android:id="@+id/action_travelQueryFragment_to_queryFragment"
+            app:destination="@id/queryFragment" />
+        <action
+            android:id="@+id/action_travelQueryFragment_to_busJourneyIndexFragment"
+            app:destination="@id/busJourneyIndexFragment" />
+        <argument
+            android:name="args"
+            app:argType="com.ferechamitebeyli.journey.presentation.argument.JourneyNavArgument"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/busQueryFragment"
+        android:name="com.ferechamitebeyli.journey.presentation.fragment.query.BusQueryFragment"
+        android:label="fragment_bus_query"
+        tools:layout="@layout/fragment_bus_query" >
+        <action
+            android:id="@+id/action_busQueryFragment_to_queryFragment"
+            app:destination="@id/queryFragment" />
+        <argument
+            android:name="args"
+            app:argType="com.ferechamitebeyli.journey.presentation.argument.JourneyNavArgument"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/flightQueryFragment"
+        android:name="com.ferechamitebeyli.journey.presentation.fragment.query.FlightQueryFragment"
+        android:label="fragment_flight_query"
+        tools:layout="@layout/fragment_flight_query" />
 </navigation>

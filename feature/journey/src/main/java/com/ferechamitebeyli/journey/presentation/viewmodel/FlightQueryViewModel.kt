@@ -14,11 +14,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BusQueryViewModel @Inject constructor(
+class FlightQueryViewModel @Inject constructor(
     val getBusLocationsUseCase: GetBusLocationsUseCase
 ) : ViewModel() {
 
     var departureDateForService: String = ""
+    var arrivalDateForService: String = ""
 
     var currentOrigin: LocationDataUiModel? = null
     var currentDestination: LocationDataUiModel? = null
@@ -52,5 +53,6 @@ class BusQueryViewModel @Inject constructor(
                 }
             }
         }
+
 
 }

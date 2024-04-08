@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/tiny_layout_margin"
-    android:background="@drawable/background_journey_item"
+    android:background="@drawable/background_list_item"
     android:padding="@dimen/standard_layout_margin">
 
     <androidx.appcompat.widget.AppCompatImageView

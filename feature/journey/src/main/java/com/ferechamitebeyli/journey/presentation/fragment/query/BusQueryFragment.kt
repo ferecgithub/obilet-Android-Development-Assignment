@@ -1,17 +1,19 @@
 package com.ferechamitebeyli.journey.presentation.fragment.query
 
+import android.util.Log
 import androidx.fragment.app.viewModels
-import com.ferechamitebeyli.data.model.journey.JourneyDataUiModel
+import androidx.navigation.fragment.findNavController
 import com.ferechamitebeyli.data.model.location.LocationDataUiModel
-import com.ferechamitebeyli.journey.R
 import com.ferechamitebeyli.journey.databinding.FragmentBusQueryBinding
+import com.ferechamitebeyli.journey.presentation.argument.JourneyNavArgument
 import com.ferechamitebeyli.journey.presentation.state.JourneyResponseState
 import com.ferechamitebeyli.journey.presentation.viewmodel.BusQueryViewModel
+import com.ferechamitebeyli.navigation.safeNavigate
 import com.ferechamitebeyli.ui.base.BaseFragment
 import com.ferechamitebeyli.ui.util.UiHelpers.collectFlowWithFragmentLifecycle
 import com.ferechamitebeyli.ui.util.UiHelpers.getFormattedDateForQuickSelection
+import com.ferechamitebeyli.ui.util.UiHelpers.showDatePicker
 import com.ferechamitebeyli.ui.util.UiHelpers.startRotationAnimation
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,6 +46,16 @@ class BusQueryFragment : BaseFragment<FragmentBusQueryBinding>(
     override fun setOnClickListeners() {
         super.setOnClickListeners()
 
+        binding.textViewBusQueryOrigin.setOnClickListener {
+            //displayQueryDialog(isOrigin = true)
+            navigateToQueryFragment(isOrigin = true)
+        }
+
+        binding.textViewBusQueryDestination.setOnClickListener {
+            //displayQueryDialog(isOrigin = false)
+            navigateToQueryFragment(isOrigin = false)
+        }
+
         binding.imageViewBusQuerySwapOriginAndDestination.setOnClickListener {
 
             val temporaryModel: LocationDataUiModel? = viewModel.currentOrigin
@@ -53,7 +65,19 @@ class BusQueryFragment : BaseFragment<FragmentBusQueryBinding>(
             binding.textViewBusQueryOrigin.text = viewModel.currentOrigin?.name
             binding.textViewBusQueryDestination.text = viewModel.currentDestination?.name
 
-            startRotationAnimation(binding.imageViewBusQuerySwapOriginAndDestination, requireContext())
+            startRotationAnimation(
+                binding.imageViewBusQuerySwapOriginAndDestination,
+                requireContext()
+            )
+        }
+
+        binding.textViewBusQueryDepartureDate.setOnClickListener {
+            showDatePicker(
+                requireContext(),
+                binding.textViewBusQueryDepartureDate
+            ) {
+                viewModel.departureDateForService = it.dateForService
+            }
         }
     }
 
@@ -92,10 +116,50 @@ class BusQueryFragment : BaseFragment<FragmentBusQueryBinding>(
         }
     }
 
-    private fun populateInitialOriginAndDestination(origin: LocationDataUiModel?, destination: LocationDataUiModel?) {
-        binding.textViewBusQueryOrigin.text = origin?.name ?: getString(com.ferechamitebeyli.ui.R.string.message_pleaseEnterAnOrigin)
+
+    private fun navigateToQueryFragment(isOrigin: Boolean) {
+        viewModel.getBusLocationsStateFlow.value.data?.let { list ->
+
+            parentFragmentManager.fragments.forEach {
+                Log.d("BQFR", "${it?.javaClass?.simpleName}")
+            }
+
+            val args = JourneyNavArgument(
+                locationModelList = list,
+                isOrigin = isOrigin
+            )
+
+            /*
+            val action = TravelQueryFragmentDirections.actionTravelQueryFragmentToQueryFragment(
+                args = args
+            )
+
+             */
+
+            val action = BusQueryFragmentDirections.actionBusQueryFragmentToQueryFragment(
+                args = args
+            )
+
+            //val viewPagerContainerFragment = parentFragmentManager.findFragmentById(R.id.travelQueryFragment)
+
+
+
+
+            findNavController().navigate(action)
+
+        }
+
+    }
+
+    private fun populateInitialOriginAndDestination(
+        origin: LocationDataUiModel?,
+        destination: LocationDataUiModel?
+    ) {
+        binding.textViewBusQueryOrigin.text =
+            origin?.name ?: getString(com.ferechamitebeyli.ui.R.string.message_pleaseEnterAnOrigin)
         viewModel.currentOrigin = origin
-        binding.textViewBusQueryDestination.text = destination?.name ?: getString(com.ferechamitebeyli.ui.R.string.message_pleaseEnterADestination)
+        binding.textViewBusQueryDestination.text = destination?.name
+            ?: getString(com.ferechamitebeyli.ui.R.string.message_pleaseEnterADestination)
         viewModel.currentDestination = destination
     }
 
@@ -106,6 +170,5 @@ class BusQueryFragment : BaseFragment<FragmentBusQueryBinding>(
         binding.textViewBusQueryDepartureDate.text = date.dateForUi
         viewModel.departureDateForService = date.dateForService
     }
-
 
 }

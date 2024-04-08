@@ -16,18 +16,8 @@ class LocationDataMapper @Inject constructor() : BaseMapper<Data, LocationDataUi
             parentId = model.parentId,
             type = model.type,
             name = model.name,
-            geoLocation = model.geoLocation,
-            tzCode = model.tzCode,
-            weatherCode = model.weatherCode,
-            rank = model.rank,
-            referenceCode = model.referenceCode,
-            keywords = model.keywords,
-            areaCode = model.areaCode,
             cityId = model.cityId,
             cityName = model.cityName,
-            code = model.code,
-            countryId = model.countryId,
-            countryName = model.countryName
         )
     }
 
