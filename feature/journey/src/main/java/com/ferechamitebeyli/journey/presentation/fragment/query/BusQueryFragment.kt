@@ -192,24 +192,6 @@ class BusQueryFragment : BaseFragment<FragmentBusQueryBinding>(
         }
     }
 
-
-    private fun populateInitialOrigin(
-        origin: LocationDataUiModel?
-    ) {
-        binding.textViewBusQueryOrigin.text =
-            origin?.name
-                ?: getString(com.ferechamitebeyli.ui.R.string.message_pleaseEnterAnOrigin)
-        viewModel.currentOrigin = origin
-    }
-
-    private fun populateInitialDestination(
-        destination: LocationDataUiModel?
-    ) {
-        binding.textViewBusQueryDestination.text = destination?.name
-            ?: getString(com.ferechamitebeyli.ui.R.string.message_pleaseEnterADestination)
-        viewModel.currentDestination = destination
-    }
-
     private fun setDateForQuickSelection(isTomorrow: Boolean) {
         val date = getFormattedDateForQuickSelection(
             isTomorrow = isTomorrow

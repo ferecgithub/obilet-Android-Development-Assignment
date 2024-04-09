@@ -31,7 +31,7 @@ class FlightQueryFragment : BaseFragment<FragmentFlightQueryBinding>(
 
         // Setting initial passenger value to 0
         binding.textViewFlightQueryPassenger.text =
-            getString(com.ferechamitebeyli.ui.R.string.label_passengerWithArgs, "0")
+            getString(R.string.label_passengerWithArgs, "0")
 
         viewModel.getCachedLastQuery()
 
@@ -186,22 +186,6 @@ class FlightQueryFragment : BaseFragment<FragmentFlightQueryBinding>(
         }
     }
 
-    private fun populateInitialOrigin(
-        origin: LocationDataUiModel?
-    ) {
-        binding.textViewFlightQueryOrigin.text =
-            origin?.name ?: getString(com.ferechamitebeyli.ui.R.string.message_pleaseEnterAnOrigin)
-        viewModel.currentOrigin = origin
-    }
-
-    private fun populateInitialDestination(
-        destination: LocationDataUiModel?
-    ) {
-        binding.textViewFlightQueryDestination.text = destination?.name
-            ?: getString(com.ferechamitebeyli.ui.R.string.message_pleaseEnterADestination)
-        viewModel.currentDestination = destination
-    }
-
     private fun setInitialDates(isTomorrow: Boolean = true) {
         val departureDate = UiHelpers.getFormattedDateForQuickSelection(
             isTomorrow = isTomorrow.not()
@@ -218,7 +202,7 @@ class FlightQueryFragment : BaseFragment<FragmentFlightQueryBinding>(
 
     private fun showBottomSheet() {
         val bottomSheetFragment = PassengerSelectionDialogFragment {
-            binding.textViewFlightQueryPassenger.text = it.toString()
+            binding.textViewFlightQueryPassenger.text = getString(R.string.label_passengerWithArgs, it.toString())
         }
         bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
     }
