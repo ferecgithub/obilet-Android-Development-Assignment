@@ -16,11 +16,17 @@ interface ClientRepository {
     fun getCachedDeviceSession(): Flow<DeviceSession>
     fun getCachedLastQueriedInformation(): Flow<LastQueryUiModel>
 
-    suspend fun cacheLastQuery(
+    suspend fun cacheLastQueriedOrigin(
         originName: String,
         originId: Int,
+    )
+
+    suspend fun cacheLastQueriedDestination(
         destinationName: String,
         destinationId: Int,
+    )
+
+    suspend fun cacheLastQueriedDepartureDate(
         departureDateForService: String,
         departureDateForUi: String,
     )

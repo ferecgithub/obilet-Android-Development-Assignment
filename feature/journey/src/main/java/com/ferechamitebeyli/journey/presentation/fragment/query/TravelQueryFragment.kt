@@ -1,15 +1,13 @@
 package com.ferechamitebeyli.journey.presentation.fragment.query
 
+import android.util.Log
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
-import com.ferechamitebeyli.journey.R
 import com.ferechamitebeyli.journey.databinding.FragmentTravelQueryBinding
 import com.ferechamitebeyli.journey.presentation.adapter.TravelQueryPagerAdapter
-import com.ferechamitebeyli.journey.presentation.argument.JourneyNavArgument
-import com.ferechamitebeyli.journey.presentation.util.TravelQueryChildFragmentInteractor
-import com.ferechamitebeyli.navigation.Navigator
-import com.ferechamitebeyli.navigation.safeNavigate
+import com.ferechamitebeyli.journey.presentation.viewmodel.TravelQueryViewModel
 import com.ferechamitebeyli.ui.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
@@ -19,14 +17,13 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class TravelQueryFragment : BaseFragment<FragmentTravelQueryBinding>(
     FragmentTravelQueryBinding::inflate
-), TravelQueryChildFragmentInteractor {
+) {
+    private val viewModel: TravelQueryViewModel by viewModels()
+    private val arguments: TravelQueryFragmentArgs by navArgs()
     private lateinit var adapter: TravelQueryPagerAdapter
-
-
 
     override fun setUpUi() {
         super.setUpUi()
-
 
         val fragmentList = arrayListOf<Fragment>(
             BusQueryFragment(),
@@ -80,16 +77,17 @@ class TravelQueryFragment : BaseFragment<FragmentTravelQueryBinding>(
                 )
             }
         })
-    }
 
-    override fun onBusQueryClick(args: JourneyNavArgument) {
-        val action = TravelQueryFragmentDirections.actionTravelQueryFragmentToQueryFragment(args)
-        (requireActivity() as Navigator).graphSpecificNavigation(R.id.journey_nav_graph)
-        (requireActivity() as Navigator).navigateTo(action)
-    }
+        arguments.args?.let { args ->
+            viewModel.arguments = args
 
-    override fun onFlightQueryClick(args: JourneyNavArgument) {
-        //
+            viewModel.arguments?.lastSelectedTabIndex?.let {
+                Log.d("TQFR", it.toString())
+                binding.tabLayoutTravelQuery.getTabAt(
+                    it
+                )
+            }
+        }
     }
 
 

@@ -1,5 +1,6 @@
 package com.ferechamitebeyli.data.repository.client.implementation
 
+import android.util.Log
 import com.ferechamitebeyli.caching.session.abstraction.SessionCachingManager
 import com.ferechamitebeyli.caching.model.LastQueryUiModel
 import com.ferechamitebeyli.data.repository.client.abstraction.ClientRepository
@@ -114,6 +115,7 @@ class ClientRepositoryImpl @Inject constructor(
             cachingDataSource.getLastQueriedDepartureDateForService(),
             cachingDataSource.getLastQueriedDepartureDateForUi()
         ) { originName, originId, destinationName, destinationId, departureDateForService, departureDateForUi ->
+            Log.d("BSQR000", "$originName - $originId - $destinationName - $destinationId - $departureDateForService - $departureDateForUi")
             LastQueryUiModel(
                 originName = originName,
                 originId = originId,
@@ -125,19 +127,25 @@ class ClientRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun cacheLastQuery(
-        originName: String,
-        originId: Int,
-        destinationName: String,
-        destinationId: Int,
-        departureDateForService: String,
-        departureDateForUi: String,
-    ) {
-        cachingDataSource.cacheLastQueries(
+    override suspend fun cacheLastQueriedOrigin(originName: String, originId: Int) {
+        cachingDataSource.cacheLastQueriedOrigin(
             originName,
-            originId,
+            originId
+        )
+    }
+
+    override suspend fun cacheLastQueriedDestination(destinationName: String, destinationId: Int) {
+        cachingDataSource.cacheLastQueriedDestination(
             destinationName,
             destinationId,
+        )
+    }
+
+    override suspend fun cacheLastQueriedDepartureDate(
+        departureDateForService: String,
+        departureDateForUi: String
+    ) {
+        cachingDataSource.cacheLastQueriedDepartureDate(
             departureDateForService,
             departureDateForUi
         )

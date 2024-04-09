@@ -5,7 +5,9 @@ import android.content.Context
 import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.RadioButton
 import android.widget.TextView
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
@@ -34,7 +36,7 @@ import java.util.Locale
 object UiHelpers {
 
     fun ImageView.loadPartnerLogo(partnerId: Int?) {
-        this.load(" https://s3.eu-central-1.amazonaws.com/static.obilet.com/images/partner/$partnerId-sm.png") {
+        this.load("https://s3.eu-central-1.amazonaws.com/static.obilet.com/images/partner/$partnerId-sm.png") {
             crossfade(true)
             placeholder(R.drawable.ic_bus)
         }
@@ -54,24 +56,6 @@ object UiHelpers {
         return localDateTime.format(formatter)
     }
 
-    fun getFormattedDate(
-        dateString: String,
-        locale: Locale = Locale.getDefault()
-    ): DateFormatUiModel {
-        val date =
-            LocalDateTime.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))
-        val uiPattern = if (locale.language == "tr") "d MMMM yyyy EEEE" else "EEEE, d MMMM yyyy"
-        val servicePattern = "yyyy-MM-dd'T'HH:mm:ss"
-
-        val uiFormatter = DateTimeFormatter.ofPattern(uiPattern, locale)
-        val serviceFormatter = DateTimeFormatter.ofPattern(servicePattern, locale)
-
-        val dateForUi = date.format(uiFormatter)
-        val dateForService = date.format(serviceFormatter)
-
-        return DateFormatUiModel(dateForUi, dateForService)
-    }
-
     fun getCurrentDateTime(): String {
         val currentDateTime = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
@@ -82,7 +66,7 @@ object UiHelpers {
         isTomorrow: Boolean = false,
         locale: Locale = Locale.getDefault()
     ): DateFormatUiModel {
-        val date = if (isTomorrow) LocalDateTime.now().plusDays(1) else LocalDateTime.now()
+        val date = if (isTomorrow) LocalDate.now().plusDays(1) else LocalDate.now()
         val uiPattern = if (locale.language == "tr") "d MMMM yyyy EEEE" else "EEEE, d MMMM yyyy"
         val servicePattern = "yyyy-MM-dd"
 
@@ -95,8 +79,66 @@ object UiHelpers {
         return DateFormatUiModel(dateForUi, dateForService)
     }
 
+    fun getFormattedDateForArrivalDateAccordingToDepartureDate(
+        departureDate: String,
+        daysAfter: Long = 1,
+        locale: Locale = Locale.getDefault()
+    ): DateFormatUiModel {
+        val uiPattern = if (locale.language == "tr") "d MMMM yyyy EEEE" else "EEEE, d MMMM yyyy"
+        val servicePattern = "yyyy-MM-dd"
+
+        val formatter = DateTimeFormatter.ofPattern(uiPattern, Locale.ENGLISH)
+        val parsedDate = LocalDate.parse(departureDate, formatter)
+        val adjustedDate = parsedDate.plusDays(daysAfter)
+
+        val uiFormatter = DateTimeFormatter.ofPattern(uiPattern, locale)
+        val serviceFormatter = DateTimeFormatter.ofPattern(servicePattern, locale)
+
+        val dateForUi = adjustedDate.format(uiFormatter)
+        val dateForService = adjustedDate.format(serviceFormatter)
+
+        return DateFormatUiModel(dateForUi, dateForService)
+    }
+
+    fun selectQuickSelectButtonInitially(
+        dateString: String,
+        todayButton: RadioButton,
+        tomorrowBottom: RadioButton,
+        locale: Locale = Locale.getDefault()
+    ): String {
+        val today = LocalDate.now()
+        val tomorrow = today.plusDays(1)
+        val uiPattern = if (locale.language == "tr") "d MMMM yyyy EEEE" else "EEEE, d MMMM yyyy"
+        val formatter = DateTimeFormatter.ofPattern(uiPattern)
+
+        val date = LocalDate.parse(dateString, formatter)
+
+        return when {
+            date.isBefore(today) || date == tomorrow -> {
+                tomorrowBottom.isChecked
+                formatter.format(tomorrow)
+            }
+
+            date == today -> {
+                todayButton.isChecked
+                formatter.format(today)
+            }
+
+            else -> {
+                todayButton.isChecked = false
+                tomorrowBottom.isChecked = false
+                dateString
+            }
+        }
+    }
+
     fun View.visible(isVisible: Boolean) {
         visibility = if (isVisible) View.VISIBLE else View.GONE
+    }
+
+    fun View.enable(enabled: Boolean) {
+        isEnabled = enabled
+        alpha = if (enabled) 1f else 0.5f
     }
 
     fun startRotationAnimation(view: View, context: Context) {
@@ -118,9 +160,9 @@ object UiHelpers {
 
         val datePicker = DatePickerDialog(context, { _, year, month, day ->
             val monthString = if (month >= 10) {
-                "$month"
+                "${month + 1}"
             } else {
-                "0$month"
+                "0${month + 1}"
             }
 
             val dayString = if (day >= 10) {
@@ -129,7 +171,7 @@ object UiHelpers {
                 "0$day"
             }
 
-            val selectedDate = LocalDate.of(year, monthString.toInt() + 1, dayString.toInt())
+            val selectedDate = LocalDate.of(year, monthString.toInt(), dayString.toInt())
             val uiPattern = if (locale.language == "tr") "d MMMM yyyy EEEE" else "EEEE, d MMMM yyyy"
             val formatter = DateTimeFormatter.ofPattern(uiPattern, locale)
             val formattedDate = selectedDate.format(formatter)
@@ -157,6 +199,9 @@ object UiHelpers {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val departureDateParsed = dateFormat.parse(departureDate)
         val arrivalDateParsed = dateFormat.parse(arrivalDate)
+
+        Log.d("FQRFF", "4 - departureDateParsed ${departureDateParsed.time}")
+        Log.d("FQRFF", "4 - arrivalDateParsed ${arrivalDateParsed.time}")
 
         return arrivalDateParsed.after(departureDateParsed)
     }

@@ -46,10 +46,13 @@ suspend fun <ResponseType, MappedResponseType> safeApiCall(
                  */
                 response.body()?.let { model ->
                     if (model.status == ResponseStatusEnum.SUCCESS.status) {
+                        Log.d("SYF", "0")
                         model.data?.let { list ->
+                            Log.d("SYF", "1")
                             emit(Resource.Success(mapFromModel.invoke(list)))
                         }
                     } else {
+                        Log.d("SYF", "2")
                         emit(
                             Resource.Error(
                                 text = UiText.DynamicString(model.userMessage)
@@ -63,12 +66,14 @@ suspend fun <ResponseType, MappedResponseType> safeApiCall(
                     )
                 )
             } else {
+                Log.d("SYF", "3")
                 emit(
                     Resource.Error(text = UiText.StringResource(R.string.message_safeApiCall_operationFailed))
                 )
 
             }
         } catch (exception: Exception) {
+            Log.d("SYF", "4")
             //handling exceptions
             when (exception) {
                 is TimeoutCancellationException -> {

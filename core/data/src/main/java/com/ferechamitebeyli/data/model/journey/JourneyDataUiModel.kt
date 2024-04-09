@@ -10,7 +10,7 @@ data class JourneyDataUiModel(
     val destinationLocation: String?,
     val destinationLocationId: Int?,
     val disableSalesWithoutGovId: Boolean?,
-    val displayOffset: Any?,
+    val displayOffset: String?,
     val features: List<Feature>?,
     val hasBusShuttle: Boolean?,
     val id: Int?,

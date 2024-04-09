@@ -1,16 +1,19 @@
 package com.ferechamitebeyli.journey.presentation.fragment.query
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.ferechamitebeyli.data.model.location.LocationDataUiModel
 import com.ferechamitebeyli.journey.databinding.FragmentFlightQueryBinding
+import com.ferechamitebeyli.journey.presentation.argument.JourneyNavArgument
 import com.ferechamitebeyli.journey.presentation.state.JourneyResponseState
-import com.ferechamitebeyli.journey.presentation.util.JourneyHelpers
-import com.ferechamitebeyli.journey.presentation.util.JourneyHelpers.validateCachedQuery
-import com.ferechamitebeyli.journey.presentation.viewmodel.FlightQueryViewModel
+import com.ferechamitebeyli.journey.presentation.viewmodel.TravelQueryViewModel
+import com.ferechamitebeyli.navigation.safeNavigate
 import com.ferechamitebeyli.ui.R
 import com.ferechamitebeyli.ui.base.BaseFragment
 import com.ferechamitebeyli.ui.util.UiHelpers
 import com.ferechamitebeyli.ui.util.UiHelpers.collectFlowWithFragmentLifecycle
+import com.ferechamitebeyli.ui.util.UiHelpers.getFormattedDateForArrivalDateAccordingToDepartureDate
+import com.ferechamitebeyli.ui.util.UiHelpers.showDatePicker
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -18,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class FlightQueryFragment : BaseFragment<FragmentFlightQueryBinding>(
     FragmentFlightQueryBinding::inflate
 ) {
-    private val viewModel: FlightQueryViewModel by viewModels()
+    private val viewModel: TravelQueryViewModel by viewModels({ requireParentFragment() })
 
     override fun setUpUi() {
         super.setUpUi()
@@ -42,16 +45,20 @@ class FlightQueryFragment : BaseFragment<FragmentFlightQueryBinding>(
 
         binding.buttonFlightQueryFindTicket.setOnClickListener {
             if (viewModel.validateFlightQueryInformation()) {
-                viewModel.cacheLastQuery(
+                viewModel.cacheLastQueriedOrigin(
                     viewModel.currentOrigin?.name,
-                    viewModel.currentOrigin?.id,
+                    viewModel.currentOrigin?.id
+                )
+                viewModel.cacheLastQueriedDestination(
                     viewModel.currentDestination?.name,
                     viewModel.currentDestination?.id,
+                )
+                viewModel.cacheLastQueriedDepartureDate(
                     viewModel.departureDateForService,
                     binding.textViewFlightQueryDepartureDate.text?.trim()?.toString()
                 )
 
-                // BusJourneyIndexFragment' e navigation
+                navigateToBusJourneyIndexFragment()
             } else {
                 Snackbar.make(
                     requireContext(),
@@ -61,7 +68,14 @@ class FlightQueryFragment : BaseFragment<FragmentFlightQueryBinding>(
                 ).show()
             }
 
+        }
 
+        binding.textViewFlightQueryOrigin.setOnClickListener {
+            navigateToQueryFragment(isOrigin = true)
+        }
+
+        binding.textViewFlightQueryDestination.setOnClickListener {
+            navigateToQueryFragment(isOrigin = false)
         }
 
         binding.buttonFlightQueryAddPassengers.setOnClickListener {
@@ -69,20 +83,29 @@ class FlightQueryFragment : BaseFragment<FragmentFlightQueryBinding>(
         }
 
         binding.textViewFlightQueryDepartureDate.setOnClickListener {
-            UiHelpers.showDatePicker(
+            showDatePicker(
                 requireContext(),
                 binding.textViewFlightQueryDepartureDate
             ) {
                 viewModel.departureDateForService = it.dateForService
+                viewModel.departureDateForUi = it.dateForUi
+                viewModel.cacheLastQueriedDepartureDate(
+                    departureDateForService = it.dateForService,
+                    departureDateForUi = it.dateForUi
+                )
+                binding.textViewFlightQueryArrivalDate.text = getFormattedDateForArrivalDateAccordingToDepartureDate(
+                    departureDate = viewModel.departureDateForUi
+                ).dateForUi
             }
         }
 
         binding.textViewFlightQueryArrivalDate.setOnClickListener {
-            UiHelpers.showDatePicker(
+            showDatePicker(
                 requireContext(),
                 binding.textViewFlightQueryArrivalDate
             ) {
                 viewModel.arrivalDateForService = it.dateForService
+                viewModel.arrivalDateForUi = it.dateForUi
             }
         }
 
@@ -93,6 +116,16 @@ class FlightQueryFragment : BaseFragment<FragmentFlightQueryBinding>(
 
             binding.textViewFlightQueryOrigin.text = viewModel.currentOrigin?.name
             binding.textViewFlightQueryDestination.text = viewModel.currentDestination?.name
+
+            viewModel.cacheLastQueriedOrigin(
+                originName = viewModel.currentOrigin?.name,
+                originId = viewModel.currentOrigin?.id
+            )
+
+            viewModel.cacheLastQueriedDestination(
+                destinationName = viewModel.currentDestination?.name,
+                destinationId = viewModel.currentDestination?.id
+            )
 
             UiHelpers.startRotationAnimation(
                 binding.imageViewFlightQuerySwapOriginAndDestination,
@@ -127,78 +160,45 @@ class FlightQueryFragment : BaseFragment<FragmentFlightQueryBinding>(
                 is JourneyResponseState.Success -> {
                     hideProgressBar()
 
-                    val isThereAnyLastCachedQuery =
-                        validateCachedQuery(viewModel.getCachedLastQueryStateFlow.value)
-
-                    if (isThereAnyLastCachedQuery) {
-                        val originModel = LocationDataUiModel(
-                            id = viewModel.getCachedLastQueryStateFlow.value?.originId,
-                            name = viewModel.getCachedLastQueryStateFlow.value?.originName,
-                            parentId = null,
-                            type = null,
-                            cityId = null,
-                            cityName = null
-                        )
-                        val destinationModel = LocationDataUiModel(
-                            id = viewModel.getCachedLastQueryStateFlow.value?.destinationId,
-                            name = viewModel.getCachedLastQueryStateFlow.value?.destinationName,
-                            parentId = null,
-                            type = null,
-                            cityId = null,
-                            cityName = null
-                        )
-                        populateInitialOriginAndDestination(
-                            originModel,
-                            destinationModel,
-                        )
-                    } else {
-                        populateInitialOriginAndDestination(
-                            state.data?.first(),
-                            state.data?.last(),
-                        )
-                    }
+                    viewModel.exposeUiDataForFlightQueryFragment()
                 }
             }
+
+
         }
 
-        viewModel.getCachedLastQueryStateFlow.collectFlowWithFragmentLifecycle(
+        viewModel.flightQueryFragmentUiStateFlow.collectFlowWithFragmentLifecycle(
             this@FlightQueryFragment
-        ) { query ->
-            query?.let {
-
-                if (validateCachedQuery(it)) {
-                    val dummyModel = LocationDataUiModel(null, null, null, null, null, null)
-
-                    viewModel.currentOrigin = dummyModel.copy(
-                        id = query.originId,
-                        name = query.originName
-                    )
-                    viewModel.currentDestination = dummyModel.copy(
-                        id = query.destinationId,
-                        name = query.destinationName
-                    )
-
-                    binding.textViewFlightQueryOrigin.text = query.originName
-                    binding.textViewFlightQueryDestination.text = query.destinationName
-
-                    binding.textViewFlightQueryDepartureDate.text = query.departureDateForUi
-                    query.departureDateForService?.let {
-                        viewModel.departureDateForService = it
-                    }
+        ) { state ->
+            when (state) {
+                is JourneyResponseState.Error -> {}
+                is JourneyResponseState.Idle -> {}
+                is JourneyResponseState.Loading -> {}
+                is JourneyResponseState.Success -> {
+                    binding.textViewFlightQueryDestination.text = state.data?.destinationName
+                    //uiState.destinationId
+                    binding.textViewFlightQueryOrigin.text = state.data?.originName
+                    //uiState.originId
+                    binding.textViewFlightQueryDepartureDate.text = state.data?.departureDateForUi
+                    binding.textViewFlightQueryArrivalDate.text = state.data?.arrivalDateForUi
                 }
             }
         }
     }
 
-    private fun populateInitialOriginAndDestination(
-        origin: LocationDataUiModel?,
-        destination: LocationDataUiModel?
+    private fun populateInitialOrigin(
+        origin: LocationDataUiModel?
     ) {
         binding.textViewFlightQueryOrigin.text =
-            origin?.name ?: getString(R.string.message_pleaseEnterAnOrigin)
+            origin?.name ?: getString(com.ferechamitebeyli.ui.R.string.message_pleaseEnterAnOrigin)
         viewModel.currentOrigin = origin
+    }
+
+    private fun populateInitialDestination(
+        destination: LocationDataUiModel?
+    ) {
         binding.textViewFlightQueryDestination.text = destination?.name
-            ?: getString(R.string.message_pleaseEnterADestination)
+            ?: getString(com.ferechamitebeyli.ui.R.string.message_pleaseEnterADestination)
         viewModel.currentDestination = destination
     }
 
@@ -219,8 +219,55 @@ class FlightQueryFragment : BaseFragment<FragmentFlightQueryBinding>(
     private fun showBottomSheet() {
         val bottomSheetFragment = PassengerSelectionDialogFragment {
             binding.textViewFlightQueryPassenger.text = it.toString()
-
         }
         bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
+    }
+
+    private fun navigateToQueryFragment(isOrigin: Boolean) {
+        viewModel.getBusLocationsStateFlow.value.data?.let { list ->
+
+            val args = if (viewModel.arguments == null) {
+                JourneyNavArgument(
+                    locationModelList = list,
+                    isOrigin = isOrigin,
+                    lastSelectedTabIndex = 1
+                )
+            } else {
+                viewModel.arguments?.copy(
+                    locationModelList = list,
+                    isOrigin = isOrigin,
+                    lastSelectedTabIndex = 1
+                )
+            }
+
+            val action =
+                TravelQueryFragmentDirections.actionTravelQueryFragmentToQueryFragment(args)
+            findNavController().safeNavigate(action)
+        }
+
+    }
+
+    private fun navigateToBusJourneyIndexFragment() {
+        val args = if (viewModel.arguments == null) {
+            JourneyNavArgument(
+                originLocationModel = viewModel.currentOrigin,
+                destinationLocationModel = viewModel.currentDestination,
+                departureDate = viewModel.departureDateForService,
+                departureDateForUi = viewModel.departureDateForUi,
+                lastSelectedTabIndex = 1
+            )
+        } else {
+            viewModel.arguments?.copy(
+                originLocationModel = viewModel.currentOrigin,
+                destinationLocationModel = viewModel.currentDestination,
+                departureDate = viewModel.departureDateForService,
+                departureDateForUi = viewModel.departureDateForUi,
+                lastSelectedTabIndex = 1
+            )
+        }
+
+        val action =
+            TravelQueryFragmentDirections.actionTravelQueryFragmentToBusJourneyIndexFragment(args)
+        findNavController().safeNavigate(action)
     }
 }

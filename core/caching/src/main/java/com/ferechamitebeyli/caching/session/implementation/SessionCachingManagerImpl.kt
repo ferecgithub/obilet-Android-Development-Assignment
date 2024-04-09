@@ -49,19 +49,25 @@ class SessionCachingManagerImpl @Inject constructor(
         val cachedSessionId = stringPreferencesKey(CACHE_KEY_FOR_SESSION_ID)
     }
 
-    override suspend fun cacheLastQueries(
-        originName: String,
-        originId: Int,
-        destinationName: String,
-        destinationId: Int,
-        departureDateForService: String,
-        departureDateForUi: String,
-    ) {
+    override suspend fun cacheLastQueriedOrigin(originName: String, originId: Int) {
         oBiletDataStore.edit {
             it[lastQueriedOriginName] = originName
             it[lastQueriedOriginId] = originId
+        }
+    }
+
+    override suspend fun cacheLastQueriedDestination(destinationName: String, destinationId: Int) {
+        oBiletDataStore.edit {
             it[lastQueriedDestinationName] = destinationName
             it[lastQueriedDestinationId] = destinationId
+        }
+    }
+
+    override suspend fun cacheLastQueriedDepartureDate(
+        departureDateForService: String,
+        departureDateForUi: String
+    ) {
+        oBiletDataStore.edit {
             it[lastQueriedDepartureDateForService] = departureDateForService
             it[lastQueriedDepartureDateForUi] = departureDateForUi
         }

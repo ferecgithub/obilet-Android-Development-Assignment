@@ -7,6 +7,8 @@ data class Data(
     val availableSeats: Int?,
     @Json(name = "bus-type")
     val busType: String?,
+    @Json(name = "bus-type-name")
+    val busTypeName: String?,
     @Json(name = "cancellation-offset")
     val cancellationOffset: Int?,
     @Json(name = "destination-location")
@@ -16,7 +18,7 @@ data class Data(
     @Json(name = "disable-sales-without-gov-id")
     val disableSalesWithoutGovId: Boolean?,
     @Json(name = "display-offset")
-    val displayOffset: Any?,
+    val displayOffset: String?,
     val features: List<Feature>?,
     @Json(name = "has-bus-shuttle")
     val hasBusShuttle: Boolean?,

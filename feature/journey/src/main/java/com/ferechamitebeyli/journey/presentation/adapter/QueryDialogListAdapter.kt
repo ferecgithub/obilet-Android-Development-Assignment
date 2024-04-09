@@ -6,9 +6,11 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ferechamitebeyli.data.model.location.LocationDataUiModel
+import com.ferechamitebeyli.data.util.OnItemClickListener
+import com.ferechamitebeyli.journey.R
 import com.ferechamitebeyli.journey.databinding.LayoutItemQueryBinding
 
-class QueryDialogListAdapter(private val onItemClicked: (LocationDataUiModel) -> Unit) :
+class QueryDialogListAdapter(private val onItemClickListener: OnItemClickListener<LocationDataUiModel>) :
     RecyclerView.Adapter<QueryDialogListAdapter.QueryViewHolder>() {
     inner class QueryViewHolder(val binding: LayoutItemQueryBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -29,7 +31,7 @@ class QueryDialogListAdapter(private val onItemClicked: (LocationDataUiModel) ->
         }
     }
 
-    val differ = AsyncListDiffer(this, diffCallback)
+    private val differ = AsyncListDiffer(this, diffCallback)
 
     fun submitList(list: List<LocationDataUiModel>) = differ.submitList(list)
 
@@ -44,9 +46,17 @@ class QueryDialogListAdapter(private val onItemClicked: (LocationDataUiModel) ->
 
         holder.binding.apply {
             textViewItemQueryCity.text = query.name
-        }
 
-        onItemClicked.invoke(query)
+            root.setOnClickListener {
+                query.isSelected = !query.isSelected
+
+                onItemClickListener.onItemClick(position, query) // Passing the data to the query fragment
+
+                if (query.isSelected) root.setBackgroundResource(R.drawable.shape_tab_indicator) else root.setBackgroundResource(
+                    com.ferechamitebeyli.ui.R.drawable.background_list_item
+                )
+            }
+        }
     }
 
     override fun getItemCount(): Int = differ.currentList.size

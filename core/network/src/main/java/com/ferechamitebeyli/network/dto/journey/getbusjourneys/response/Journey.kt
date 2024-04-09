@@ -14,7 +14,7 @@ data class Journey(
     val description: String?,
     val destination: String?,
     val duration: String?,
-    val features: List<String>?,
+    val features: List<String> = emptyList(),
     @Json(name = "internet-price")
     val internetPrice: Int?,
     val kind: String?,

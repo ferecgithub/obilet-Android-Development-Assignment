@@ -11,4 +11,5 @@ data class LocationDataUiModel(
     val name: String?,
     val cityId: Int?,
     val cityName: String?,
+    var isSelected: Boolean = false // A variable to determine if it's selected on the list.
 ): Parcelable

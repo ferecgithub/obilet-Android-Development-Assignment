@@ -9,7 +9,13 @@
         android:id="@+id/busJourneyIndexFragment"
         android:name="com.ferechamitebeyli.journey.presentation.fragment.BusJourneyIndexFragment"
         android:label="fragment_bus_journey_index"
-        tools:layout="@layout/fragment_bus_journey_index" />
+        tools:layout="@layout/fragment_bus_journey_index" >
+        <argument
+            android:name="args"
+            app:argType="com.ferechamitebeyli.journey.presentation.argument.JourneyNavArgument"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
     <fragment
         android:id="@+id/queryFragment"
         android:name="com.ferechamitebeyli.journey.presentation.fragment.query.QueryFragment"

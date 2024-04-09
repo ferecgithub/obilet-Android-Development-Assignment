@@ -2,6 +2,7 @@ package com.ferechamitebeyli.journey.presentation.adapter
 
 import android.content.Context
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
@@ -15,6 +16,7 @@ import com.ferechamitebeyli.journey.databinding.LayoutItemBusJourneyBinding
 import com.ferechamitebeyli.ui.util.UiHelpers.formatDateToTime
 import com.ferechamitebeyli.ui.util.UiHelpers.formatTime
 import com.ferechamitebeyli.ui.util.UiHelpers.loadPartnerLogo
+import com.ferechamitebeyli.ui.util.UiHelpers.startRotationAnimation
 import com.ferechamitebeyli.ui.util.UiHelpers.visible
 
 class BusJourneyListAdapter(private val context: Context) :
@@ -38,7 +40,7 @@ class BusJourneyListAdapter(private val context: Context) :
         }
     }
 
-    val differ = AsyncListDiffer(this, diffCallback)
+    private val differ = AsyncListDiffer(this, diffCallback)
 
     fun submitList(list: List<JourneyDataUiModel>) = differ.submitList(list)
 
@@ -80,12 +82,18 @@ class BusJourneyListAdapter(private val context: Context) :
             )
 
             val availableSeats =
-                if (journey.availableSeats?.compareTo(10) == -1) journey.availableSeats else ""
+                if (journey.availableSeats?.compareTo(10) == -1) journey.availableSeats.toString() else ""
 
-            textViewItemBusJourneyLastSeatsWarning.text = context.getString(
-                com.ferechamitebeyli.ui.R.string.label_lastSeatsWarning,
-                availableSeats
-            )
+
+            // If available seat count is less than 10, the view will be visible
+            if (availableSeats.isNotBlank()) {
+                textViewItemBusJourneyLastSeatsWarning.visible(true)
+                textViewItemBusJourneyLastSeatsWarning.text = context.getString(
+                    com.ferechamitebeyli.ui.R.string.label_lastSeatsWarning,
+                    availableSeats
+                )
+            }
+
 
             textViewItemBusJourneyOriginToDestination.text = context.getString(
                 com.ferechamitebeyli.ui.R.string.label_originToDestination,
@@ -96,12 +104,11 @@ class BusJourneyListAdapter(private val context: Context) :
 
             imageViewItemBusJourneyExpandArrow.setOnClickListener {
                 journey.isExpanded = !journey.isExpanded
-                adjustArrowDirection(journey.isExpanded)
+                it.setBackgroundResource(adjustArrowDirection(journey.isExpanded))
                 notifyItemChanged(position)
             }
 
             constraintLayoutItemBusJourneyHidden.visible(journey.isExpanded)
-
 
             drawBusSeats(holder, context)
         }

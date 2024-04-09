@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/app_nav_graph"
+    app:startDestination="@id/splashFragment">
+    <include app:graph="@navigation/journey_nav_graph" />
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.ferechamitebeyli.splash.presentation.fragment.SplashFragment"
+        android:label="SplashFragment" />
+
+    <action android:id="@+id/global_action_journey_nav_graph" app:destination="@id/journey_nav_graph" />
+</navigation>

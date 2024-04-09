@@ -4,16 +4,11 @@ import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavDirections
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.ferechamitebeyli.navigation.Navigator
 import com.ferechamitebeyli.navigation.safeNavigate
 import com.ferechamitebeyli.network.dto.client.getsession.request.Application
 import com.ferechamitebeyli.network.dto.client.getsession.request.Connection
@@ -27,7 +22,6 @@ import com.ferechamitebeyli.ui.base.BaseFragment
 import com.ferechamitebeyli.ui.util.UiHelpers.collectFlowWithFragmentLifecycle
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SplashFragment : BaseFragment<FragmentSplashBinding>(
@@ -115,7 +109,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(
     }
 
     private fun navigateToTravelQueryFragment() {
-        (requireActivity() as Navigator).navigateTo(Uri.parse("myApp://travelQueryFragment"), com.ferechamitebeyli.navigation.R.navigation.main_nav_graph)
+        findNavController().safeNavigate(com.ferechamitebeyli.navigation.R.id.global_action_journey_nav_graph)
     }
 
 }

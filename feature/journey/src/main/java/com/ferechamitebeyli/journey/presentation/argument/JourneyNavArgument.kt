@@ -8,5 +8,9 @@ import kotlinx.parcelize.Parcelize
 data class JourneyNavArgument(
     val locationModelList: List<LocationDataUiModel>? = null, // Passed from BusQueryFragment to QueryFragment
     val isOrigin: Boolean? = null, // Determines which view the query fragment inflated from.
-    val locationModel: LocationDataUiModel? = null // Passed from QueryFragment back to BusQueryFragment
+    val originLocationModel: LocationDataUiModel? = null, // Passed from QueryFragment back to BusQueryFragment
+    val destinationLocationModel: LocationDataUiModel? = null, // Passed from QueryFragment back to BusQueryFragment
+    val departureDate: String? = null, // Passed from BusQueryFragment back to BusJourneyIndexFragment
+    val departureDateForUi: String? = null, // Passed from BusQueryFragment back to BusJourneyIndexFragment
+    val lastSelectedTabIndex: Int? = null
 ): Parcelable
