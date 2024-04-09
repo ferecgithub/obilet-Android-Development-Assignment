@@ -4,7 +4,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ferechamitebeyli.journey.R
 import com.ferechamitebeyli.journey.databinding.FragmentBusJourneyIndexBinding
 import com.ferechamitebeyli.journey.presentation.adapter.BusJourneyListAdapter
 import com.ferechamitebeyli.journey.presentation.state.JourneyResponseState

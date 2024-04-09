@@ -78,12 +78,6 @@ class PassengerSelectionDialogFragment(
         }
 
         binding.imageViewPassengerSelectionClose.setOnClickListener {
-            Log.d("FQRR0", "pascount: $passengerCount")
-            Log.d("FQRR0", "adult: $adultCount")
-            Log.d("FQRR0", "child: $childrenCount")
-            Log.d("FQRR0", "stu: $studentCount")
-            Log.d("FQRR0", "plus65: $plus65Count")
-            Log.d("FQRR0", "baby: $babyCount")
             onCloseClicked.invoke(passengerCount)
             this.dismiss()
         }
@@ -97,31 +91,26 @@ class PassengerSelectionDialogFragment(
         when (passengerType) {
             PassengerType.ADULT -> {
                 ++adultCount
-                Log.d("FQRR3", adultCount.toString())
                 textView.text = adultCount.toString()
             }
 
             PassengerType.CHILDREN -> {
                 ++childrenCount
-                Log.d("FQRR3", childrenCount.toString())
                 textView.text = childrenCount.toString()
             }
 
             PassengerType.STUDENT -> {
                 ++studentCount
-                Log.d("FQRR3", studentCount.toString())
                 textView.text = studentCount.toString()
             }
 
             PassengerType.PLUS65 -> {
                 ++plus65Count
-                Log.d("FQRR3", plus65Count.toString())
                 textView.text = plus65Count.toString()
             }
 
             PassengerType.BABY -> {
                 ++babyCount
-                Log.d("FQRR3", babyCount.toString())
                 textView.text = babyCount.toString()
             }
         }
@@ -133,31 +122,26 @@ class PassengerSelectionDialogFragment(
         when (passengerType) {
             PassengerType.ADULT -> {
                 --adultCount
-                Log.d("FQRR3", adultCount.toString())
                 textView.text = adultCount.toString()
             }
 
             PassengerType.CHILDREN -> {
                 --childrenCount
-                Log.d("FQRR3", childrenCount.toString())
                 textView.text = childrenCount.toString()
             }
 
             PassengerType.STUDENT -> {
                 --studentCount
-                Log.d("FQRR3", studentCount.toString())
                 textView.text = studentCount.toString()
             }
 
             PassengerType.PLUS65 -> {
                 --plus65Count
-                Log.d("FQRR3", plus65Count.toString())
                 textView.text = plus65Count.toString()
             }
 
             PassengerType.BABY -> {
                 --babyCount
-                Log.d("FQRR3", babyCount.toString())
                 textView.text = babyCount.toString()
             }
         }
@@ -166,7 +150,6 @@ class PassengerSelectionDialogFragment(
 
     private fun checkIfPassengerAmountExceeds(amount: Int = 4) {
         val calculatedPassengerCount = calculatePassengerCount()
-        Log.d("FQRR2", calculatedPassengerCount.toString())
         if (calculatedPassengerCount >= amount) {
             handleAvailibilityOfPluses(false)
             handleAvailibilityOfMinuses(true)

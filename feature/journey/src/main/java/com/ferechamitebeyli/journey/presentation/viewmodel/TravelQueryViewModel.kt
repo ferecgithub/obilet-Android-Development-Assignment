@@ -1,7 +1,5 @@
 package com.ferechamitebeyli.journey.presentation.viewmodel
 
-import android.util.Log
-import android.widget.RadioButton
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ferechamitebeyli.caching.model.LastQueryUiModel
@@ -18,21 +16,14 @@ import com.ferechamitebeyli.journey.presentation.state.BusQueryQuickSelectionBut
 import com.ferechamitebeyli.journey.presentation.state.BusQueryUiState
 import com.ferechamitebeyli.journey.presentation.state.FlightQueryUiState
 import com.ferechamitebeyli.journey.presentation.state.JourneyResponseState
-import com.ferechamitebeyli.journey.presentation.util.JourneyHelpers
 import com.ferechamitebeyli.journey.presentation.util.JourneyHelpers.validateCachedQuery
 import com.ferechamitebeyli.network.util.Resource
 import com.ferechamitebeyli.ui.util.UiHelpers.getCurrentDateTime
 import com.ferechamitebeyli.ui.util.UiHelpers.getFormattedDateForArrivalDateAccordingToDepartureDate
 import com.ferechamitebeyli.ui.util.UiHelpers.getFormattedDateForQuickSelection
-import com.ferechamitebeyli.ui.util.UiHelpers.selectQuickSelectButtonInitially
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
@@ -184,23 +175,10 @@ class TravelQueryViewModel @Inject constructor(
         var destinationName: String? = ""
         var destinationId: Int? = -1
 
-        Log.d("BSQR-0", "departureDateForUi: ${departureDateForUi}")
-        Log.d("BSQR-0", "departureDateForService: ${departureDateForService}")
-        Log.d("BSQR-0", "originName: ${originName}")
-        Log.d("BSQR-0", "originId: ${originId}")
-        Log.d("BSQR-0", "destinationName: ${destinationName}")
-        Log.d("BSQR-0", "destinationId: ${destinationId}")
-
         // Query data check
         if (isThereAnyArgumentFromQueryFragment) {
             // Populating origin and destination fields with the arguments passed from QueryFragment
             if (arguments?.isOrigin == true) {
-                Log.d("BSQR0", "departureDateForUi: ${departureDateForUi}")
-                Log.d("BSQR0", "departureDateForService: ${departureDateForService}")
-                Log.d("BSQR0", "originName: ${originName}")
-                Log.d("BSQR0", "originId: ${originId}")
-                Log.d("BSQR0", "destinationName: ${destinationName}")
-                Log.d("BSQR0", "destinationId: ${destinationId}")
                 // Origin is passed from QueryFragment
                 currentOrigin = arguments?.originLocationModel
                 originName = arguments?.originLocationModel?.name
@@ -210,12 +188,6 @@ class TravelQueryViewModel @Inject constructor(
                     originName = arguments?.originLocationModel?.name,
                     originId = arguments?.originLocationModel?.id
                 )
-                Log.d("BSQR1", "departureDateForUi: ${departureDateForUi}")
-                Log.d("BSQR1", "departureDateForService: ${departureDateForService}")
-                Log.d("BSQR1", "originName: ${originName}")
-                Log.d("BSQR1", "originId: ${originId}")
-                Log.d("BSQR1", "destinationName: ${destinationName}")
-                Log.d("BSQR1", "destinationId: ${destinationId}")
                 // Destination is fetched from the cache
                 if (isThereAnyLastCachedQuery) {
                     currentDestination = LocationDataUiModel(
@@ -228,15 +200,8 @@ class TravelQueryViewModel @Inject constructor(
                     )
                     destinationName = getCachedLastQueryStateFlow.value?.destinationName
                     destinationId = getCachedLastQueryStateFlow.value?.destinationId
-                    Log.d("BSQR2", "departureDateForUi: ${departureDateForUi}")
-                    Log.d("BSQR2", "departureDateForService: ${departureDateForService}")
-                    Log.d("BSQR2", "originName: ${originName}")
-                    Log.d("BSQR2", "originId: ${originId}")
-                    Log.d("BSQR2", "destinationName: ${destinationName}")
-                    Log.d("BSQR2", "destinationId: ${destinationId}")
                 }
             } else {
-                Log.d("BSQR", "02")
                 // Destination is passed from QueryFragment
                 currentDestination = arguments?.destinationLocationModel
                 destinationName = arguments?.destinationLocationModel?.name
@@ -246,12 +211,6 @@ class TravelQueryViewModel @Inject constructor(
                     destinationName = arguments?.destinationLocationModel?.name,
                     destinationId = arguments?.destinationLocationModel?.id
                 )
-                Log.d("BSQR3", "departureDateForUi: ${departureDateForUi}")
-                Log.d("BSQR3", "departureDateForService: ${departureDateForService}")
-                Log.d("BSQR3", "originName: ${originName}")
-                Log.d("BSQR3", "originId: ${originId}")
-                Log.d("BSQR3", "destinationName: ${destinationName}")
-                Log.d("BSQR3", "destinationId: ${destinationId}")
                 // Origin is fetched from the cache
                 if (isThereAnyLastCachedQuery) {
                     currentOrigin = LocationDataUiModel(
@@ -264,12 +223,6 @@ class TravelQueryViewModel @Inject constructor(
                     )
                     originName = getCachedLastQueryStateFlow.value?.originName
                     originId = getCachedLastQueryStateFlow.value?.originId
-                    Log.d("BSQR4", "departureDateForUi: ${departureDateForUi}")
-                    Log.d("BSQR4", "departureDateForService: ${departureDateForService}")
-                    Log.d("BSQR4", "originName: ${originName}")
-                    Log.d("BSQR4", "originId: ${originId}")
-                    Log.d("BSQR4", "destinationName: ${destinationName}")
-                    Log.d("BSQR4", "destinationId: ${destinationId}")
                 }
             }
             // Cached data check
@@ -295,13 +248,6 @@ class TravelQueryViewModel @Inject constructor(
             destinationName = getCachedLastQueryStateFlow.value?.destinationName
             destinationId = getCachedLastQueryStateFlow.value?.destinationId
 
-            Log.d("BSQR5", "departureDateForUi: ${departureDateForUi}")
-            Log.d("BSQR5", "departureDateForService: ${departureDateForService}")
-            Log.d("BSQR5", "originName: ${originName}")
-            Log.d("BSQR5", "originId: ${originId}")
-            Log.d("BSQR5", "destinationName: ${destinationName}")
-            Log.d("BSQR5", "destinationId: ${destinationId}")
-
             // Randomly fill
         } else {
             currentOrigin = getBusLocationsStateFlow.value.data?.first()
@@ -323,13 +269,6 @@ class TravelQueryViewModel @Inject constructor(
                 destinationId = destinationId
             )
 
-            Log.d("BSQR6", "departureDateForUi: ${departureDateForUi}")
-            Log.d("BSQR6", "departureDateForService: ${departureDateForService}")
-            Log.d("BSQR6", "originName: ${originName}")
-            Log.d("BSQR6", "originId: ${originId}")
-            Log.d("BSQR6", "destinationName: ${destinationName}")
-            Log.d("BSQR6", "destinationId: ${destinationId}")
-
         }
 
         if (getCachedLastQueryStateFlow.value?.departureDateForUi.isNullOrBlank().not()) {
@@ -339,13 +278,6 @@ class TravelQueryViewModel @Inject constructor(
         if (getCachedLastQueryStateFlow.value?.departureDateForService.isNullOrBlank().not()) {
             departureDateForService = getCachedLastQueryStateFlow.value?.departureDateForService!!
         }
-
-        Log.d("BSQR7", "departureDateForUi: ${departureDateForUi}")
-        Log.d("BSQR7", "departureDateForService: ${departureDateForService}")
-        Log.d("BSQR7", "originName: ${originName}")
-        Log.d("BSQR7", "originId: ${originId}")
-        Log.d("BSQR7", "destinationName: ${destinationName}")
-        Log.d("BSQR7", "destinationId: ${destinationId}")
 
         return BusQueryUiState(
             departureDateForUi = departureDateForUi,
@@ -387,7 +319,6 @@ class TravelQueryViewModel @Inject constructor(
         if (isThereAnyArgumentFromQueryFragment) {
             // Populating origin and destination fields with the arguments passed from QueryFragment
             if (arguments?.isOrigin == true) {
-                Log.d("BSQR", "01")
                 // Origin is passed from QueryFragment
                 currentOrigin = arguments?.originLocationModel
                 originName = arguments?.originLocationModel?.name
@@ -411,7 +342,6 @@ class TravelQueryViewModel @Inject constructor(
                     destinationId = getCachedLastQueryStateFlow.value?.destinationId
                 }
             } else {
-                Log.d("BSQR", "02")
                 // Destination is passed from QueryFragment
                 currentDestination = arguments?.destinationLocationModel
                 destinationName = arguments?.destinationLocationModel?.name

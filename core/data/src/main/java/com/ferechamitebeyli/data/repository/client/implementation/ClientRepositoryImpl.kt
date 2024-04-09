@@ -1,6 +1,5 @@
 package com.ferechamitebeyli.data.repository.client.implementation
 
-import android.util.Log
 import com.ferechamitebeyli.caching.session.abstraction.SessionCachingManager
 import com.ferechamitebeyli.caching.model.LastQueryUiModel
 import com.ferechamitebeyli.data.repository.client.abstraction.ClientRepository
@@ -115,7 +114,6 @@ class ClientRepositoryImpl @Inject constructor(
             cachingDataSource.getLastQueriedDepartureDateForService(),
             cachingDataSource.getLastQueriedDepartureDateForUi()
         ) { originName, originId, destinationName, destinationId, departureDateForService, departureDateForUi ->
-            Log.d("BSQR000", "$originName - $originId - $destinationName - $destinationId - $departureDateForService - $departureDateForUi")
             LastQueryUiModel(
                 originName = originName,
                 originId = originId,

@@ -2,32 +2,23 @@ package com.ferechamitebeyli.ui.util
 
 import android.app.DatePickerDialog
 import android.content.Context
-import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.TextView
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleCoroutineScope
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import coil.load
 import com.ferechamitebeyli.ui.R
 import com.ferechamitebeyli.ui.model.DateFormatUiModel
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.threeten.bp.LocalDate
 import org.threeten.bp.LocalDateTime
 import org.threeten.bp.LocalTime
-import org.threeten.bp.ZoneId
 import org.threeten.bp.format.DateTimeFormatter
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -199,9 +190,6 @@ object UiHelpers {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val departureDateParsed = dateFormat.parse(departureDate)
         val arrivalDateParsed = dateFormat.parse(arrivalDate)
-
-        Log.d("FQRFF", "4 - departureDateParsed ${departureDateParsed.time}")
-        Log.d("FQRFF", "4 - arrivalDateParsed ${arrivalDateParsed.time}")
 
         return arrivalDateParsed.after(departureDateParsed)
     }

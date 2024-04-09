@@ -1,6 +1,5 @@
 package com.ferechamitebeyli.journey.presentation.fragment.query
 
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -82,7 +81,6 @@ class TravelQueryFragment : BaseFragment<FragmentTravelQueryBinding>(
             viewModel.arguments = args
 
             viewModel.arguments?.lastSelectedTabIndex?.let {
-                Log.d("TQFR", it.toString())
                 binding.tabLayoutTravelQuery.getTabAt(
                     it
                 )
