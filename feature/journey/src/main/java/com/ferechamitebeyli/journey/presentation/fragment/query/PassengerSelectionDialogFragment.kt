@@ -22,7 +22,7 @@ class PassengerSelectionDialogFragment(
 
     private var _binding: LayoutPassengerSelectionBinding? = null
 
-    val binding: LayoutPassengerSelectionBinding get() = _binding!!
+    private val binding: LayoutPassengerSelectionBinding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -90,62 +90,64 @@ class PassengerSelectionDialogFragment(
         checkIfPassengerAmountExceeds()
         when (passengerType) {
             PassengerType.ADULT -> {
-                ++adultCount
+                adultCount++
                 textView.text = adultCount.toString()
             }
 
             PassengerType.CHILDREN -> {
-                ++childrenCount
+                childrenCount++
                 textView.text = childrenCount.toString()
             }
 
             PassengerType.STUDENT -> {
-                ++studentCount
+                studentCount++
                 textView.text = studentCount.toString()
             }
 
             PassengerType.PLUS65 -> {
-                ++plus65Count
+                plus65Count++
                 textView.text = plus65Count.toString()
             }
 
             PassengerType.BABY -> {
-                ++babyCount
+                babyCount++
                 textView.text = babyCount.toString()
             }
         }
         passengerCount = calculatePassengerCount()
+        Log.d("CALC", "passengerCount = $passengerCount")
     }
 
     private fun decreasePassengerCount(textView: TextView, passengerType: PassengerType) {
         checkIfPassengerAmountExceeds()
         when (passengerType) {
             PassengerType.ADULT -> {
-                --adultCount
+                adultCount--
                 textView.text = adultCount.toString()
             }
 
             PassengerType.CHILDREN -> {
-                --childrenCount
+                childrenCount--
                 textView.text = childrenCount.toString()
             }
 
             PassengerType.STUDENT -> {
-                --studentCount
+                studentCount--
                 textView.text = studentCount.toString()
             }
 
             PassengerType.PLUS65 -> {
-                --plus65Count
+                plus65Count--
                 textView.text = plus65Count.toString()
             }
 
             PassengerType.BABY -> {
-                --babyCount
+                babyCount--
                 textView.text = babyCount.toString()
             }
         }
         passengerCount = calculatePassengerCount()
+        Log.d("CALC", "passengerCount = $passengerCount")
     }
 
     private fun checkIfPassengerAmountExceeds(amount: Int = 4) {

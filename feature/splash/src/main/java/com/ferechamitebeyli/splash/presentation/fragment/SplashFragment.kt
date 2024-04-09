@@ -1,15 +1,11 @@
 package com.ferechamitebeyli.splash.presentation.fragment
 
 import android.annotation.SuppressLint
-import android.net.Uri
-import android.os.Bundle
 import android.provider.Settings
-import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavDirections
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.ferechamitebeyli.navigation.safeNavigate
+import com.ferechamitebeyli.network.datasource.ip.IpDataSource
 import com.ferechamitebeyli.network.dto.client.getsession.request.Application
 import com.ferechamitebeyli.network.dto.client.getsession.request.Connection
 import com.ferechamitebeyli.network.dto.client.getsession.request.GetSessionRequestModel
@@ -29,29 +25,26 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>(
 ) {
     private val viewModel: SplashViewModel by viewModels()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-       getSession()
-
-    }
     override fun setUpUi() {
         super.setUpUi()
         progressBar = binding.progressBar
+
+        establishSession()
+
     }
 
-    private fun getSession() {
+    private fun establishSession() {
         val model = GetSessionRequestModel(
             connection = Connection(
-                ipAddress = null
+                ipAddress = IpDataSource.publicIpAddress
             ),
             application = Application(
                 equipmentId = getUniqueDeviceIdentifier(),
-                version = "3.1.0.0"
+                version = "1.0.0.0"
             ),
             type = 3
         )
-        viewModel.getSession(model)
+        viewModel.awaitPublicIp(model)
     }
 
     override fun observeFlows() {

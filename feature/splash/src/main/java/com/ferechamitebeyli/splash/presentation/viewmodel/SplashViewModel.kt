@@ -2,6 +2,8 @@ package com.ferechamitebeyli.splash.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ferechamitebeyli.network.datasource.ip.IpDataSource
+import com.ferechamitebeyli.network.dto.client.getsession.request.Connection
 import com.ferechamitebeyli.network.dto.client.getsession.request.GetSessionRequestModel
 import com.ferechamitebeyli.network.dto.client.getsession.response.GetSessionResponseModel
 import com.ferechamitebeyli.network.util.Resource
@@ -9,11 +11,15 @@ import com.ferechamitebeyli.splash.domain.usecase.GetSessionUseCase
 import com.ferechamitebeyli.splash.presentation.state.SplashResponseState
 import com.ferechamitebeyli.splash.presentation.state.SplashScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.async
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -36,7 +42,7 @@ class SplashViewModel @Inject constructor(
     val getSessionStateFlow = _getSessionStateFlow.asStateFlow()
 
 
-    fun getSession(body: GetSessionRequestModel) = viewModelScope.launch {
+    private fun getSession(body: GetSessionRequestModel) = viewModelScope.launch {
         getSessionUseCase(body).collect { response ->
             when (response) {
                 is Resource.Error -> {
@@ -57,5 +63,20 @@ class SplashViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    private fun getPublicIp(): Deferred<String> = viewModelScope.async {
+        delay(2000)
+        IpDataSource.publicIpAddress
+    }
+
+    fun awaitPublicIp(body: GetSessionRequestModel) = viewModelScope.launch {
+        val ipAddress = getPublicIp().await()
+        joinAll()
+        getSession(
+            body.copy(
+                connection = Connection(ipAddress)
+            )
+        )
     }
 }
