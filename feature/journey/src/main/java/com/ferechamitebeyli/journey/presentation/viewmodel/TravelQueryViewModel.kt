@@ -1,5 +1,6 @@
 package com.ferechamitebeyli.journey.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ferechamitebeyli.caching.model.LastQueryUiModel
@@ -100,6 +101,8 @@ class TravelQueryViewModel @Inject constructor(
         departureModel: LocationDataUiModel? = currentOrigin,
         destinationModel: LocationDataUiModel? = currentDestination,
     ): Boolean {
+        Log.d("TQVN", "departureModel is null = ${departureModel == null}")
+        Log.d("TQVN", "destinationModel is null = ${destinationModel == null}")
         return if (departureModel == null || destinationModel == null) {
             false
         } else {
@@ -170,15 +173,19 @@ class TravelQueryViewModel @Inject constructor(
         departureDateForUi = departureDate.dateForUi
         departureDateForService = departureDate.dateForService
 
-        var originName: String? = ""
-        var originId: Int? = -1
-        var destinationName: String? = ""
-        var destinationId: Int? = -1
+        val originName: String?
+        val originId: Int?
+        val destinationName: String?
+        val destinationId: Int?
+
+        Log.d("TQVM", "0")
 
         // Query data check
         if (isThereAnyArgumentFromQueryFragment) {
+            Log.d("TQVM", "1")
             // Populating origin and destination fields with the arguments passed from QueryFragment
             if (arguments?.isOrigin == true) {
+                Log.d("TQVM", "2")
                 // Origin is passed from QueryFragment
                 currentOrigin = arguments?.originLocationModel
                 originName = arguments?.originLocationModel?.name
@@ -190,6 +197,7 @@ class TravelQueryViewModel @Inject constructor(
                 )
                 // Destination is fetched from the cache
                 if (isThereAnyLastCachedQuery) {
+                    Log.d("TQVM", "3")
                     currentDestination = LocationDataUiModel(
                         id = getCachedLastQueryStateFlow.value?.destinationId,
                         name = getCachedLastQueryStateFlow.value?.destinationName,
@@ -201,6 +209,7 @@ class TravelQueryViewModel @Inject constructor(
                     destinationName = getCachedLastQueryStateFlow.value?.destinationName
                     destinationId = getCachedLastQueryStateFlow.value?.destinationId
                 } else {
+                    Log.d("TQVM", "4")
                     currentDestination = getBusLocationsStateFlow.value.data?.first()
 
                     destinationName = currentDestination?.name
@@ -212,6 +221,7 @@ class TravelQueryViewModel @Inject constructor(
                     )
                 }
             } else {
+                Log.d("TQVM", "5")
                 // Destination is passed from QueryFragment
                 currentDestination = arguments?.destinationLocationModel
                 destinationName = arguments?.destinationLocationModel?.name
@@ -223,6 +233,7 @@ class TravelQueryViewModel @Inject constructor(
                 )
                 // Origin is fetched from the cache
                 if (isThereAnyLastCachedQuery) {
+                    Log.d("TQVM", "6")
                     currentOrigin = LocationDataUiModel(
                         id = getCachedLastQueryStateFlow.value?.originId,
                         name = getCachedLastQueryStateFlow.value?.originName,
@@ -234,6 +245,7 @@ class TravelQueryViewModel @Inject constructor(
                     originName = getCachedLastQueryStateFlow.value?.originName
                     originId = getCachedLastQueryStateFlow.value?.originId
                 } else {
+                    Log.d("TQVM", "7")
                     currentOrigin = getBusLocationsStateFlow.value.data?.last()
 
                     originName = currentOrigin?.name
@@ -247,6 +259,7 @@ class TravelQueryViewModel @Inject constructor(
             }
             // Cached data check
         } else if (isThereAnyLastCachedQuery) {
+            Log.d("TQVM", "8")
             currentOrigin = LocationDataUiModel(
                 id = getCachedLastQueryStateFlow.value?.originId,
                 name = getCachedLastQueryStateFlow.value?.originName,
@@ -255,9 +268,9 @@ class TravelQueryViewModel @Inject constructor(
                 cityId = null,
                 cityName = null
             )
-            currentOrigin = LocationDataUiModel(
+            currentDestination = LocationDataUiModel(
                 id = getCachedLastQueryStateFlow.value?.originId,
-                name = getCachedLastQueryStateFlow.value?.originName,
+                name = getCachedLastQueryStateFlow.value?.destinationName,
                 parentId = null,
                 type = null,
                 cityId = null,
@@ -270,6 +283,7 @@ class TravelQueryViewModel @Inject constructor(
 
             // Randomly fill
         } else {
+            Log.d("TQVM", "9")
             currentOrigin = getBusLocationsStateFlow.value.data?.first()
             currentDestination = getBusLocationsStateFlow.value.data?.last()
 
@@ -290,6 +304,8 @@ class TravelQueryViewModel @Inject constructor(
             )
 
         }
+
+        Log.d("TQVM", "10")
 
         if (getCachedLastQueryStateFlow.value?.departureDateForUi.isNullOrBlank().not()) {
             departureDateForUi = getCachedLastQueryStateFlow.value?.departureDateForUi!!
@@ -415,9 +431,9 @@ class TravelQueryViewModel @Inject constructor(
                 cityId = null,
                 cityName = null
             )
-            currentOrigin = LocationDataUiModel(
-                id = getCachedLastQueryStateFlow.value?.originId,
-                name = getCachedLastQueryStateFlow.value?.originName,
+            currentDestination = LocationDataUiModel(
+                id = getCachedLastQueryStateFlow.value?.destinationId,
+                name = getCachedLastQueryStateFlow.value?.destinationName,
                 parentId = null,
                 type = null,
                 cityId = null,

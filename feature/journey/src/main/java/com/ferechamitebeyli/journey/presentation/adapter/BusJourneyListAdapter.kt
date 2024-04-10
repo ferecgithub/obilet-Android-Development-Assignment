@@ -81,8 +81,13 @@ class BusJourneyListAdapter(private val context: Context) :
                 currency
             )
 
+            val ifTheSeatCountIsNotZeroAndLessThan10 =
+                (journey.availableSeats?.compareTo(0) == 0).not() && journey.availableSeats?.compareTo(
+                    10
+                ) == -1
+
             val availableSeats =
-                if (journey.availableSeats?.compareTo(10) == -1) journey.availableSeats.toString() else ""
+                if (ifTheSeatCountIsNotZeroAndLessThan10) journey.availableSeats.toString() else ""
 
 
             // If available seat count is less than 10, the view will be visible
