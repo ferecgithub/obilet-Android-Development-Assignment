@@ -194,6 +194,8 @@ object UiHelpers {
         return arrivalDateParsed.after(departureDateParsed)
     }
 
+    fun Int.assignZeroIfGoesNegative() = if (this < 0) 0 else this
+
     fun <T> Flow<T>.collectFlowWithFragmentLifecycle(
         fragment: Fragment,
         lifecycleState: Lifecycle.State = Lifecycle.State.STARTED,

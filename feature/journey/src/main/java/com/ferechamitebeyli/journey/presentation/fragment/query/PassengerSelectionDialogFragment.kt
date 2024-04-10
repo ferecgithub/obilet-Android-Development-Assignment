@@ -1,28 +1,25 @@
 package com.ferechamitebeyli.journey.presentation.fragment.query
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.ferechamitebeyli.journey.databinding.LayoutPassengerSelectionBinding
-import com.ferechamitebeyli.ui.util.UiHelpers.enable
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PassengerSelectionDialogFragment(
-    private val onCloseClicked: (Int) -> Unit,
+    private val onCloseClicked: (UInt) -> Unit,
 ) : BottomSheetDialogFragment() {
-    private var adultCount = 0
-    private var childrenCount = 0
-    private var studentCount = 0
-    private var plus65Count = 0
-    private var babyCount = 0
-    private var passengerCount = 0
 
     private var _binding: LayoutPassengerSelectionBinding? = null
 
     private val binding: LayoutPassengerSelectionBinding get() = _binding!!
+
+    private lateinit var listPassengers: List<PassengerRow>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,6 +28,44 @@ class PassengerSelectionDialogFragment(
     ): View {
         _binding = LayoutPassengerSelectionBinding.inflate(inflater, container, false)
 
+        listPassengers = arrayListOf(
+            PassengerRow(
+                count = 0U,
+                textView = binding.textViewAdultAmount,
+                plusOperatorView = binding.imageViewAdultPlus,
+                minusOperatorView = binding.imageViewAdultMinus,
+                passengerType = PassengerType.ADULT
+            ),
+            PassengerRow(
+                count = 0U,
+                textView = binding.textViewChildrenAmount,
+                plusOperatorView = binding.imageViewChildrenPlus,
+                minusOperatorView = binding.imageViewChildrenMinus,
+                passengerType = PassengerType.CHILDREN
+            ),
+            PassengerRow(
+                count = 0U,
+                textView = binding.textViewStudentAmount,
+                plusOperatorView = binding.imageViewStudentPlus,
+                minusOperatorView = binding.imageViewStudentMinus,
+                passengerType = PassengerType.STUDENT
+            ),
+            PassengerRow(
+                count = 0U,
+                textView = binding.textView65plusAmount,
+                plusOperatorView = binding.imageView65plusPlus,
+                minusOperatorView = binding.imageView65plusMinus,
+                passengerType = PassengerType.PLUS65
+            ),
+            PassengerRow(
+                count = 0U,
+                textView = binding.textViewBabyAmount,
+                plusOperatorView = binding.imageViewBabyPlus,
+                minusOperatorView = binding.imageViewBabyMinus,
+                passengerType = PassengerType.BABY
+            ),
+        )
+
         setOnClickListeners()
         setUpUi()
 
@@ -38,146 +73,95 @@ class PassengerSelectionDialogFragment(
     }
 
     private fun setUpUi() {
-        binding.textViewAdultAmount.text = adultCount.toString()
-        binding.textViewChildrenAmount.text = childrenCount.toString()
-        binding.textViewStudentAmount.text = studentCount.toString()
-        binding.textView65plusAmount.text = plus65Count.toString()
-        binding.textViewBabyAmount.text = babyCount.toString()
+        binding.textViewAdultAmount.text =
+            listPassengers.find { it.passengerType == PassengerType.ADULT }?.count.toString()
+        binding.textViewChildrenAmount.text =
+            listPassengers.find { it.passengerType == PassengerType.CHILDREN }?.count.toString()
+        binding.textViewStudentAmount.text =
+            listPassengers.find { it.passengerType == PassengerType.STUDENT }?.count.toString()
+        binding.textView65plusAmount.text =
+            listPassengers.find { it.passengerType == PassengerType.PLUS65 }?.count.toString()
+        binding.textViewBabyAmount.text =
+            listPassengers.find { it.passengerType == PassengerType.BABY }?.count.toString()
     }
 
     private fun setOnClickListeners() {
         binding.imageViewAdultPlus.setOnClickListener {
-            increasePassengerCount(binding.textViewAdultAmount, PassengerType.ADULT)
+            increasePassengerCount(
+                passengerType = PassengerType.ADULT
+            )
         }
         binding.imageViewAdultMinus.setOnClickListener {
-            decreasePassengerCount(binding.textViewAdultAmount, PassengerType.ADULT)
+            decreasePassengerCount(
+                passengerType = PassengerType.ADULT
+
+            )
         }
         binding.imageViewChildrenPlus.setOnClickListener {
-            increasePassengerCount(binding.textViewChildrenAmount, PassengerType.CHILDREN)
+            increasePassengerCount(
+                passengerType = PassengerType.CHILDREN
+            )
         }
         binding.imageViewChildrenMinus.setOnClickListener {
-            decreasePassengerCount(binding.textViewChildrenAmount, PassengerType.CHILDREN)
+            decreasePassengerCount(
+                passengerType = PassengerType.CHILDREN
+            )
         }
         binding.imageViewStudentPlus.setOnClickListener {
-            increasePassengerCount(binding.textViewStudentAmount, PassengerType.STUDENT)
+            increasePassengerCount(
+                passengerType = PassengerType.STUDENT
+            )
         }
         binding.imageViewStudentMinus.setOnClickListener {
-            decreasePassengerCount(binding.textViewStudentAmount, PassengerType.STUDENT)
+            decreasePassengerCount(
+                passengerType = PassengerType.STUDENT
+            )
         }
         binding.imageView65plusPlus.setOnClickListener {
-            increasePassengerCount(binding.textView65plusAmount, PassengerType.PLUS65)
+            increasePassengerCount(
+                passengerType = PassengerType.PLUS65
+            )
         }
         binding.imageView65plusMinus.setOnClickListener {
-            decreasePassengerCount(binding.textView65plusAmount, PassengerType.PLUS65)
+            decreasePassengerCount(
+                passengerType = PassengerType.PLUS65
+            )
         }
         binding.imageViewBabyPlus.setOnClickListener {
-            increasePassengerCount(binding.textViewBabyAmount, PassengerType.BABY)
+            increasePassengerCount(
+                passengerType = PassengerType.BABY
+            )
         }
         binding.imageViewBabyMinus.setOnClickListener {
-            decreasePassengerCount(binding.textViewBabyAmount, PassengerType.BABY)
+            decreasePassengerCount(
+                passengerType = PassengerType.BABY
+            )
         }
 
         binding.imageViewPassengerSelectionClose.setOnClickListener {
-            onCloseClicked.invoke(passengerCount)
+            onCloseClicked.invoke(calculatePassengerCount(listPassengers))
             this.dismiss()
         }
     }
 
-    private fun calculatePassengerCount() =
-        adultCount + childrenCount + studentCount + plus65Count + babyCount
+    private fun calculatePassengerCount(listOfPassengers: List<PassengerRow>) =
+        (listOfPassengers.sumOf { it.count })
 
-    private fun increasePassengerCount(textView: TextView, passengerType: PassengerType) {
-        checkIfPassengerAmountExceeds()
-        when (passengerType) {
-            PassengerType.ADULT -> {
-                adultCount++
-                textView.text = adultCount.toString()
-            }
-
-            PassengerType.CHILDREN -> {
-                childrenCount++
-                textView.text = childrenCount.toString()
-            }
-
-            PassengerType.STUDENT -> {
-                studentCount++
-                textView.text = studentCount.toString()
-            }
-
-            PassengerType.PLUS65 -> {
-                plus65Count++
-                textView.text = plus65Count.toString()
-            }
-
-            PassengerType.BABY -> {
-                babyCount++
-                textView.text = babyCount.toString()
-            }
-        }
-        passengerCount = calculatePassengerCount()
-        Log.d("CALC", "passengerCount = $passengerCount")
+    private fun increasePassengerCount(
+        maxAmount: UInt = 4U,
+        passengerType: PassengerType
+    ) {
+        val passenger = listPassengers.find { it.passengerType == passengerType }!!
+        passenger.addOneToCount(maxAmount, calculatePassengerCount(listPassengers))
+        passenger.textView.text = passenger.count.toString()
     }
 
-    private fun decreasePassengerCount(textView: TextView, passengerType: PassengerType) {
-        checkIfPassengerAmountExceeds()
-        when (passengerType) {
-            PassengerType.ADULT -> {
-                adultCount--
-                textView.text = adultCount.toString()
-            }
-
-            PassengerType.CHILDREN -> {
-                childrenCount--
-                textView.text = childrenCount.toString()
-            }
-
-            PassengerType.STUDENT -> {
-                studentCount--
-                textView.text = studentCount.toString()
-            }
-
-            PassengerType.PLUS65 -> {
-                plus65Count--
-                textView.text = plus65Count.toString()
-            }
-
-            PassengerType.BABY -> {
-                babyCount--
-                textView.text = babyCount.toString()
-            }
-        }
-        passengerCount = calculatePassengerCount()
-        Log.d("CALC", "passengerCount = $passengerCount")
-    }
-
-    private fun checkIfPassengerAmountExceeds(amount: Int = 4) {
-        val calculatedPassengerCount = calculatePassengerCount()
-        if (calculatedPassengerCount >= amount) {
-            handleAvailibilityOfPluses(false)
-            handleAvailibilityOfMinuses(true)
-        } else if (calculatedPassengerCount < 1) {
-            handleAvailibilityOfPluses(true)
-            handleAvailibilityOfMinuses(false)
-        } else {
-            handleAvailibilityOfPluses(true)
-            handleAvailibilityOfMinuses(true)
-        }
-    }
-
-    private fun handleAvailibilityOfPluses(isEnabled: Boolean) {
-        binding.imageViewAdultPlus.enable(isEnabled)
-        binding.imageViewChildrenPlus.enable(isEnabled)
-        binding.imageViewStudentPlus.enable(isEnabled)
-        binding.imageViewBabyPlus.enable(isEnabled)
-        binding.imageView65plusPlus.enable(isEnabled)
-    }
-
-    private fun handleAvailibilityOfMinuses(isEnabled: Boolean) {
-        binding.imageViewAdultMinus.enable(isEnabled)
-        binding.imageViewChildrenMinus.enable(isEnabled)
-        binding.imageViewStudentMinus.enable(isEnabled)
-        binding.imageViewBabyMinus.enable(isEnabled)
-        binding.imageView65plusMinus.enable(isEnabled)
+    private fun decreasePassengerCount(
+        passengerType: PassengerType
+    ) {
+        val passenger = listPassengers.find { it.passengerType == passengerType }!!
+        passenger.subtractOneFromCount()
+        passenger.textView.text = passenger.count.toString()
     }
 
     enum class PassengerType {
@@ -186,5 +170,27 @@ class PassengerSelectionDialogFragment(
         STUDENT,
         PLUS65,
         BABY
+    }
+
+    data class PassengerRow(
+        var count: UInt = 0U,
+        var textView: TextView,
+        var plusOperatorView: ImageView,
+        var minusOperatorView: ImageView,
+        val passengerType: PassengerType
+    ) {
+
+        fun addOneToCount(maxAmount: UInt, currentTotalCount: UInt) {
+            if (currentTotalCount < maxAmount) {
+                this.count++
+            }
+
+        }
+
+        fun subtractOneFromCount() {
+            if (count > 0U) {
+                this.count--
+            }
+        }
     }
 }
