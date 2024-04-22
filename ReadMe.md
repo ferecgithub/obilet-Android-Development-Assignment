@@ -20,8 +20,9 @@ Developed an Android application that allows end users to select their desired o
 
 #### Index (Flight Section) and Query screen
 <div style="float: left; width: 50%;">
-  <img src="assets/picture3.png" style="width: 40%;" />
-  <img src="assets/picture4.png" style="width: 40%;" />
+  <img src="assets/picture3.png" style="width: 33%;" />
+  <img src="assets/picture4.png" style="width: 33%;" />   
+  <img src="assets/picture7.png" style="width: 33%;" />
 </div>
 
 #### Bus Journey Index
