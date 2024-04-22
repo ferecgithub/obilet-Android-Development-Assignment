@@ -10,12 +10,10 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ferechamitebeyli.data.model.journey.JourneyDataUiModel
-import com.ferechamitebeyli.journey.R
 import com.ferechamitebeyli.journey.databinding.LayoutItemBusJourneyBinding
 import com.ferechamitebeyli.ui.util.UiHelpers.formatDateToTime
 import com.ferechamitebeyli.ui.util.UiHelpers.formatTime
 import com.ferechamitebeyli.ui.util.UiHelpers.loadPartnerLogo
-import com.ferechamitebeyli.ui.util.UiHelpers.startRotationAnimation
 import com.ferechamitebeyli.ui.util.UiHelpers.visible
 
 class BusJourneyListAdapter(private val context: Context) :

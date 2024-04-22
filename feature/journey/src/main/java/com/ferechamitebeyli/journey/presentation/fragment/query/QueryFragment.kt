@@ -39,6 +39,14 @@ class QueryFragment : BaseFragment<FragmentQueryBinding>(
         setUpSearchView()
     }
 
+    override fun setOnClickListeners() {
+        super.setOnClickListeners()
+
+        binding.imageViewQueryDialogClose.setOnClickListener {
+            findNavController().popBackStack()
+        }
+    }
+
     private fun setUpSearchView() {
         // To guarantee it will not auto-focus the editText.
         binding.searchViewQueryDialog.clearFocus()

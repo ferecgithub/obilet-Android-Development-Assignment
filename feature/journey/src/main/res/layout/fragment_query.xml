@@ -8,7 +8,7 @@
     tools:context=".presentation.fragment.query.QueryFragment">
 
     <View
-        android:id="@+id/view_passengerSelection_topBar"
+        android:id="@+id/view_queryDialog_topBar"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/color_primary"
@@ -29,6 +29,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imageView_queryDialog_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_layout_margin"
+        android:src="@drawable/ic_close"
+        android:tint="@color/color_white"
+        app:layout_constraintBottom_toBottomOf="@id/view_queryDialog_topBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView_queryDialog"
         android:layout_width="0dp"
@@ -37,7 +48,7 @@
         android:background="@drawable/background_input"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view_passengerSelection_topBar"
+        app:layout_constraintTop_toBottomOf="@id/view_queryDialog_topBar"
         app:queryHint="@string/label_pleaseEnterYourQuery" />
 
     <androidx.recyclerview.widget.RecyclerView
