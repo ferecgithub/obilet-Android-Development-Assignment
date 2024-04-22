@@ -31,4 +31,5 @@
     <string name="label_65plus">60 Yaş Üzeri</string>
     <string name="label_baby">Bebek</string>
     <string name="label_passenger">Yolcu</string>
+    <string name="label_query">Sorgu</string>
 </resources>
