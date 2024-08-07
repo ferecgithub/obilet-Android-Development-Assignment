@@ -48,7 +48,6 @@ class RemoteFactory @Inject constructor(private val moshi: Moshi) {
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .connectTimeout(10, TimeUnit.MINUTES)
-            .connectTimeout(10, TimeUnit.MINUTES)
             .writeTimeout(10, TimeUnit.MINUTES)
             .addInterceptor(tokenInterceptor)
             .addInterceptor(httpLoggingInterceptor)

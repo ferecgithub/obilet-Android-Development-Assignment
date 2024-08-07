@@ -11,20 +11,5 @@ data class GenericResponseModel<T>(
     @Json(name = "api-request-id")
     val apiRequestId: Any?,
     val controller: String?,
-) {
-    inline fun <U> mapToUiModel(mapDtoToUiModel: (T) -> U): GenericResponseModel<U> {
-        return GenericResponseModel(
-            status = this.status,
-            data = this.data?.let {
-                it.map { element ->
-                    mapDtoToUiModel(element)
-                }
-            },
-            message = this.message,
-            userMessage = this.userMessage,
-            apiRequestId = this.apiRequestId,
-            controller = this.controller
-        )
-    }
-}
+)
 
